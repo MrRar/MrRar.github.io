@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta charset="utf-8"/>
+    <title>MD Mods</title>
+    <link rel="shortcut icon" href="favicon.png"/>
+    <meta type="author" content="Mr. Rar"/>
+    <meta type="keywords" content="website, rar, Mr. Rar, mods"/>
+    <meta type="description" content="Mr. Rar's MD mods"/>
+    <style>
+        p{
+            margin:10px;
+            height: 150px;
+            overflow-y: scroll;
+            text-align: left;
+        }
+        img{
+            width:400px;
+            transion:all ease-in-out 0.2s;
+        }
+        *{margin: 0; padding:0;}
+        body{
+            background:url(back.jpg) fixed;
+            background-size: cover;
+            transition:background linear 3s;
+            margin:auto;
+            width:840px;
+        }
+        #photoHolder h2{
+            margin:10px;
+        }
+        img:active{
+            position: absolute;
+            top:0;
+            left:0;
+            width:100%;
+        }
+       .download{
+           padding:3px;
+           text-decoration: none;
+           color:black;
+           display:inline-block;
+           background:white;
+           box-shadow:0 0 0 black;
+           transition: all ease-in-out 0.1s;
+        }
+        .download:hover{
+            transform: scale(1.2);
+            box-shadow:7px 7px 10px black;
+        }
+        .download:active{
+        transform: scale(2);
+        box-shadow:14px 14px 10px black;    
+        }
+        #photoHolder{
+            margin:5px;
+            display:inline-block;
+            float:left;
+            background:rgba(255,255,255, 0.5);
+            height: 500px;
+            width: 400px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        #backButton{
+            display:inline-block;
+            position: fixed;
+            top:0;
+            left:0;
+            margin:10px;
+            background:white;
+            padding:5px;
+            cursor: pointer;
+        }
+        #backButton:hover{
+            animation: BA 0.5s ease-in-out infinite;
+        }
+        @media all and (max-width: 840px) and (min-width: 420px){
+            body{
+                width:410px;
+            }
+        }
+        @media all and (max-width: 1260px) and (min-width: 840px){
+            body{
+                width:820px;
+            }
+        }
+        @media all and (max-width: 1680px) and (min-width: 1260px){
+            body{
+                width:1240px;
+            }
+        }
+        @media all and (max-width: 2100px) and (min-width: 1680px){
+            body{
+                width:1660px;
+            }
+        }
+        @media all and (max-width: 1920px) and (min-width: 1600px){
+            body{
+                width:930px;
+            }
+        }
+        @media all and (max-width: 2240px) and (min-width: 1920px){
+            body{
+                width:930px;
+            }
+        }
+        @media all and (max-width: 2560px) and (min-width: 2240px){
+            body{
+                width:930px;
+            }
+        }
+        @keyframes BA {
+            50%{
+                left:6px;
+            }
+        }
+    </style>
+    </head>
+    <body>
+        <div id="backButton" onclick="history.back();">&larr; Return</div>
+        <div id="photoHolder">
+            <h2>Alphabet Mod</h2>
+            <img src="screenShots/alphabetMod.jpg"/>
+            <p>This is Alphabet Mod v1.0 . You can use it to make big labels and signs in Manic Digger worlds.
+It uses block IDs 402 through 431 and includes blocks representing letters "A" through "Z", symbols "!." and "space".
+Feel free to edit the Alphabet Mod to your liking. I have more mods in the pipeline so stay tuned.</p>
+            <a href="mods/Alphaobet%20Mod%20for%20Manic%20Digger.zip" download class="download">download</a>
+        </div>
+        <div id="photoHolder">
+            <h2>Christmas Decorations Mod</h2>
+            <img src="screenShots/christmasDecorationsMod.jpg"/>
+            <p>Christmas Decorations Mod v2.0 is now available. 
+v2 has both the old christmas trees and wreaths, and it adds snowmen, candy canes, and makes all items craftable.</p>
+            <a href="mods/Christmas%20Decorations%20Mod.zip" download class="download">download</a>
+        </div>
+        <div id="photoHolder">
+            <h2>Expanded Blocks Mod</h2>
+            <img src="screenShots/expandedBlocksMod.jpg"/>
+            <p>Have you been thinking that the default Manic Digger blocks are a little bare-bones? Well then this mod is for you. It includes a total of 58 blocks!
+It features two new types of glass, two types of fences with a fence gate, trapdoors, a computer and TV, 4 switchable lights, and a host of other things.
+Clear glass (one of the new glass types) has snow on it in the winter season.
+In survival mode you can now get pumpkin seeds (occasionally) from breaking dirt and grass. 
+You can use the seeds to grow pumpkins which you can craft into jack-o-lanterns and pizza (rather unrealistic).
+This mod also includes land mines that, although small, can kill you instantly.
+You can also craft many of these items.
+Important Note: Crafting does not seem to be working for me, so it is possible that there is a problem with the craftability of some items. </p>
+            <a href="mods/Expanded%20Blocks%20Mod.zip" download class="download">download</a>
+        </div>
+        <div id="photoHolder">
+            <h2>Tents Mod</h2>
+            <img src="screenShots/tentsMod.jpg"/>
+            <p>Have you ever wanted to go camping in Manic Digger? Well now you can with Tents Mod.
+Tents Mod features craftable and orientable tents and uses block id 400.
+Feel free to edit this mod to your liking.</p>
+            <a href="mods/Tents%20Mod%20for%20Manic%20Digger.zip" download class="download">download</a>
+        </div>
+        <script>
+            //setInterval("navColor()",3000);
+                function navColor() {
+                var r = Math.floor((Math.random() * 200) + 1);
+                var g = Math.floor((Math.random() * 200) + 1);
+                var b = Math.floor((Math.random() * 200) + 1);
+                document.body.style.background = "rgba("+r+","+g+","+b+",1)";
+            }
+        </script>
+    </body>
+</html>
