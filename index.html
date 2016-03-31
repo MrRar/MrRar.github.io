@@ -158,11 +158,11 @@
     </div>
     
     <script src="https://apis.google.com/js/plusone.js"></script>
-    <div id="comments" style="margin:none !important; padding:none !important;"></div>
+    <div id="comments"></div>
     <script>
         gapi.comments.render('comments', {
         href: window.location,
-        width: window.innerWidth,
+        width: window.innerWidth-10,
         first_party_property: 'BLOGGER',
         view_type: 'FILTERED_POSTMOD'
         });
