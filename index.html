@@ -9,8 +9,72 @@
     <meta type="description" content="Mr. Rar's Website"/>
     <meta name="viewport" content="width=device-width,initial-scale=0.9,maximum-scale=0.9,user-scalable=no"/>
         <style>
+        #block2{
+            float: left;
+            width:100%;
+        }
+        #usage{
+            width: 33%;
+            height: 88px;
+            float: left;
+            color:white;
+            text-align: center;
+            font-size: 35pt;
+            line-height: 40px;
+            box-sizing: padding-box;
+            padding: 60px 0;
+            font-family:"avg";
+        }
+        #lights{
+            float:left;
+            height: 200px;
+            width:300px;
+            margin:auto;
+        }
+        #lightsHolder{
+            float:left;
+            width:33%;
+        }
+        .light{
+            display:inline-block;
+            float:left;
+            width:100px;
+            height:100px;
+            background:url(webStuff/light.png);
+            background-position: left;
+        }
+        #y2kHolder{
+            float:left;
+            width:33%;
+        }
+        #y2k{
+            background: url(webStuff/Y2K_Logo.gif);
+            width:248px;
+            height:192px;
+            display:block;
+            float:left;
+            margin:4px;
+            margin:auto;
+        }
+        #dateTime{
+            color:white;
+            line-height:0;
+            font-size:30pt;
+            text-align: center;
+            font-family: "avg"
+            text-shadow: 0 0 10px black;
+        }
+        #year{
+            text-shadow: 0 0 10px white;
+            line-height:80px;
+            font-weight:bolder;
+            padding-top:80px;
+            padding-left: 150px;
+            font-size: 60pt;
+            color:white;
+        }
         #block1{
-            display:inline-flex;
+            display:flex;
             float:left;
             color:white;
             font-size: 20pt;
@@ -22,6 +86,8 @@
             display:inline;
         }
         #speakers{
+            flex-grow: 0;
+            flex-shrink:0;
             margin: auto;
             float:right;
         }
@@ -91,9 +157,38 @@
             display:inline-block;
             cursor:url(webStuff/mouse.png), auto;
         }
+		#computron{
+			z-index: 2;
+			position: fixed;
+			width:100%;
+			height: 100%;
+			top:0;
+			left:0;
+			background:rgba(0,0,0,0.8);
+			overflow-y:scroll;
+			visibility: hidden;
+			color:white;
+			text-align: center;
+			font-size: 2em;
+		}
+		#computron *{
+			padding: 0 10%;
+		}
+		#computron img{
+			float: left;
+		}
+		#compuX{
+			width:50px;
+			height: 50px;
+			background: red;
+			position: fixed;
+			top:0px;
+			right: 20px;
+			border-radius: 100%;
+			padding: 0;
+			line-height: 50px;
+		}
         @media all and (max-width: 720px){
-            body{
-            }
             nav a{width:auto;display:list-item; position:relative; text-align: center;}
             nav {overflow: hidden; transition: all ease-in-out 0.5s;}
             nav:hover {height:300px;}
@@ -107,21 +202,60 @@
         #scriptEnter{
             float: left;
             z-index: 0;
-            position: relative;
+            position: absolute;
             border:none;
             background:black;
             color:white;
-            height:20%;
             width:20%;
+            margin-top:28%;
+            margin-left:16.5%;
             resize: none;
+            transform: rotateZ(359deg);
         }
-        @media all and (max-width: 910px){
+        @media all and (max-width: 910px) and (min-width: 600px){
             #speakers{
                 width:100%;
                 height: auto;
             }
             #block1{
                 display:inline-block;
+            }
+            #lightsHolder{
+                width:55%;
+            }
+            #y2kHolder{
+                width:45%
+            }
+            #y2k{
+                float:right;
+            }
+            #usage{
+                width:100%;
+                height: auto;
+                padding: 10px 0;
+            }
+        }
+        @media all and (max-width: 600px){
+            #speakers{
+                width:100%;
+                height: auto;
+            }
+            #block1{
+                display:inline-block;
+            }
+            #lightsHolder{
+                width:100%;
+            }
+            #y2kHolder{
+                width:100%
+            }
+            #y2k{
+                float:right;
+            }
+            #usage{
+                width:100%;
+                height: auto;
+                padding: 10px 0;
             }
         }
     </style>
@@ -137,27 +271,52 @@
     <audio id="clickSound" src="webStuff/musica2.wav">
         <source type="wave" src="webStuff/musica2.wav"/>
     </audio>
-    <audio id="startUpSound" src="webStuff/Windows%20XP%20Startup.wav">
-        <source type="wave" src="webStuff/Windows%20XP%20Startup.wav"/>
+    <audio id="song1" src="webStuff/Show%20Your%20Moves.mp3" loop autoplay>
+        <source type="sound/mp3" src="webStuff/Show%20Your%20Moves.mp3"/>
+    </audio>
+    <audio id="song2" src="webStuff/passport.mp3" loop>
+        <source type="sound/mp3" src="webStuff/passport.mp3"/>
+    </audio>
+    <audio id="song3" src="webStuff/Mighty%20Like%20Us.mp3" loop>
+        <source type="sound/mp3" src="webStuff/Mighty%20Like%20Us.mp3"/>
     </audio>
     <img src="webStuff/logo.gif" id="logo" width="100%"/>
     <p id="block1">
-        woefj awope fwope rvowei raowier oawpr vwoe rvawoep raopwe raower waoer vwae rmopwae rm
-        awervaowie raowie ravoiwe roaiweu raoviwr aoiwer aoiwe raowieu aoiwer aoiwe rioawe raoiwer
-        waopei naopiwer ovqaer
-    <img src="webStuff/DSCF7821.gif" width="800px" height="1102" usemap="#map" id="speakers"/>
+        Welcome to Mr. Rar's (Johannes Fritz) website. 
+        Right now this site is under active development. 
+        I am going to change and add things as time goes on. 
+        
+    <img src="webStuff/DSCF7821.gif" width="800px" height="1102px" usemap="#map" id="speakers"/>
     </p>
+    <div id="block2">
+        <div id="y2kHolder">
+            <div id="y2k">
+                <p id="year">00</p><p id="dateTime">January 1 1:00</p>
+            </div>
+        </div>
+        <div id="lightsHolder">
+            <div id="lights">
+                <div class="light"></div>
+                <div class="light"></div>
+                <div class="light"></div>
+                <div class="light"></div>
+                <div class="light"></div>
+                <div class="light"></div>
+            </div>
+        </div>
+        <div id="usage">Cookies or Javascipt don't seem to be working.</div>
+    </div>
     <map name="map">
-        <area shape="rect" coords="92,217,161,277" href="dfg" />
-        <area shape="rect" coords="9,217,84,275" href="adgbada" />
-        <area shape="rect" coords="231,218,300,278" href="asdfgabd"/>
+        <area shape="rect" coords="92,217,161,277" onclick="next();"/>
+        <area shape="rect" coords="9,217,84,275" onclick="previous();"/>
+        <area shape="rect" coords="231,218,300,278" onclick="pausePlay();"/>
     </map>
     <div style="float:left; height:auto">
     <textarea id="scriptEnter"></textarea>
-    <img src="webStuff/desk.png" width="100%" id="desk" onload="this.window.innerWidth"/>
+    <img src="webStuff/desk.jpg" width="100%" id="desk" onload="SEresize()"/>
     </div>
     
-    <script src="https://apis.google.com/js/plusone.js"></script>
+    <!--script src="https://apis.google.com/js/plusone.js"></script>
     <div id="comments"></div>
     <script>
         gapi.comments.render('comments', {
@@ -166,21 +325,139 @@
         first_party_property: 'BLOGGER',
         view_type: 'FILTERED_POSTMOD'
         });
-    </script>
+    </script-->
+	<div id="computron">
+		<div id="compuX" onclick="compuClose()">X</div>
+		<img src="webStuff/computronLogo.gif" width="80%"/>
+		<img src="webStuff/computron.gif" width="80%"/>
+		<h1>Computron</h1>
+		<p>
+			This is Computron, a Dell Inspiron 530s.
+			It runs Windows Vista home premeum and has a Pentium(R) 64bit Dual-Core E5200 CPU @ 2.50 GHz.
+		</p>
+		<img src="webStuff/oldComputer.gif" width="80%"/>
+		<h1>My Old Computer</h1>
+		<p>
+			Although longh since dead, the memory of my old computer is still very much alive in my brain.
+			My old computer is an Emachines W3107.
+			It has an AMD Sempron 3100+ processor @ 1.8 GHz and a nVIDIA GeForce 6100 grphics card.
+			It has 512 mega bytes of DDR SDRAM.
+			My old computer runs Windows XP Home Edition SP3. 
+		</p>
+	</div>
     <script>
-        
+        var songPlaying = 1;
+        var isPaused = false;
         function buttonSound(){document.getElementById("clickSound").play();}
         function script(){
             eval(document.getElementById("scriptEnter").innerHTML);
             document.getElementById("scriptEnter").innerHTML ="";
         }
-        document.getElementById("startUpSound").play();
         addEventListener("keydown", function (e) {
 	if(e.keyCode == 13 && document.getElementById("scriptEnter").value) {
-        eval(document.getElementById("scriptEnter").value);
-            document.getElementById("scriptEnter").value ="";
+            document.getElementById("scriptEnter").value = eval(document.getElementById("scriptEnter").value)+"\b";
     }
 }, false);
+function resetTime() {
+    var now = new Date();
+    var date;
+    switch(now.getMonth()){
+        case 0: date = "January"; break;
+        case 1: date = "February"; break;
+        case 2: date = "March"; break;
+        case 3: date = "April"; break;
+        case 4: date = "May"; break;
+        case 5: date = "June"; break;
+        case 6: date = "July"; break;
+        case 7: date = "August"; break;
+        case 8: date = "September"; break;
+        case 9: date = "October"; break;
+        case 10: date = "November"; break;
+        case 11: date = "Decebmber"; break;
+    }
+    date += " "+now.getDate()+" "+now.getHours();
+    if(now.getMinutes() < 10) date += ":0"+now.getMinutes();
+    else date += ":"+now.getMinutes();
+    document.getElementById("dateTime").innerHTML=date;
+}
+document.getElementById("year").innerHTML=new Date().getFullYear()-2000;
+resetTime();
+setInterval(resetTime,5000);
+function previous(){
+    document.getElementById("song"+songPlaying).currentTime = 0;
+    document.getElementById("song"+songPlaying).pause();
+        --songPlaying;
+    if(songPlaying==0)songPlaying=3;
+    document.getElementById("song"+songPlaying).play();
+}
+function next(){
+    document.getElementById("song"+songPlaying).currentTime = 0;
+    document.getElementById("song"+songPlaying).pause();
+        ++songPlaying;
+    if(songPlaying==4)songPlaying=1;
+    document.getElementById("song"+songPlaying).play();
+}
+function pausePlay(){
+    if(isPaused == true) {
+        document.getElementById("song"+songPlaying).play(); isPaused = false;
+    }
+    else {
+        document.getElementById("song"+songPlaying).pause();
+        isPaused = true;
+    }
+}
+function lights(){
+    var lights = document.querySelectorAll(".light");
+    for(i in lights){
+        var random = Math.floor((Math.random() * 2) + 1);
+        if(random == 1 )lights[i].style = "background-position:left";
+        else lights[i].style = "background-position:right"; 
+    }
+}
+setInterval(lights,500);
+document.body.onresize = function() {
+var SE = document.getElementById("scriptEnter");
+var desk = document.getElementById("desk");
+SE.style.height = desk.height*0.12+"px";
+}
+function SEresize() {
+var SE = document.getElementById("scriptEnter");
+var desk = document.getElementById("desk");
+SE.style.height = desk.height*0.12+"px";
+}
+/*var p1 = document.cookie.replace(/; /,"\"; var ");
+var p2 = p1.replace(/=/g,"=\"");
+eval(" var "+p2+"\";");
+try {accsesNo;}
+catch(e) {
+document.cookie="accsesNo=0; expires=Monday, 04-Apr-2900  05:00:00 GMT";
+var accsesNo;
+}
+if(accsesNo == undefined) accsesNo ="0";
+accsesNo=parseInt(accsesNo);
+++accsesNo;
+document.cookie="accsesNo="+accsesNo+"; expires=Monday, 04-Apr-2900  05:00:00 GMT";
+document.getElementById("usage").innerHTML="You have accessed this page "+accsesNo+" times.";
+*/
+document.getElementById("desk").onclick = function(event){
+	var desk = document.getElementById("desk");
+	var pos = event.clientX/desk.width
+	if(pos > 0.39 && pos < 0.59) {
+		var compu = document.getElementById("computron");
+		compu.style.visibility="visible";
+		document.body.style.overflowY="hidden";
+		}
+	//2560
+	//x994,39
+	//y640,25
+	//x1506,59
+	//y1310,51
+}
+function compuClose(){
+		var compu = document.getElementById("computron");
+		compu.style.visibility="hidden";
+		document.body.style.overflowY="scroll";
+}
     </script>
 </body>
 </html>
