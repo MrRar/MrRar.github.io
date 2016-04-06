@@ -316,7 +316,7 @@
     <img src="webStuff/desk.jpg" width="100%" id="desk" onload="SEresize()"/>
     </div>
     
-    <!--script src="https://apis.google.com/js/plusone.js"></script>
+    <script src="https://apis.google.com/js/plusone.js"></script>
     <div id="comments"></div>
     <script>
         gapi.comments.render('comments', {
@@ -325,7 +325,7 @@
         first_party_property: 'BLOGGER',
         view_type: 'FILTERED_POSTMOD'
         });
-    </script-->
+    </script>
 	<div id="computron">
 		<div id="compuX" onclick="compuClose()">X</div>
 		<img src="webStuff/computronLogo.gif" width="80%"/>
@@ -425,7 +425,7 @@ var SE = document.getElementById("scriptEnter");
 var desk = document.getElementById("desk");
 SE.style.height = desk.height*0.12+"px";
 }
-/*var p1 = document.cookie.replace(/; /,"\"; var ");
+var p1 = document.cookie.replace(/; /,"\"; var ");
 var p2 = p1.replace(/=/g,"=\"");
 eval(" var "+p2+"\";");
 try {accsesNo;}
@@ -438,7 +438,7 @@ accsesNo=parseInt(accsesNo);
 ++accsesNo;
 document.cookie="accsesNo="+accsesNo+"; expires=Monday, 04-Apr-2900  05:00:00 GMT";
 document.getElementById("usage").innerHTML="You have accessed this page "+accsesNo+" times.";
-*/
+
 document.getElementById("desk").onclick = function(event){
 	var desk = document.getElementById("desk");
 	var pos = event.clientX/desk.width
