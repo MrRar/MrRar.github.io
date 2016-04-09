@@ -316,7 +316,7 @@
     <img src="webStuff/desk.jpg" width="100%" id="desk" onload="SEresize()"/>
     </div>
     
-    <!--script src="https://apis.google.com/js/plusone.js"></script>
+    <script src="https://apis.google.com/js/plusone.js"></script>
     <div id="comments"></div>
     <script>
         gapi.comments.render('comments', {
@@ -325,7 +325,7 @@
         first_party_property: 'BLOGGER',
         view_type: 'FILTERED_POSTMOD'
         });
-    </script-->
+    </script>
 	<div id="computron">
 		<div id="compuX" onclick="compuClose()">X</div>
 		<img src="webStuff/computronLogo.gif" width="80%"/>
@@ -440,7 +440,7 @@ function getCookie(c_name){
 	return "";
 }
 var accsesNo = getCookie(accsesNo);
-if (accsesNo === ""){
+if (!accsesNo){
 	document.cookie="accsesNo=0; expires=Monday, 04-Apr-2900  05:00:00 GMT";
 	accsesNo = 0;
 }
