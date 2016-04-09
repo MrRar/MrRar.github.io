@@ -425,20 +425,29 @@ var SE = document.getElementById("scriptEnter");
 var desk = document.getElementById("desk");
 SE.style.height = desk.height*0.12+"px";
 }
-/*var p1 = document.cookie.replace(/; /,"\"; var ");
-var p2 = p1.replace(/=/g,"=\"");
-eval(" var "+p2+"\";");
-try {accsesNo;}
-catch(e) {
-document.cookie="accsesNo=0; expires=Monday, 04-Apr-2900  05:00:00 GMT";
-var accsesNo;
+function getCookie(c_name){
+	if (document.cookie.length>0){
+    c_start = document.cookie.indexOf(c_name + "=");
+    	if( c_start != -1 ){ 
+			c_start = c_start + c_name.length + 1; 
+			c_end = document.cookie.indexOf( ";", c_start );
+			if( c_end == -1 ){
+				c_end = document.cookie.length;
+			}
+			return unescape( document.cookie.substring( c_start, c_end ) );
+		} 
+	}
+	return "";
 }
-if(accsesNo == undefined) accsesNo ="0";
-accsesNo=parseInt(accsesNo);
+var accsesNo = getCookie(accsesNo);
+if (accsesNo === ""){
+	document.cookie="accsesNo=0; expires=Monday, 04-Apr-2900  05:00:00 GMT";
+	accsesNo = 0;
+}
 ++accsesNo;
 document.cookie="accsesNo="+accsesNo+"; expires=Monday, 04-Apr-2900  05:00:00 GMT";
 document.getElementById("usage").innerHTML="You have accessed this page "+accsesNo+" times.";
-*/
+
 document.getElementById("desk").onclick = function(event){
 	var desk = document.getElementById("desk");
 	var pos = event.clientX/desk.width
