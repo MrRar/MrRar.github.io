@@ -15,15 +15,16 @@
         }
         #usage{
             width: 33%;
-            height: 88px;
+            height: 200px;
             float: left;
             color:white;
             text-align: center;
             font-size: 35pt;
             line-height: 40px;
-            box-sizing: padding-box;
-            padding: 60px 0;
-            font-family:"avg";
+			box-sizing: border-box;
+            border-top:60px solid transparent;
+            font-family:"cordiau";
+			overflow: hidden;
         }
         #lights{
             float:left;
@@ -34,6 +35,7 @@
         #lightsHolder{
             float:left;
             width:33%;
+			overflow: hidden;
         }
         .light{
             display:inline-block;
@@ -46,6 +48,7 @@
         #y2kHolder{
             float:left;
             width:33%;
+			overflow: hidden;
         }
         #y2k{
             background: url(webStuff/Y2K_Logo.gif);
@@ -54,19 +57,18 @@
             display:block;
             float:left;
             margin:4px;
-            margin:auto;
         }
         #dateTime{
             color:white;
-            line-height:0;
+            line-height:20px;
             font-size:30pt;
             text-align: center;
-            font-family: "avg"
+            font-family: "cordiau"
             text-shadow: 0 0 10px black;
         }
         #year{
             text-shadow: 0 0 10px white;
-            line-height:80px;
+            line-height:70px;
             font-weight:bolder;
             padding-top:80px;
             padding-left: 150px;
@@ -92,8 +94,10 @@
             float:right;
         }
         @font-face{
-		  font-family:avg;
-		  src: url(webStuff/cordiau.ttf);
+			font-family:cordiau;
+			src: url(webStuff/cordiau.eot);
+			src: url(webStuff/cordiau.otf);
+			src: url(webStuff/cordiau.ttf);
         }
         #desk{
             float: left;
@@ -104,7 +108,7 @@
         }
         html{
             cursor:url(webStuff/mouse.png), auto;
-            font-family: "avg"
+            font-family: "cordiau"
         }
         #linksButton{
             width:100%;
@@ -120,6 +124,20 @@
             user-select:none;
         }
         *{padding:0; border:none; outline:none; margin:0;}
+		*::selection{
+			background:red;
+			color:black;
+		}
+		img::selection{
+			background:none;
+		}
+		*::-moz-selection{
+			background:red;
+			color:black;
+		}
+		img::-moz-selection{
+			background:none;
+		}
         body{
             padding-top:50px;
             background: url(webStuff/setup.bmp) fixed;
@@ -231,8 +249,8 @@
             }
             #usage{
                 width:100%;
-                height: auto;
-                padding: 10px 0;
+                border: 10px solid transparent;
+				height: auto;
             }
         }
         @media all and (max-width: 600px){
@@ -251,11 +269,12 @@
             }
             #y2k{
                 float:right;
+				margin:0;
             }
             #usage{
                 width:100%;
-                height: auto;
-                padding: 10px 0;
+                border: 10px solid transparent;
+				height: auto;
             }
         }
     </style>
@@ -316,7 +335,7 @@
     <img src="webStuff/desk.jpg" width="100%" id="desk" onload="SEresize()"/>
     </div>
     
-    <!--script src="https://apis.google.com/js/plusone.js"></script>
+    <script src="https://apis.google.com/js/plusone.js"></script>
     <div id="comments"></div>
     <script>
         gapi.comments.render('comments', {
@@ -325,7 +344,7 @@
         first_party_property: 'BLOGGER',
         view_type: 'FILTERED_POSTMOD'
         });
-    </script-->
+    </script>
 	<div id="computron">
 		<div id="compuX" onclick="compuClose()">X</div>
 		<img src="webStuff/computronLogo.gif" width="80%"/>
@@ -439,11 +458,12 @@ function getCookie(c_name){
 	}
 	return "";
 }
-var accsesNo = getCookie(accsesNo);
-if (accsesNo === ""){
+var accsesNo = getCookie("accsesNo");
+if (!accsesNo){
 	document.cookie="accsesNo=0; expires=Monday, 04-Apr-2900  05:00:00 GMT";
 	accsesNo = 0;
 }
+accsesNo = parseInt(accsesNo);
 ++accsesNo;
 document.cookie="accsesNo="+accsesNo+"; expires=Monday, 04-Apr-2900  05:00:00 GMT";
 document.getElementById("usage").innerHTML="You have accessed this page "+accsesNo+" times.";
