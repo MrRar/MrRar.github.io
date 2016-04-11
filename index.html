@@ -15,16 +15,15 @@
         }
         #usage{
             width: 33%;
-            height: 200px;
+            height: 88px;
             float: left;
             color:white;
             text-align: center;
             font-size: 35pt;
             line-height: 40px;
-			box-sizing: border-box;
-            border-top:60px solid transparent;
+            box-sizing: padding-box;
+            padding: 60px 0;
             font-family:"avg";
-			overflow: hidden;
         }
         #lights{
             float:left;
@@ -35,7 +34,6 @@
         #lightsHolder{
             float:left;
             width:33%;
-			overflow: hidden;
         }
         .light{
             display:inline-block;
@@ -48,7 +46,6 @@
         #y2kHolder{
             float:left;
             width:33%;
-			overflow: hidden;
         }
         #y2k{
             background: url(webStuff/Y2K_Logo.gif);
@@ -57,6 +54,7 @@
             display:block;
             float:left;
             margin:4px;
+            margin:auto;
         }
         #dateTime{
             color:white;
@@ -68,7 +66,7 @@
         }
         #year{
             text-shadow: 0 0 10px white;
-            line-height:75px;
+            line-height:80px;
             font-weight:bolder;
             padding-top:80px;
             padding-left: 150px;
@@ -122,20 +120,6 @@
             user-select:none;
         }
         *{padding:0; border:none; outline:none; margin:0;}
-		*::selection{
-			background:red;
-			color:black;
-		}
-		img::selection{
-			background:none;
-		}
-		*::-moz-selection{
-			background:red;
-			color:black;
-		}
-		img::-moz-selection{
-			background:none;
-		}
         body{
             padding-top:50px;
             background: url(webStuff/setup.bmp) fixed;
@@ -247,8 +231,8 @@
             }
             #usage{
                 width:100%;
-                border: 10px solid transparent;
-				height: auto;
+                height: auto;
+                padding: 10px 0;
             }
         }
         @media all and (max-width: 600px){
@@ -267,12 +251,11 @@
             }
             #y2k{
                 float:right;
-				margin:0;
             }
             #usage{
                 width:100%;
-                border: 10px solid transparent;
-				height: auto;
+                height: auto;
+                padding: 10px 0;
             }
         }
     </style>
@@ -333,7 +316,7 @@
     <img src="webStuff/desk.jpg" width="100%" id="desk" onload="SEresize()"/>
     </div>
     
-    <script src="https://apis.google.com/js/plusone.js"></script>
+    <!--script src="https://apis.google.com/js/plusone.js"></script>
     <div id="comments"></div>
     <script>
         gapi.comments.render('comments', {
@@ -342,7 +325,7 @@
         first_party_property: 'BLOGGER',
         view_type: 'FILTERED_POSTMOD'
         });
-    </script>
+    </script-->
 	<div id="computron">
 		<div id="compuX" onclick="compuClose()">X</div>
 		<img src="webStuff/computronLogo.gif" width="80%"/>
@@ -456,12 +439,11 @@ function getCookie(c_name){
 	}
 	return "";
 }
-var accsesNo = getCookie("accsesNo");
-if (!accsesNo){
+var accsesNo = getCookie(accsesNo);
+if (accsesNo === ""){
 	document.cookie="accsesNo=0; expires=Monday, 04-Apr-2900  05:00:00 GMT";
 	accsesNo = 0;
 }
-accsesNo = parseInt(accsesNo);
 ++accsesNo;
 document.cookie="accsesNo="+accsesNo+"; expires=Monday, 04-Apr-2900  05:00:00 GMT";
 document.getElementById("usage").innerHTML="You have accessed this page "+accsesNo+" times.";
