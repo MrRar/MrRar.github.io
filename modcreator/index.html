@@ -12,12 +12,17 @@ Sorry, the code is rather messy.
 	<meta type="author" content="Mr. Rar">
 	<meta type="keywords" content="Manic Digger, mod, create, creator">
 	<meta type="description" content="create your own Manic Digger mod (no programming knowledge requierd)">
-	<meta name="viewport" content="width=device-width,initial-scale=0.7,maximum-scale=0.7,user-scalable=no">
+	<meta name="viewport" content="width=device-width,initial-scale=0.9,maximum-scale=0.9,user-scalable=no">
 	<title>Mod Creator</title>
 <style>
 	@font-face{
 		font-family:consentrate;
 		src: url(modStuff/consentrate.ttf);
+	}
+	*::selection{
+		background:rgba(225,225,255,0.5);
+		color:black;
+		text-shadow: none;
 	}
     select, select:active, select:hover{
         text-align: center;
@@ -158,6 +163,27 @@ Sorry, the code is rather messy.
 		position:relative;
 		top:40px;
 		}
+	@media all and (max-width: 500px){
+		#slider{
+			display: none;
+		}
+		.block{
+			width:auto;
+		}
+		input, select{
+			width:100%;
+			margin-top:20px;
+		}
+		lable{
+			display: inline-block;
+			width: 100%;
+			text-align: center;
+		}
+		#pluss, #minus{
+			width:80%;
+			margin:3% 10%;
+		}
+	}
 </style>
 
 </head>
@@ -304,7 +330,7 @@ var editor = document.querySelector("#modHolder");
 */
 var p1 ="/**\n*";
 var p2 ="\n*\n*Author:";
-var p3 ="\n*created using Mr. Rar's Mod Creator @ www.modcreator.comli.com\n*/\nusing System;\n\nnamespace ManicDigger.Mods\n{\n\n    public class ";
+var p3 ="\n*created using Mr. Rar's Mod Creator @ mrrar.github.io/modcreator\n*/\nusing System;\n\nnamespace ManicDigger.Mods\n{\n\n    public class ";
 var p4 =" : IMod\n    {\n        ModManager m;\n        SoundSet solidSounds;\n\n        public void PreStart(ModManager m)\n        {\n            m.RequireMod(\"Core\");\n        }\n        public void Start(ModManager manager)\n        {\n            m = manager;\n            solidSounds = new SoundSet()\n            {\n                Walk = new string[] { \"walk1\", \"walk2\", \"walk3\", \"walk4\" },\n                Break = new string[] { \"destruct\" },\n                Build = new string[] { \"build\" },\n                Clone = new string[] { \"clone\" },\n            };\n"; 
 /**
 *requered
