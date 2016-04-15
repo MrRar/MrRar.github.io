@@ -93,11 +93,19 @@
             margin: auto;
             float:right;
         }
-        @font-face{
+        /*@font-face{
 			font-family:cordiau;
-			src: url(webStuff/cordiau.eot);
 			src: url(webStuff/cordiau.ttf);
-        }
+			src: url(webStuff/cordiau.eot);
+        }*/
+		@font-face{ /* for IE */
+			font-family:cordiau;
+			src:url(webStuff/cordiau.eot);
+		}
+		@font-face { /* for non-IE */
+			font-family:cordiau;
+			src:url(http://:/) format("No-IE-404"),url(webStuff/cordiau.ttf) format("truetype");
+		}
         #desk{
             float: left;
         }
