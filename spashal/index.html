@@ -90,10 +90,10 @@
 		</style>
 	</head>
 	<body>
-        <audio id="SC1" src="images/Star%20Commander1.wav" style="display:none" loop></audio>
+        <audio id="SC1" src="images/Star%20Commander1.mp3" style="display:none" loop></audio>
         <audio id="clickSound" src="images/SOUND16.wav" style="display:none"></audio>
         <audio id="explosionSound" src="images/explosion.wav" style="display:none"></audio>
-        <audio id="intro" src="images/Androids.wav" style="display:none" autoplay loop ></audio>
+        <audio id="intro" src="images/Androids.mp3" style="display:none" autoplay loop ></audio>
         <header>
 		  <marquee>Keyboard shortcuts: P=pause M=menu S=screen shot F= full-screen</marquee>
 		  <button onclick="buttonSound(); location.reload()">MAIN MENU</button>
@@ -102,8 +102,8 @@
 		  <button onclick="buttonSound(); download()">SCREEN SHOT</button>
         </header>   
         <div id="startScreen">
-		  <img id="logo" src="images/logo.png" width="100%"/>
-		  <img src="images/play.bmp" id="startButton" onmousedown="buttonSound(); startGame(); document.body.removeChild(document.querySelector('#startScreen'));"/>
+		  <img id="logo" src="images/logo.gif" width="100%"/>
+		  <img src="images/play.jpg" id="startButton" onmousedown="buttonSound(); startGame(); document.body.removeChild(document.querySelector('#startScreen'));"/>
         </div>
         <canvas></canvas>
         <img id="nav" src="images/nav.png"/>
@@ -188,7 +188,7 @@ mShotImage.src = "images/mShot.png";
 // Background image
 var bgImage = new Image();
 bgImage.onload = function () {loadedItems++;mainMenu();};
-bgImage.src = "images/background.bmp";
+bgImage.src = "images/background.jpg";
 
 // Hero image
 var heroImage = new Image();
