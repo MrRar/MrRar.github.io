@@ -123,7 +123,7 @@
         <div id="startScreen">
 		  <img id="logo" src="images/logo.gif" width="100%"/>
 		  <img src="images/play.jpg" id="startButton" onmousedown="buttonSound(); startGame(); document.body.removeChild(document.getElementById('startScreen'));"/>
-			<p id="highScore">Cookies are not working.</p>
+			<p id="highScore">Javascript is not working.</p>
         </div>
         <canvas></canvas>
         <img id="nav" src="images/nav.png"/>
@@ -592,7 +592,7 @@ function gameOver(){
 		requestAnimationFrame(end);
 	}
 }
-var highScore = getCookie(highScore);
+var highScore = getCookie("highScore");
 if(!highScore) highScore = 0;
 document.getElementById("highScore").innerHTML = "HIGH SCORE: "+highScore;
 function getCookie(c_name){
