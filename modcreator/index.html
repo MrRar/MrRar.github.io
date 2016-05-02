@@ -1,178 +1,424 @@
-<!DOCTYPE html>
+<!--
+Mod Creator Beta
+
+Sorry, the code is rather messy.
+-->
+<!DOCTYPE HTML>
 <html lang="en-us">
-    <head>
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-    <meta charset="utf-8"/>
-    <title>MD Mods</title>
-    <link rel="shortcut icon" href="favicon.png"/>
-    <meta type="author" content="Mr. Rar"/>
-    <meta type="keywords" content="website, rar, Mr. Rar, mods"/>
-    <meta type="description" content="Mr. Rar's MD mods"/>
-    <style>
-		@font-face{ /* for IE */
-			font-family:cordiau;
-			src:url(cordiau.eot);
+<head>
+	<meta charset="utf-8">
+	<link rel="shortcut icon" href="modStuff/fav.png">
+	<meta type="color-theme" content="#D4FFB9">
+	<meta type="author" content="Mr. Rar">
+	<meta type="keywords" content="Manic Digger, mod, create, creator">
+	<meta type="description" content="create your own Manic Digger mod (no programming knowledge requierd)">
+	<meta name="viewport" content="width=device-width,initial-scale=0.9,maximum-scale=0.9,user-scalable=no">
+	<title>Mod Creator</title>
+<style>
+	@font-face{
+		font-family:consentrate;
+		src: url(modStuff/consentrate.ttf);
+	}
+	*::selection{
+		background:rgba(225,225,255,0.5);
+		color:black;
+		text-shadow: none;
+	}
+    select, select:active, select:hover{
+        text-align: center;
+        margin:1 10 1 0;
+	    background:white;
+	    border:none;
+        outline:none;
+		width:170px;
+	}
+	#tipsClose{
+		cursor:pointer;
+		text-align:center;
+		line-height:30px;
+		font-size:30pt;
+		height:40px;
+		width:40px;
+		background:red;
+		position:absolute;
+		top:0;
+		right:0;
+		margin:3px;
+    }
+	#tipsWindow h1{
+		text-align:center;
+		line-height:10px;
+    }
+	#tipsWindow h2{
+		text-align:center;
+		line-height:15px;
+    }
+	#tipsWindow p{
+		font-size:15pt;
+		margin:0 30px;
+    }
+	#tipsWindow{
+		display:none;
+		text-shadow:none;
+		width:100%;
+		height:100%;
+		position:fixed;
+		background:rgba(0,100,0,0.6);
+		top:0;
+		left:0;
+    }
+	#arrow{
+		cursor:pointer;
+		font-size:15pt;
+		display:inline-block;
+		background:rgba(180,0,180,1);
+		margin:5px;
+		padding:8px;
+		transition:all linear 0.5s;
+		float:right;
+	    opacity:0.6;
+    }
+     .link{
+		cursor:pointer;
+		font-size:15pt;
+		display:inline-block;
+		background:rgba(180,0,180,1);
+		margin:5px;
+		padding:8px;
+		transition:all linear 0.5s;
+	    opacity:0.6;
+    }
+    nav{
+        top:0;
+        background:rgba(0,225,0,0.7);
+        height:50px;
+        width:100%;
+        position:fixed;
+        transition:background linear 3s;
+	}
+    #modHolder{
+        transition: width 0.5s ease-in-out;
+        width:100%;
+        float:left;
+        overflow:hidden;
+    }
+    code{
+        transition: width 0.5s ease-in-out;
+        overflow:hidden;
+        height:0px;
+        width:0px;
+        float:left;
+	}
+    body{
+	   font-family: consentrate;
+	   padding:50px 0 0 0;
+	   margin:0;
+	}
+    fieldset{
+        border:2px dotted white;
+        padding:3px;
+        border-radius:4px;
+        font-size:14pt;
+    }
+    html{
+        color:white;
+        text-shadow:0 0 6px black;
+        background:url(modStuff/11.png);
+        margin:0;
+        padding:0;
+    }
+    input{
+	   margin:1 10 1 0;
+	   text-align:center;
+	   border:2px solid black;
+	   color:white;
+	   background:rgba(0,0,0,0.3);
+	}
+    .block{
+        width:450px;
+        float:left;
+	}
+	#slider{
+		float:left;
+		margin:5px;
+		font-size:25pt;
+    }
+	#pluss, #minus{
+		overflow:hidden;
+		line-height:0;
+		text-shadow: none;
+		cursor:pointer;
+		background:rgba(0,225,0,0.6);
+		margin:20px;
+		float:left;
+		width:200px;
+		height:100px;
+		font-size:100pt;
+		line-height:0;
+		text-align:center;
+    }
+	#pluss:active, #minus:active{background:green;}
+	#big{
+		margin:0 30px 0 0;
+		position:relative;
+		top:40px;
 		}
-		@font-face { /* for non-IE */
-			font-family:cordiau;
-			src:url(http://:/) format("No-IE-404"),url(cordiau.ttf) format("truetype");
+	@media all and (max-width: 500px){
+		#slider{
+			display: none;
 		}
-        p{
-            margin:10px;
-            height: 150px;
-            overflow-y: scroll;
-            text-align: left;
-        }
-        img{
-            width:400px;
-            transion:all ease-in-out 0.2s;
-        }
-        *{margin: 0; padding:0;}
-        body{
-			font-size: 1.3em;
-			font-family:cordiau;
-            background:url(back.jpg) fixed;
-            background-size: cover;
-            transition:background linear 3s;
-            margin:auto;
-            width:840px;
-        }
-        #photoHolder h2{
-            margin:0px;
-        }
-        img:active{
-            position: absolute;
-            top:0;
-            left:0;
-            width:100%;
-        }
-       .download{
-           padding:3px;
-           text-decoration: none;
-           color:black;
-           display:inline-block;
-           background:white;
-           box-shadow:0 0 0 black;
-           transition: all ease-in-out 0.1s;
-        }
-        .download:hover{
-			color:white;
-			background:black;
-        }
-        .download:active{
-			background:gray;
-        }
-        #photoHolder{
-            margin:5px;
-            display:inline-block;
-            float:left;
-            background:rgba(255,255,255, 0.5);
-            height: 500px;
-            width: 400px;
-            text-align: center;
-            box-sizing: border-box;
-        }
-        #backButton{
-            display:inline-block;
-            position: fixed;
-            top:0;
-            left:0;
-            margin:10px;
-            background:white;
-            padding:5px;
-            cursor: pointer;
-        }
-        #backButton:hover{
-            animation: BA 0.5s ease-in-out infinite;
-        }
-        @media all and (max-width: 840px) and (min-width: 420px){
-            body{
-                width:410px;
-            }
-        }
-        @media all and (max-width: 1260px) and (min-width: 840px){
-            body{
-                width:820px;
-            }
-        }
-        @media all and (max-width: 1680px) and (min-width: 1260px){
-            body{
-                width:1240px;
-            }
-        }
-        @media all and (max-width: 2100px) and (min-width: 1680px){
-            body{
-                width:1660px;
-            }
-        }
-        @media all and (max-width: 1920px) and (min-width: 1600px){
-            body{
-                width:930px;
-            }
-        }
-        @media all and (max-width: 2240px) and (min-width: 1920px){
-            body{
-                width:930px;
-            }
-        }
-        @media all and (max-width: 2560px) and (min-width: 2240px){
-            body{
-                width:930px;
-            }
-        }
-        @keyframes BA {
-            50%{
-                left:6px;
-            }
-        }
-    </style>
-    </head>
-    <body>
-        <div id="backButton" onclick="history.back();">&larr; Return</div>
-        <div id="photoHolder">
-            <h2>Alphabet Mod</h2>
-            <img src="screenShots/alphabetMod.jpg"/>
-            <p>This is Alphabet Mod v1.0 . You can use it to make big labels and signs in Manic Digger worlds.
-It uses block IDs 402 through 431 and includes blocks representing letters "A" through "Z", symbols "!." and "space".
-Feel free to edit the Alphabet Mod to your liking. I have more mods in the pipeline so stay tuned.</p>
-            <a href="mods/Alphaobet%20Mod%20for%20Manic%20Digger.zip" download class="download">download</a>
-        </div>
-        <div id="photoHolder">
-            <h2>Christmas Decorations Mod</h2>
-            <img src="screenShots/christmasDecorationsMod.jpg"/>
-            <p>Christmas Decorations Mod v2.0 is now available. 
-v2 has both the old christmas trees and wreaths, and it adds snowmen, candy canes, and makes all items craftable.</p>
-            <a href="mods/Christmas%20Decorations%20Mod.zip" download class="download">download</a>
-        </div>
-        <div id="photoHolder">
-            <h2>Expanded Blocks Mod</h2>
-            <img src="screenShots/expandedBlocksMod.jpg"/>
-            <p>Have you been thinking that the default Manic Digger blocks are a little bare-bones? Well then this mod is for you. It includes a total of 58 blocks!
-It features two new types of glass, two types of fences with a fence gate, trapdoors, a computer and TV, 4 switchable lights, and a host of other things.
-Clear glass (one of the new glass types) has snow on it in the winter season.
-In survival mode you can now get pumpkin seeds (occasionally) from breaking dirt and grass. 
-You can use the seeds to grow pumpkins which you can craft into jack-o-lanterns and pizza (rather unrealistic).
-This mod also includes land mines that, although small, can kill you instantly.
-You can also craft many of these items.
-Important Note: Crafting does not seem to be working for me, so it is possible that there is a problem with the craftability of some items. </p>
-            <a href="mods/Expanded%20Blocks%20Mod.zip" download class="download">download</a>
-        </div>
-        <div id="photoHolder">
-            <h2>Tents Mod</h2>
-            <img src="screenShots/tentsMod.jpg"/>
-            <p>Have you ever wanted to go camping in Manic Digger? Well now you can with Tents Mod.
-Tents Mod features craftable and orientable tents and uses block id 400.
-Feel free to edit this mod to your liking.</p>
-            <a href="mods/Tents%20Mod%20for%20Manic%20Digger.zip" download class="download">download</a>
-        </div>
-        <script>
-            //setInterval("navColor()",3000);
-                function navColor() {
-                var r = Math.floor((Math.random() * 200) + 1);
-                var g = Math.floor((Math.random() * 200) + 1);
-                var b = Math.floor((Math.random() * 200) + 1);
-                document.body.style.background = "rgba("+r+","+g+","+b+",1)";
-            }
-        </script>
-    </body>
+		.block{
+			width:auto;
+		}
+		input, select{
+			width:100%;
+			margin-top:20px;
+		}
+		lable{
+			display: inline-block;
+			width: 100%;
+			text-align: center;
+		}
+		#pluss, #minus{
+			width:80%;
+			margin:3% 10%;
+		}
+	}
+</style>
+
+</head>
+<body>
+	<nav>
+        <a id="arrow" onclick="codeShow()">view code &rarr;</a>
+        <a class="link" onclick="directions()">Directions &amp; tips</a>
+        <a class="link" onclick="downloadMod()">download mod</a>
+        <div id="slider">MOD CREATOR</div>
+      </nav>
+	<div id="modHolder">
+	<fieldset><legend>your mod</legend>
+	<div id="mod">
+	<input type="text" id="modName" placeholder="(text)"/><lable>name of the mod</lable><br>
+    <input type="text" id="name" placeholder="(text)"/><lable>your name</lable><br><br>
+	<fieldset id="b1" class="block"><legend>block 1</legend>
+	<fieldset><legend>requiered attributes</legend>
+	<input type="text" id="blockName" placeholder="(text)"/><lable>name of the block</lable><br>
+	<input type="number" id="blockId" placeholder="(number)"/><lable>id of the block (must be unique)</lable><br>
+	<input type="text" id="TRi" placeholder="(text)"/><lable>texture for right side of block</lable><br>
+	<input type="text" id="TLe" placeholder="(text)"/><lable>texture for left side of block</lable><br>
+	<input type="text" id="TFr" placeholder="(text)"/><lable>texture for front side of block</lable><br>
+	<input type="text" id="TBa" placeholder="(text)"/><lable>texture for back side of block</lable><br>
+	<input type="text" id="TTo" placeholder="(text)"/><lable>texture for top side of block</lable><br>
+	<input type="text" id="TBo" placeholder="(text)"/><lable>texture for bottom side of block</lable><br>
+	<input type="text" id="TIn" placeholder="(text)"/><lable>texture to show in the inventory</lable><br>
+	<select id="drawType">
+		<option>Solid</option>
+		<option>Torch</option>
+		<option>Flat</option>
+		<option>Cactus</option>
+		<option>HalfHeight</option>
+		<option>Plant</option>
+		<option>Transparent</option>
+		<option>OpenDoorRight</option>
+		<option>OpenDoorLeft</option>
+		<option>ClosedDoor</option>
+		<option>Lader</option>
+		<option>Fence</option>
+	</select><lable>draw type of block</lable><br>
+		<select id="walkableType">
+		<option>Solid</option>
+		<option>Fluid</option>
+		<option>Empty</option>
+	</select><lable>walkable type of block</lable><br>
+		</fieldset>
+	<fieldset><legend>optional attributes</legend>
+  <input type="number" id="light" placeholder="(number)"/><lable>light radius</lable><br>
+  <input type="number" id="damage" placeholder="(number)"/><lable>player's damage when walking on block</lable><br>
+  <input type="text" id="slip" placeholder="(true or false)"/><lable>block is slippery to walk on</lable><br>
+  <input type="number" id="speed" placeholder="(number)"/><lable>player's speed when holding block</lable><br>
+  </fieldset>
+  </fieldset>
+  </div>
+  <div id="pluss"><span id="big">+</span><span style="font-size:12pt">ADD NEW BLOCK</span></div>
+<div id="minus"><span id="big">-</span><span style="font-size:12pt">DELETE LAST BLOCK</span></div>
+  </fieldset>
+    </div>
+    <pre>
+<code id="code">
+
+</code>
+</pre>
+<div id="tipsWindow"><h1>Directions &amp; Tips</h1><div id="tipsClose" onclick="document.getElementById('tipsWindow').style.display='none'">x</div><br>
+<h2>Block Ids</h2>
+<p>Block IDs are numbers that Manic Digger uses to distinguish different blocks. 
+The IDs that you choose must not only be different from each other, but also all other blocks in 
+Manic Digger. So long as you have not downloaded any non-default mods, ID 300 and up should work just fine.</p>
+<h2>How Textures Work</h2>
+<p>You can specify the name of a an image in the file @ ManicDigger/data/public/blocks to show on the sides of your blocks. Make sure to omit the end of the 
+file (i.e. ".png"). For example, if you wanted to use an image in the textures folder named "empty.png" you would write "empty" in the blank.
+You can also add your own images to the textures folder, but make sure they are PNG images which are 32x32 pixels large.</p>
+<h2>What to do when Your Done Filling in all The Blanks</h2>
+<p>Press the download button. If you filled out every
+ necessary field your mod will start downloading.
+ If nothing happens, refer to the Unanswered Questions &amp; Unsolved Problems section bellow. Now that your
+mod has downloaded, all you have to do is copy it to the folder @ ManicDigger/Mods/Fortress. Next place your textures in the folder @ ManicDigger/data/public/blocks.</p>
+<h2>Unanswered Questions  &amp; Unsolved problems</h2>
+<p>If you still have a question or a problem after reading all the above head over to the <a style="color:yellow" href="http://manicdigger.sourceforge.net/forum/" target="blank">Manic Digger forum</a> 
+and ether post a message on the Mod Creator thread or send me (Mr. Rar) a message.</p>
+</div>
+<script>
+var blockCounter=1;
+var part1 ="<legend>block ";
+var part2 ="</legend><fieldset><legend>requiered attributes</legend><input type='text' id='blockName' placeholder='(text)'/><lable>name of the block</lable><br><input type='number' id='blockId' placeholder='(number)'/><lable>id of the block (must be unique)</lable><br><input type='text' id='TRi' placeholder='(text)'/><lable>texture for right side of block</lable><br><input type='text' id='TLe' placeholder='(text)'/><lable>texture for left side of block</lable><br><input type='text' id='TFr' placeholder='(text)'/><lable>texture for front side of block</lable><br><input type='text' id='TBa' placeholder='(text)'/><lable>texture for back side of block</lable><br><input type='text' id='TTo' placeholder='(text)'/><lable>texture for top side of block</lable><br><input type='text' id='TBo' placeholder='(text)'/><lable>texture for bottom side of block</lable><br><input type='text' id='TIn' placeholder='(text)'/><lable>texture to show in the inventory</lable><br>";
+var part3 ="<select id='drawType'><option>Solid</option><option>Torch</option><option>Flat</option><option>Cactus</option><option>HalfHeight</option><option>Plant</option><option>Transparent</option><option>OpenDoorRight</option><option>OpenDoorLeft</option><option>ClosedDoor</option><option>Lader</option><option>Fence</option></select><lable>draw type of block</lable><br>";
+var part4 ="<select id='walkableType'><option>Solid</option><option>Fluid</option><option>Empty</option></select><lable>walkable type of block</lable><br></fieldset>";
+var part5 ="<fieldset><legend>optional attributes</legend><input type='number' id='light' placeholder='(number)'/><lable>light radius</lable><br><input type='number' id='damage' placeholder='(number)'/><lable>player's damage when walking on block</lable><br><input type='text' id='slip' placeholder='(true or false)'/><lable>block is slippery to walk on</lable><br><input type='number' id='speed' placeholder='(number)'/><lable>player's speed when holding block</lable><br></fieldset>";
+	document.querySelector("#pluss").onclick = function() {
+	blockCounter++;
+	var block = document.createElement("fieldset");
+	block.setAttribute("class","block");
+	block.setAttribute("id","b"+blockCounter);
+	block.innerHTML = part1+blockCounter+part2+part3+part4+part5;
+document.querySelector("#mod").appendChild(block);
+  }
+  document.querySelector("#minus").onclick=function() {
+      if(blockCounter>0){
+      document.querySelector("#mod").removeChild(document.querySelector("#mod").lastElementChild);
+      blockCounter--;
+      }
+      }
+var  showingCode = false;
+var code = document.querySelector("code");
+var editor = document.querySelector("#modHolder");
+  function codeShow() {
+      if(!showingCode){
+          if(compiler()){
+          document.body.scrollTop=0;
+          editor.style.width = "0px";
+          editor.style.height = "100%";
+          code.style.width = "100%";
+          code.style.height = "auto";
+          showingCode = true;
+          document.querySelector("#arrow").innerHTML="&larr; editor";
+          document.querySelector("#arrow").style.float="left";
+          document.querySelector("#slider").style.float="right";
+          }
+          }
+      else{
+          document.body.scrollTop=0;
+          code.style.width = "0px";
+          code.style.height = "100%";
+          editor.style.width = "100%";
+          editor.style.height = "auto";
+          showingCode = false;
+          document.querySelector("#arrow").innerHTML="view code &rarr;";
+          document.querySelector("#arrow").style.float="right";
+          document.querySelector("#slider").style.float="left";
+          }
+      }
+      setInterval("navColor()",3000);
+      function navColor() {
+     var r = Math.floor((Math.random() * 255) + 1);
+     var g = Math.floor((Math.random() * 255) + 1);
+     var b = Math.floor((Math.random() * 255) + 1);
+          document.querySelector("nav").style.background = "rgba("+r+","+g+","+b+","+0.5+")";
+          }
+       function directions() {
+          document.getElementById('tipsWindow').style.display='block';
+           }
+/**
+*intro
+*/
+var p1 ="/**\n*";
+var p2 ="\n*\n*Author:";
+var p3 ="\n*created using Mr. Rar's Mod Creator @ mrrar.github.io/modcreator\n*/\nusing System;\n\nnamespace ManicDigger.Mods\n{\n\n    public class ";
+var p4 =" : IMod\n    {\n        ModManager m;\n        SoundSet solidSounds;\n\n        public void PreStart(ModManager m)\n        {\n            m.RequireMod(\"Core\");\n        }\n        public void Start(ModManager manager)\n        {\n            m = manager;\n            solidSounds = new SoundSet()\n            {\n                Walk = new string[] { \"walk1\", \"walk2\", \"walk3\", \"walk4\" },\n                Break = new string[] { \"destruct\" },\n                Build = new string[] { \"build\" },\n                Clone = new string[] { \"clone\" },\n            };\n"; 
+/**
+*requered
+*/
+var p5 ="\n            m.SetBlockType(";
+var p6 =", \"";
+var p7 ="\", new BlockType()\n            {\n                TextureIdRight = \"";
+var p8 ="\",\n                TextureIdLeft = \"";
+var p9 ="\",\n                TextureIdFront = \"";
+var p10 ="\",\n                TextureIdBack = \"";
+var p11 ="\",\n                TextureIdTop = \"";
+var p12 ="\",\n                TextureIdBottom = \"";
+var p13 ="\",\n                TextureIdForInventory = \""
+var p14 ="\",\n                Sounds = solidSounds,\n                DrawType = DrawType.";
+var p15 =",\n                WalkableType = WalkableType.";
+/**
+*ops
+*/
+var p18 =",\n                WalkSpeedWhenUsed = ";
+var p19 =",\n                LightRadius = ";
+var p20 =",\n                DamageToPlayer = ";
+var p21 =",\n                IsSlipperyWalk = ";
+var p22 =",\n            });\n            m.AddToCreativeInventory(\"";
+var p23 ="\");\n";
+var p24 ="        }\n    }\n}";
+var mod;
+    
+function compiler() {
+	switch(""){
+	     case document.getElementById("modName").value: alert("Please type the name of your mod."); return false;
+	     case document.getElementById("name").value: alert("Please type your name."); return false;
+	     default: mod=p1+document.getElementById("modName").value+p2+document.getElementById("name").value+p3+document.getElementById("modName").value.replace(" ","")+p4;
+	   
+	    for(var i=1; i<=blockCounter; i++) {
+		var BLOCK =document.getElementById("b"+i).children[1];
+		   var OPS =document.getElementById("b"+i).children[2];
+      switch("") {
+            case BLOCK.children[1].value: alert("please type the name of block "+i); return false;
+            case BLOCK.children[4].value: alert("please type the id of block "+i); return false;
+            case BLOCK.children[7].value: alert("please type the name of the texture for the right side of block "+i); return false;
+            case BLOCK.children[10].value: alert("please type the name of the texture for the left side of block "+i); return false;
+            case BLOCK.children[13].value: alert("please type the name of the texture for the front side of block "+i); return false;
+            case BLOCK.children[16].value: alert("please type the name of the texture for the back side of block "+i); return false;
+            case BLOCK.children[19].value: alert("please type the name of the texture for the top side of block "+i); return false;
+            case BLOCK.children[22].value: alert("please type the name of the texture for the bottom side of block "+i); return false;
+            case BLOCK.children[25].value: alert("please type the name of the texture to show in the inventory block "+i); return false;
+                        default: mod+=p5+BLOCK.children[4].value+p6+BLOCK.children[1].value+p7+BLOCK.children[7].value+p8+BLOCK.children[10].value+p9+BLOCK.children[13].value+p10+BLOCK.children[16].value+p11+BLOCK.children[19].value+p12+BLOCK.children[22].value+p13+BLOCK.children[25].value+p14+BLOCK.children[28].value+p15+BLOCK.children[31].value;
+              if(OPS.children[1].value) mod+=p19+OPS.children[1].value;
+              if(OPS.children[4].value) mod+=p20+OPS.children[4].value;
+              if(OPS.children[7].value) mod+=p21+OPS.children[7].value;
+              if(OPS.children[10].value) mod+=p18+OPS.children[10].value;
+              mod+=p22+BLOCK.children[1].value+p23;
+             }
+         }
+ mod+=p24;
+	     document.getElementById("code").innerHTML=mod; 
+	     return true;
+	     }
+	    
+	}
+function downloadMod() {
+	if(!showingCode) if(!compiler()) return;
+    /// create an "off-screen" anchor tag
+    var lnk = document.createElement('a'), e;
+
+    /// the key here is to set the download attribute of the a tag
+    lnk.download = document.getElementById("modName").value.replace(" ","")+".cs";
+
+    /// convert mod content to data-uri for link. When download
+    /// attribute is set the content pointed to by link will be
+    /// pushed as "download" in HTML5 capable browsers
+    lnk.href = 'data:text/plain;charset=utf-8,'+ encodeURIComponent(document.getElementById('code').innerHTML);
+
+    /// create a "fake" click-event to trigger the download
+    if (document.createEvent) {
+
+        e = document.createEvent("MouseEvents");
+        e.initMouseEvent("click", true, true, window,
+                         0, 0, 0, 0, 0, false, false, false,
+                         false, 0, null);
+
+        lnk.dispatchEvent(e);
+
+    } else if (lnk.fireEvent) {
+
+        lnk.fireEvent("onclick");
+    }
+}
+</script>
+</body>
 </html>
