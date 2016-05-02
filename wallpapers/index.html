@@ -9,19 +9,41 @@
     <meta type="keywords" content="website, rar, Mr. Rar, wallpapers"/>
     <meta type="description" content="Mr. Rar's Wallpapers"/>
     <style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		@font-face{ /* for IE */
+			font-family:cordiau;
+			src:url(cordiau.eot);
+		}
+		@font-face { /* for non-IE */
+			font-family:cordiau;
+			src:url(http://:/) format("No-IE-404"),url(cordiau.ttf) format("truetype");
+		}
         img{
             width:300px;
             height: 220px;
+			float: left;
         }
         *{margin: 0; padding:0;}
         body{
+			font-size: 1.3em;
             background:green;
             transition:background linear 3s;
             margin:auto;
+			font-family:cordiau;
         }
        .download{
             text-decoration: none;
             color:black;
+		   line-height: 0px;
+        }
+		.download:hover{
+			color: white;
+        }
+		.download:active{
+			color: gray;
         }
         #photoHolder{
             margin:5px;
