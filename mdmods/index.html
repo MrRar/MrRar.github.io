@@ -9,6 +9,14 @@
     <meta type="keywords" content="website, rar, Mr. Rar, mods"/>
     <meta type="description" content="Mr. Rar's MD mods"/>
     <style>
+		@font-face{ /* for IE */
+			font-family:cordiau;
+			src:url(cordiau.eot);
+		}
+		@font-face { /* for non-IE */
+			font-family:cordiau;
+			src:url(http://:/) format("No-IE-404"),url(cordiau.ttf) format("truetype");
+		}
         p{
             margin:10px;
             height: 150px;
@@ -21,6 +29,8 @@
         }
         *{margin: 0; padding:0;}
         body{
+			font-size: 1.3em;
+			font-family:cordiau;
             background:url(back.jpg) fixed;
             background-size: cover;
             transition:background linear 3s;
@@ -28,7 +38,7 @@
             width:840px;
         }
         #photoHolder h2{
-            margin:10px;
+            margin:0px;
         }
         img:active{
             position: absolute;
@@ -46,12 +56,11 @@
            transition: all ease-in-out 0.1s;
         }
         .download:hover{
-            transform: scale(1.2);
-            box-shadow:7px 7px 10px black;
+			color:white;
+			background:black;
         }
         .download:active{
-        transform: scale(2);
-        box-shadow:14px 14px 10px black;    
+			background:gray;
         }
         #photoHolder{
             margin:5px;
