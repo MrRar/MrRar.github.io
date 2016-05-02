@@ -148,6 +148,7 @@
         body{
             padding-top:50px;
             background: url(webStuff/setup.bmp) fixed;
+			background-position: 50% 0px;
         }
         nav a{
             width:24%; 
@@ -162,6 +163,7 @@
             height:50px;
             position:fixed;
             top:0;
+			background: gray;
             background:linear-gradient(#b4b5b5 0px, #8b8c8c 1px, #4d4f4f 25px, #131415 25px, #131415 50px, #303030 50px, #444444 80px, #444444 100%);
         }
         #button{
@@ -308,16 +310,19 @@
     </audio>
     <img src="webStuff/logo.gif" id="logo" width="100%"/>
     <p id="block1">
-        Welcome to Mr. Rar's (Johannes Fritz) website. 
-        Right now this site is under active development. 
-        I am going to change and add things as time goes on. 
+        Welcome to Mr. Rar's (Johannes Fritz) website.
+		Here you can access my Manic Digger mods and make your own Manic Digger mods using the mod creator. 
+        You can also play Spashal; but keep in mind that it is in alpha so some features may not exist or work.
+		You can also access all my newest wallpapers.
+		Have fun!
         
     <img src="webStuff/DSCF7821.gif" width="800px" height="1102px" usemap="#map" id="speakers"/>
     </p>
     <div id="block2">
         <div id="y2kHolder">
             <div id="y2k">
-                <p id="year">00</p><p id="dateTime">January 1 1:00</p>
+                <p id="year">00</p>
+				<p id="dateTime">January 1 1:00</p>
             </div>
         </div>
         <div id="lightsHolder">
@@ -330,7 +335,7 @@
                 <div class="light"></div>
             </div>
         </div>
-        <div id="usage">Cookies or Javascipt don't seem to be working.</div>
+        <div id="usage">Javascipt doesn't seem to be working.</div>
     </div>
     <map name="map">
         <area shape="rect" coords="92,217,161,277" onclick="next();"/>
@@ -342,7 +347,7 @@
     <img src="webStuff/desk.jpg" width="100%" id="desk" onload="SEresize()"/>
     </div>
     
-    <script src="https://apis.google.com/js/plusone.js"></script>
+    <!--script src="https://apis.google.com/js/plusone.js"></script>
     <div id="comments"></div>
     <script>
         gapi.comments.render('comments', {
@@ -351,7 +356,7 @@
         first_party_property: 'BLOGGER',
         view_type: 'FILTERED_POSTMOD'
         });
-    </script>
+    </script-->
 	<div id="computron">
 		<div id="compuX" onclick="compuClose()">X</div>
 		<img src="webStuff/computronLogo.gif" width="80%"/>
@@ -384,6 +389,10 @@
             document.getElementById("scriptEnter").value = eval(document.getElementById("scriptEnter").value)+"\b";
     }
 }, false);
+document.body.onscroll = function(){
+	var yPos = -document.body.scrollTop*0.4;
+document.body.style.backgroundPosition = '50% '+ yPos + 'px';
+}
 function resetTime() {
     var now = new Date();
     var date;
@@ -434,7 +443,7 @@ function pausePlay(){
 }
 function lights(){
     var lights = document.querySelectorAll(".light");
-    for(i in lights){
+    for(var i in lights){
         var random = Math.floor((Math.random() * 2) + 1);
         if(random == 1 )lights[i].style = "background-position:left";
         else lights[i].style = "background-position:right"; 
