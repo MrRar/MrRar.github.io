@@ -49,16 +49,13 @@
                 src:url(images/Uniavg16.ttf);
 			}
 			canvas{
+				cursor:crosshair;/* for IE */
 				cursor:url(images/crosshair.png) 8 8, auto;
                 image-rendering: pixelated;
                 margin:0;
                 padding:0;
                 float:right;
 			}
-			#nav{
-                visibility:hidden;
-                position:absolute;
-            }
 			button, a{
                 cursor:pointer;
             }
@@ -91,9 +88,6 @@
 			#startButton:hover{
                 transform:scale(1.2);
 			}
-			#startButton:active{
-                transform: scale(0);
-			}
 			body{
                 font-family:"avg";
                 margin:0 auto;
@@ -103,6 +97,15 @@
 				color:white;
 				font-size: 25pt;
 				text-align: center;
+			}
+			#shieldButton{
+				width: 50px;
+				height: 50px;
+				border-radius: 100%;
+				background: blue;
+				position: absolute;
+				bottom: 50px;
+				right: 50px;
 			}
 		</style>
 	</head>
@@ -114,63 +117,146 @@
 		<audio id="engineFail" src="images/engineFail.wav" style="display:none"></audio>
         <audio id="intro" src="images/Androids.mp3" style="display:none" autoplay loop ></audio>
         <header>
-		  <marquee>Keyboard shortcuts: P=pause M=menu S=screen shot F= full-screen</marquee>
-		  <button onclick="buttonSound(); location.reload()">MAIN MENU</button>
-		  <button onclick="buttonSound(); pausePlay()" id="pausePlay">PAUSE</button>
-		  <button onclick="buttonSound(); fullScreen()">FULL-SCREEN</button>
-		  <button onclick="buttonSound(); download()">SCREEN SHOT</button>
+		  <marquee>Keyboard shortcuts: P=pause M=menu S=screen-shot F=full-screen</marquee>
+		  <button id="menuButton">MAIN-MENU</button>
+		  <button id="pausePlay">PAUSE</button>
+		  <button id="fsButton">FULL-SCREEN</button>
+		  <button id="ssButton" >SCREEN-SHOT</button>
         </header>   
         <div id="startScreen">
 		  <img id="logo" src="images/logo.gif" width="100%"/>
-		  <img src="images/play.jpg" id="startButton" onmousedown="buttonSound(); startGame(); document.body.removeChild(document.getElementById('startScreen'));"/>
+		  <img src="images/play.jpg" id="startButton"/>
 			<p id="highScore">Javascript is not working.</p>
         </div>
         <canvas></canvas>
-        <img id="nav" src="images/nav.png"/>
         <script>
+//////////////////////////////////////////////////////////////////////////////////////////game input
 var touch={startX:0,startY:0,x:0,y:0};
 var click={x:0,y:0};
-var mShots=[];
-var hShots = [];
-var modifier;
-var shield = 196;
-var nav = document.getElementById("nav");
-function navSet() {
-	nav.style.top = (touch.startY-75)+"px";
-	nav.style.left= (touch.startX-75)+"px";
-	nav.style.visibility = "visible";
+document.getElementById("startButton").onclick = function () {
+	buttonSound();
+	startGame();
+	document.body.removeChild(document.getElementById('startScreen'));
+}
+document.getElementById("menuButton").onclick = function () {
+	this.blur();
+	buttonSound();
+	location.reload();
+}
+document.getElementById("pausePlay").onclick = function () {
+	this.blur();
+	buttonSound();
+	pausePlay();
+}
+document.getElementById("fsButton").onclick = function () {
+	this.blur();
+	buttonSound();
+	fullScreen();
+}
+document.getElementById("ssButton").onclick = function () {
+	this.blur();
+	buttonSound();
+	download();
+}
+var keysDown = {};
+//key down
+addEventListener("keydown", function (e) {
+	switch(e.keyCode){
+	case 80: case 179: pausePlay(); break;
+	case 70: fullScreen(); break;
+	case 77: location.reload(); break;
+	default :keysDown[e.keyCode] = true;
 	}
-function navMove() {
-	nav.style.visibility = "hidden";
-	}
-function TouchStart(e) {
+}, true);
+//key up
+addEventListener("keyup", function (e) {
+	delete keysDown[e.keyCode];
+}, true);
+// contextmenu
+document.addEventListener("contextmenu", function(e) {
+	e.preventDefault(); }, true);
+//touch start
+document.querySelector("canvas").addEventListener("touchstart",  function(e) {
 	e.preventDefault();
-	touch.startX = e.changedTouches[0].clientX;
-	touch.startY = e.changedTouches[0].clientY;
-	navSet();
+	var x = e.changedTouches[0].clientX;
+	var y = e.changedTouches[0].clientY-50;
+	var bx = canvas.width-175;
+	var by = canvas.height-100;
+	var rx = canvas.width-100;
+	var ry = canvas.height-100;
+	var button = false;
+	if(x <= (bx + 75)&& x >= bx&& y <= (by + 75)&& y >= by){//shield
+	button = true;
+		}
+	if(x <= (rx + 75)&& x >= rx&& y <= (ry + 75)&& y >= ry){//shoot
+	button=true;
+		}
+	if(!button){
+	nav.x = x-75;
+	nav.y = y-75;
+	nav.isVisible = true;
 	}
-function TouchMove(e) {
+	}, true);
+//touch move
+document.querySelector("canvas").addEventListener("touchmove", function(e) {
 	e.preventDefault();
-	touch.x = e.changedTouches[0].clientX-touch.startX;
-	touch.y = e.changedTouches[0].clientY-touch.startY;
+	var x = e.changedTouches[0].clientX;
+	var y = e.changedTouches[0].clientY-50;
+	var bx = canvas.width-175;
+	var by = canvas.height-100;
+	var rx = canvas.width-100;
+	var ry = canvas.height-100;
+	var button = false;
+	if(x <= (bx + 75)&& x >= bx&& y <= (by + 75)&& y >= by){//shield
+	button = true;
+		}
+	if(x <= (rx + 75)&& x >= rx&& y <= (ry + 75)&& y >= ry){//shoot
+	button = true;
+		}
+		if(!button){
+	touch.x = x-75-nav.x;
+	touch.y = y-75-nav.y;
 	if(touch.y>60)touch.y=60;
 	if(touch.x>60)touch.x=60;
 	if(touch.y<-60)touch.y=-60;
 	if(touch.x<-60)touch.x=-60;
+	touch.y= touch.y*2;
+	touch.x= touch.x*2;
 	}
-function TouchEnd(e){
+	}, true);
+//touch end
+document.querySelector("canvas").addEventListener("touchend", function(e){
 	e.preventDefault();
-	touch.y=0; touch.x=0; navMove();
+	var x = e.changedTouches[0].clientX;
+	var y = e.changedTouches[0].clientY-50;
+	var bx = canvas.width-175;
+	var by = canvas.height-100;
+	var rx = canvas.width-100;
+	var ry = canvas.height-100;
+	var button = false;
+	if(x <= (bx + 75)&& x >= bx&& y <= (by + 75)&& y >= by){//shield
+	button = true;
+	if(32 in keysDown){
+				delete keysDown[32]
+			}
+			else{
+			keysDown[32] = true;
+			}
+		}
+	if(x <= (rx + 75)&& x >= rx&& y <= (ry + 75)&& y >= ry){//shoot
+	button = true;
+	autoShoot();
+		}
+	if(!button){
+	touch.y=0;
+	touch.x=0;
+	nav.isVisible = false;
 	}
-
-document.addEventListener("contextmenu", function(e) { e.preventDefault(); });
-document.querySelector("canvas").addEventListener("touchstart", TouchStart, false);
-document.querySelector("canvas").addEventListener("touchmove", TouchMove, false);
-document.querySelector("canvas").addEventListener("touchend", TouchEnd, false);
+	}, true);
 //document.querySelector("#startButton").onmouseup = function(){touch.startX=event.clientX; touch.startY=event.clientY;}
 //document.querySelector("canvas").onmousemove = function(event) {touch.x=event.clientX-touch.startX; touch.y=event.clientY-touch.startY;}
-document.querySelector("canvas").onclick = function(event) {
-	if(!paused && hero.shots){
+document.querySelector("canvas").addEventListener("click", function(event) {
+	if(!paused && hero.shots){//hero shoots
 		shotSound();
 	    var s = hShots.length;
         hShots[s] = {};
@@ -183,10 +269,8 @@ document.querySelector("canvas").onclick = function(event) {
         hShots[s].movementY = (y+8-hShots[s].y)/(Math.sqrt((hShots[s].x-x)*(hShots[s].x-x)+(hShots[s].y-y)*(hShots[s].y-y))/speed);
 		hero.shots--;
 	}
-}
+}, true);
 //document.querySelector("html").onmouseup = function() {touch.y=0; touch.x=0; navSet();}
-//if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMoble|WindowsPhone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {}
-//else{}
 var paused = false;
 var loadedItems=0;
 var canvas = document.querySelector("canvas");
@@ -195,14 +279,22 @@ var marquee = document.querySelector("marquee");
 marquee.style.width = (window.innerWidth-380)+"px";
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight-40;
-
+var mobile = false;
+if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMoble|WindowsPhone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+	mobile = true;
+}
 document.body.onresize=function(){
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight-40;
 	marquee.style.width = (window.innerWidth-380)+"px";
 }
+////////////////////////////////////////////////////////////////////////////////////////////////load game graphics
+// nav image
+var navImage = new Image();
+navImage.onload = function () {loadedItems++;};
+navImage.src = "images/nav.png";
 
-// shot image
+// shot images
 var hShotImage = new Image();
 hShotImage.onload = function () {loadedItems++;};
 hShotImage.src = "images/hShot.png";
@@ -215,14 +307,14 @@ var bgImage = new Image();
 bgImage.onload = function () {loadedItems++;mainMenu();};
 bgImage.src = "images/background.jpg";
 
-// Hero image
+// Hero images
 var heroImage =[];
 for(var i=0; i<3; i++) {
 	heroImage[i] = new Image();
 	heroImage[i].onload = function () {loadedItems++;};
 	heroImage[i].src = "images/hero"+i+".png";
 }
-// Monster image
+// Monster images
 var monsterImage=[];
 for(var i=0; i<11; i++) {
 monsterImage[i] = new Image();
@@ -230,56 +322,30 @@ monsterImage[i].onload = function () {loadedItems++;};
 monsterImage[i].src = "images/monster"+i+".png";
 }
 
-// Game objects
+// Game objects and arrays
+var mShots=[];
+var hShots = [];
+var modifier;
+var shield = 196;
 var hero = {speed: 200, isDieing: false, image:0, shots:0};
+var nav = {isVisible: false, x:0, y:0};
 var monsters = [];
 var monstersCaught = 0;
 
-// Handle keyboard controls
-var keysDown = {};
-
-addEventListener("keydown", function (e) {
-	switch(e.keyCode){
-	case 80: case 179: pausePlay(); break;
-	case 70: fullScreen(); break;
-	case 77: location.reload(); break;
-	default :keysDown[e.keyCode] = true;
-	}
-}, false);
-
-addEventListener("keyup", function (e) {
-	delete keysDown[e.keyCode];
-}, false);
-// Reset the game when the player dies
-var reset = function () {
-	hero.x = canvas.width / 2-32;
-	hero.y = canvas.height / 2-32;
-	hero.isDieing = false;
-	hShots = [];
-	mShots = [];
-	// Throw the monsters somewhere on the screen randomly
-	for( i in monsters)
-	{
-		monsters[i].x = (Math.random() * (canvas.width - 64));
-		monsters[i].y = (Math.random() * (canvas.height - 64));
-    	monsters[i].movementY=((Math.random() * 200)-99);
-		monsters[i].movementX=((Math.random() * 200)-99);
-		monsters[i].image=1;
-	}
-};
-var FPS, frames = 0;
-function FPScounter() {FPS=frames; frames=0;}
-	setInterval("FPScounter()", 1000);
-var RAN=0, wavingHand=0, explosion=0;
+////////////////////////////////////////////////////////////////////////////////////////////////FPS stuff
+//var FPS, frames = 0;
+//function FPScounter() {FPS=frames; frames=0;}
+//setInterval("FPScounter()", 1000);
 
 //////////////////////////////////////////////////////////////////////////////////////////////// Update game objects
+var RAN=0, wavingHand=0, explosion=0;
 var update = function () {
-	frames++;
+	//frames++;
 	switch(hero.image){
 		case 0: if(shield < 196) shield+=100*modifier;
 			else shield = 196
 		break;
-		case 1: shield-=90*modifier;
+		case 1: shield-=50*modifier;
 			if(shield<1){ delete keysDown[32]; shield = 0; }
 		break;
 	}
@@ -374,11 +440,14 @@ var update = function () {
 		}
 	}
 	// Are they touching?
-	/*if (hero.x <= (monsters[i].x + 64)&& monsters[i].x <= (hero.x + 64)&& hero.y <= (monsters[i].y + 64)&& monsters[i].y <= (hero.y + 64)&&monsters[i].image<2) {
-		++monstersCaught;
+	if (hero.x <= (monsters[i].x + 64)&& monsters[i].x <= (hero.x + 64)&& hero.y <= (monsters[i].y + 64)&& monsters[i].y <= (hero.y + 64)&&monsters[i].image<2) {
 		explosionSound();
+		monstersCaught++;
 		monsters[i].image = 2;
-	}*/
+		if(!hero.image){
+			hero.image = 2;
+		}
+	}
 	if(monsters[i].image > 1){
 		//explostion
 		if(!explosion){
@@ -408,7 +477,7 @@ var render = function () {
     }
     for(i in hShots){
         ctx.drawImage(hShotImage, Math.round(hShots[i].x), Math.round(hShots[i].y));
-    }
+   }
 	// Score
 	ctx.fillStyle = '#FFF';
 	ctx.font = "24px avg";
@@ -418,6 +487,15 @@ var render = function () {
   	ctx.fillRect(32,32,200,16);
   	ctx.fillStyle = '#00F';
   	ctx.fillRect(34,34,shield,12);//max 196
+  if(mobile){
+      ctx.fillStyle = '#F00';
+      ctx.fillRect(canvas.width-100,canvas.height-100,75,75);
+      ctx.fillStyle = '#00F';
+      ctx.fillRect(canvas.width-175,canvas.height-100,75,75);
+      if(nav.isVisible){
+		ctx.drawImage(navImage, nav.x, nav.y);
+	}
+      }
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////// The main game loop
 var main = function () {
@@ -437,6 +515,7 @@ var main = function () {
 var w = window;
 requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 
+/////////////////////////////////////////////////////////////////////////////////////////////////// main menu
 var bgX=0, bgY=0, phase=1,showingMainMenu=true;
 function mainMenu() {
 	var maxY = canvas.height-2000;
@@ -466,12 +545,12 @@ case 4:
     if(showingMainMenu) requestAnimationFrame(mainMenu);
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////// Let's play this game!
+////////////////////////////////////////////////////////////////////////////////////////////////////// start game
 var then = Date.now();
 function startGame()  {
 	paused = false;
 	showingMainMenu=false;
-	if(loadedItems == 17) {
+	if(loadedItems == 18) {
 		document.getElementById("intro").pause();
 		document.getElementById("SC1").play();
 		reset(); main();
@@ -483,7 +562,7 @@ function startGame()  {
 		ctx.font = "24px avg";
 		ctx.textAlign = "left";
 		ctx.textBaseline = "top";
-		ctx.fillText(17-loadedItems+" things left to load", canvas.width/2-130, canvas.height/2-40);
+		ctx.fillText(18-loadedItems+" things left to load", canvas.width/2-130, canvas.height/2-40);
 		requestAnimationFrame(startGame);
 	}
 }
@@ -517,7 +596,7 @@ var canvas = document.querySelector("canvas");
         lnk.fireEvent("onclick");
     }
 }
-///////////////////////////////////////////////////////////////////////////////////////// go full-screen
+///////////////////////////////////////////////////////////////////////////////////////// misc functions
 function fullScreen() {
 	if (canvas.requestFullscreen) {
 		canvas.requestFullscreen();
@@ -551,7 +630,7 @@ function pausePlay() {
 	}
 	else{
 		notify("Spashal is paused. To unpause press the play button or press P on your keyboard.");
-		document.getElementById("pausePlay").innerHTML="PLAY"; 
+TML="PLAY"; 
 		paused=true;
 	}
 }
@@ -560,9 +639,15 @@ function notify(p){
 }
 function newMonster(){
 	var i = monsters.length;
+	var x = (Math.random() * (canvas.width - 64));
+	var y = (Math.random() * (canvas.height - 64));
+	while((x+80)>hero.x && x < (hero.x+80) && (y+80)>hero.y && y < (hero.y+80) ){
+		x = (Math.random() * (canvas.width - 64));
+		y = (Math.random() * (canvas.height - 64));
+	}
 	monsters[i] = {};
-	monsters[i].x = (Math.random() * (canvas.width - 64));
-	monsters[i].y = (Math.random() * (canvas.height - 64));
+	monsters[i].x = x;
+	monsters[i].y = y;
     monsters[i].movementY=((Math.random() * 200)-99);
 	monsters[i].movementX=((Math.random() * 200)-99);
 	monsters[i].image=Math.floor((Math.random() * 2));
@@ -608,6 +693,68 @@ function getCookie(c_name){
 		} 
 	}
 	return "";
+}
+// Reset the game when the player dies
+var reset = function () {
+	hero.x = canvas.width / 2-32;
+	hero.y = canvas.height / 2-32;
+	hero.isDieing = false;
+	hShots = [];
+	mShots = [];
+	// Throw the monsters somewhere on the screen randomly
+	for( i in monsters)
+	{
+		monsters[i].x = (Math.random() * (canvas.width - 64));
+		monsters[i].y = (Math.random() * (canvas.height - 64));
+    	monsters[i].movementY=((Math.random() * 200)-99);
+		monsters[i].movementX=((Math.random() * 200)-99);
+		monsters[i].image=1;
+	}
+};
+function autoShoot(){
+		if(!paused && hero.shots){//hero shoots
+		var m = undefined;
+		var nearest = 10000;
+		for(i in monsters){
+			var dis = Math.abs(hero.x-monsters[i].x)+Math.abs(hero.x-monsters[i].x);
+			if(dis < nearest) {m =i; nearest=dis;}
+			}
+			if(m != undefined){
+		shotSound();
+	    var s = hShots.length;
+        hShots[s] = {};
+        hShots[s].x = hero.x+13;
+        hShots[s].y = hero.y+2;
+		var x = monsters[m].x+32;
+		var y = monsters[m].y+32;
+	    var speed = 350;
+        hShots[s].movementX = (x-hShots[s].x)/(Math.sqrt((hShots[s].x-x)*(hShots[s].x-x)+(hShots[s].y-y)*(hShots[s].y-y))/speed);
+        hShots[s].movementY = (y+8-hShots[s].y)/(Math.sqrt((hShots[s].x-x)*(hShots[s].x-x)+(hShots[s].y-y)*(hShots[s].y-y))/speed);
+		hero.shots--;
+		}
+	}
+}
+function mControls() {
+	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMoble|WindowsPhone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+		if (mcOpen){
+			document.body.removeChild(document.getElementById("shieldButton"));
+			mcOpen = false;
+		}
+		else{
+		var shieldButton = document.createElement("button");
+		shieldButton.setAttribute("id","shieldButton");
+		document.body.appendChild(shieldButton);
+		mcOpen = true;
+		shieldButton.addEventListener("click",function(e){
+			if(32 in keysDown){
+				delete keysDown[32]
+			}
+			else{
+			keysDown[32] = true;
+			}
+			}, true);
+		}
+	}
 }
 		</script>
 	</body>
