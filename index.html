@@ -3,12 +3,30 @@
 <head>
     <meta charset="utf-8"/>
     <title>Mr. Rar's Website</title>
+    <meta type="theme-color" content="darkred"/>
     <link rel="shortcut icon" href="webStuff/favicon.png"/>
     <meta type="author" content="Mr. Rar"/>
     <meta type="keywords" content="website, rar, Mr. Rar"/>
     <meta type="description" content="Mr. Rar's Website"/>
     <meta name="viewport" content="width=device-width,initial-scale=0.9,maximum-scale=0.9,user-scalable=no"/>
         <style>
+		#tv{
+			margin: 10%;
+			float: left;
+		}
+		#tv img{
+			
+		}
+		#tv iframe{
+			transform: rotate(5deg);
+			transform: skewX(30deg);
+			transform: skewY(9deg);
+			position: absolute;
+			margin-left: 15%;
+			margin-top: 19%;
+			width: 35%;
+			height: 30%;
+		}
         #block2{
             float: left;
             width:100%;
@@ -63,7 +81,7 @@
             line-height:20px;
             font-size:30pt;
             text-align: center;
-            font-family: "cordiau"
+            font-family: "cordiau";
             text-shadow: 0 0 10px black;
         }
         #year{
@@ -205,9 +223,9 @@
 			float: left;
 		}
 		#compuX{
+			font-size: 2em;
 			width:50px;
 			height: 50px;
-			background: red;
 			position: fixed;
 			top:0px;
 			right: 20px;
@@ -344,9 +362,12 @@
     </map>
     <div style="float:left; height:auto">
     <textarea id="scriptEnter"></textarea>
-    <img src="webStuff/desk.jpg" width="100%" id="desk" onload="SEresize()"/>
+    <img src="webStuff/desk.jpg" width="100%" id="desk"/>
     </div>
-    
+	<div id="tv">
+    <iframe src="http://www.youtube.com/embed/LAFl3a2nUgk/controls=2"></iframe>
+	<img width="100%" src="webStuff/tv.png"/>
+	</div>
     <script src="https://apis.google.com/js/plusone.js"></script>
     <div id="comments"></div>
     <script>
@@ -389,7 +410,7 @@
             document.getElementById("scriptEnter").value = eval(document.getElementById("scriptEnter").value)+"\b";
     }
 }, false);
-document.body.onscroll = function(){
+document.body.onscroll = function(){/////////////////////////////////////////////////////////scroll
 	var yPos = -document.body.scrollTop*0.4;
 document.body.style.backgroundPosition = '50% '+ yPos + 'px';
 }
@@ -450,15 +471,19 @@ function lights(){
     }
 }
 setInterval(lights,500);
-document.body.onresize = function() {
+document.onresize = function() {///////////////////////////on document resize
 var SE = document.getElementById("scriptEnter");
 var desk = document.getElementById("desk");
+var video = document.querySelector("iframe");
+video.style.height = video.clientWidth/3*2+"px";
 SE.style.height = desk.height*0.12+"px";
 }
-function SEresize() {
+document.body.onload = function() {///////////////////////////on document load
 var SE = document.getElementById("scriptEnter");
 var desk = document.getElementById("desk");
 SE.style.height = desk.height*0.12+"px";
+var video = document.querySelector("iframe");
+video.style.height = video.clientWidth*0.8+"px";
 }
 function getCookie(c_name){
 	if (document.cookie.length>0){
