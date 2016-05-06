@@ -8,7 +8,7 @@ Sorry, the code is rather messy.
 <head>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" href="modStuff/fav.png">
-	<meta type="color-theme" content="#D4FFB9">
+	<meta type="theme-color" content="#D4FFB9">
 	<meta type="author" content="Mr. Rar">
 	<meta type="keywords" content="Manic Digger, mod, create, creator">
 	<meta type="description" content="create your own Manic Digger mod (no programming knowledge requierd)">
@@ -58,6 +58,7 @@ Sorry, the code is rather messy.
 		margin:0 30px;
     }
 	#tipsWindow{
+        overflow-y: scroll;
 		display:none;
 		text-shadow:none;
 		width:100%;
@@ -247,7 +248,7 @@ Sorry, the code is rather messy.
 
 </code>
 </pre>
-<div id="tipsWindow"><h1>Directions &amp; Tips</h1><div id="tipsClose" onclick="document.getElementById('tipsWindow').style.display='none'">x</div><br>
+<div id="tipsWindow"><h1>Directions &amp; Tips</h1><div id="tipsClose" onclick="document.getElementById('tipsWindow').style.display='none';document.body.style.overflowY='auto';">x</div><br>
 <h2>Block Ids</h2>
 <p>Block IDs are numbers that Manic Digger uses to distinguish different blocks. 
 The IDs that you choose must not only be different from each other, but also all other blocks in 
@@ -323,6 +324,7 @@ var editor = document.querySelector("#modHolder");
           document.querySelector("nav").style.background = "rgba("+r+","+g+","+b+","+0.5+")";
           }
        function directions() {
+          document.body.style.overflowY="hidden";
           document.getElementById('tipsWindow').style.display='block';
            }
 /**
@@ -419,6 +421,7 @@ function downloadMod() {
         lnk.fireEvent("onclick");
     }
 }
+
 </script>
 </body>
 </html>
