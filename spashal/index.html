@@ -1,152 +1,187 @@
 <!DOCTYPE html>
 <html lang="en" style="/*background:radial-gradient(yellow, green);*/">
-	<head>
-		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-		<meta charset="utf-8">
-		<title>Spashal</title>
-		<link rel="shortcut icon" href="images/fav.png">
-		<meta type="author" content="Mr. Rar">
-		<meta type="keywords" content="retro, space, spashal, alien, game, canvas">
-		<meta type="description" content="SPASHAL the original game">
-		<meta type="color-theme" content="000000">
-		<style>
-			*{
-				-webkit-touch-callout:none;
-                -webkit-user-select:none;
-                -khtml-user-select:none;
-                -ms-user-select:none;
-                user-select:none;
-			}
-			header{
-				background: black;
-                visibility:hidden;
-                height:40px;
-                overflow:hidden;
-			}
-			marquee{
-                display:inline-block;
-                float:left;
-                font-size:20pt;
-                color:white;
-            }
-			button{
-                background:black;
-                color:white;
-                height:40px;
-                float:right;
-                font-family:avg;
-                font-size:12pt;
-                border:none;
-			}
-			html,body{
-                border:0;
-                padding:0;
-                background:black;
-                cursor:url(images/mousecursor.png), auto;
-			}
-			@font-face{
-                font-family:avg;
-                src:url(images/Uniavg16.ttf);
-			}
-			canvas{
-				cursor:crosshair;/* for IE */
-				cursor:url(images/crosshair.png) 8 8, auto;
-                image-rendering: pixelated;
-                margin:0;
-                padding:0;
-                float:right;
-			}
-			button, a{
-                cursor:pointer;
-            }
-			#startScreen{
-                top:0;
-                left:0;
-                width:100%;
-                height:100%;
-                position:absolute;
-			}
-			#overScreen{
-                top:0;
-                left:0;
-                width:100%;
-                height:100%;
-                position:absolute;
-			}
-			#gameOver{
-				font-size: 100px;
-				width:100%;
-				text-align: center;
-				color:white;
-			}
-			#startButton{
-                display:inline-block;
-                margin:10% 40% 0 40%;
-                width:20%;
-                transition: all 0.1s ease-in;
-			}
-			#startButton:hover{
-                transform:scale(1.2);
-			}
-			body{
-                font-family:"avg";
-                margin:0 auto;
-			}
-			#highScore{
-				width:100%;
-				color:white;
-				font-size: 25pt;
-				text-align: center;
-			}
-			#shieldButton{
-				width: 50px;
-				height: 50px;
-				border-radius: 100%;
-				background: blue;
-				position: absolute;
-				bottom: 50px;
-				right: 50px;
-			}
-		</style>
-	</head>
-	<body>
-        <audio id="SC1" src="images/Star%20Commander1.mp3" style="display:none" loop></audio>
-        <audio id="clickSound" src="images/SOUND16.WAV" style="display:none"></audio>
-        <audio id="explosionSound" src="images/explosion.mp3" style="display:none"></audio>
-		<audio id="shotSound" src="images/SOUND49D.WAV" style="display:none"></audio>
-		<audio id="engineFail" src="images/engineFail.wav" style="display:none"></audio>
-        <audio id="intro" src="images/Androids.mp3" style="display:none" autoplay loop ></audio>
-        <header>
-		  <marquee>Keyboard shortcuts: P=pause M=menu S=screen-shot F=full-screen</marquee>
-		  <button id="menuButton">MAIN-MENU</button>
-		  <button id="pausePlay">PAUSE</button>
-		  <button id="fsButton">FULL-SCREEN</button>
-		  <button id="ssButton" >SCREEN-SHOT</button>
-        </header>   
-        <div id="startScreen">
-		  <img id="logo" src="images/logo.gif" width="100%"/>
+
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta charset="utf-8">
+    <title>Spashal</title>
+    <link rel="shortcut icon" href="images/fav.png">
+    <meta type="author" content="Mr. Rar">
+    <meta type="keywords" content="retro, space, spashal, alien, game, canvas">
+    <meta type="description" content="SPASHAL the original game">
+    <meta type="theme-color" content="black">
+    <style>
+        #logo {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+        
+        * {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        header {
+            background: black;
+            visibility: hidden;
+            height: 40px;
+            overflow: hidden;
+        }
+        
+        marquee {
+            display: inline-block;
+            float: left;
+            font-size: 20pt;
+            color: white;
+        }
+        
+        button {
+            background: black;
+            color: white;
+            height: 40px;
+            float: right;
+            font-family: avg;
+            font-size: 12pt;
+            border: none;
+        }
+        
+        html,
+        body {
+            border: 0;
+            padding: 0;
+            background: black;
+            cursor: url(images/mousecursor.png), auto;
+        }
+        
+        @font-face {
+            font-family: avg;
+            src: url(images/Uniavg16.ttf);
+        }
+        canvas{
+            image-rendering: pixelated;
+            margin: 0;
+            padding: 0;
+            float: right;
+        }
+        .screen3 {
+            cursor: crosshair;/* for IE */
+            cursor: url(images/crosshair.png) 8 8, auto;
+        }
+        button,
+        a {
+            cursor: pointer;
+        }
+        
+        #startScreen {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+        
+        #overScreen {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+        
+        #gameOver {
+            font-size: 100px;
+            width: 100%;
+            text-align: center;
+            color: white;
+        }
+        
+        #startButton {
+            display: inline-block;
+            margin: 10% 40% 0 40%;
+            width: 20%;
+            transition: all 0.1s ease-in;
+        }
+        
+        #startButton:hover {
+            transform: scale(1.2);
+        }
+        
+        body {
+            font-family: "avg";
+            margin: 0 auto;
+        }
+        
+        #highScore {
+            width: 100%;
+            color: white;
+            font-size: 25pt;
+            text-align: center;
+        }
+        
+        #shieldButton {
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            background: blue;
+            position: absolute;
+            bottom: 50px;
+            right: 50px;
+        }
+        
+        h1 {
+            color: white;
+            margin-top: 30%;
+            width: 100%;
+            text-align: center;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <audio id="SC1" src="images/Star%20Commander1.mp3" style="display:none" loop></audio>
+    <audio id="clickSound" src="images/SOUND16.WAV" style="display:none"></audio>
+    <audio id="explosionSound" src="images/explosion.mp3" style="display:none"></audio>
+    <audio id="shotSound" src="images/SOUND49D.WAV" style="display:none"></audio>
+    <audio id="engineFail" src="images/engineFail.wav" style="display:none"></audio>
+    <audio id="intro" src="images/Androids.mp3" style="display:none" autoplay loop></audio>
+    <header>
+        <marquee truespeed="true" scrolldelay="60">Keyboard shortcuts: P=pause M=menu S=screen-shot F=full-screen</marquee>
+        <button id="menuButton">MAIN-MENU</button>
+        <button id="pausePlay">PAUSE</button>
+        <button id="fsButton">FULL-SCREEN</button>
+        <button id="ssButton">SCREEN-SHOT</button>
+    </header>
+    <!--div id="startScreen">
 		  <img src="images/play.jpg" id="startButton"/>
 			<p id="highScore">Javascript is not working.</p>
-        </div>
-        <canvas></canvas>
-        <script>
-//////////////////////////////////////////////////////////////////////////////////////////game input
+        </div-->
+    <img id="logo" src="images/logo.gif" width="100%" />
+    <canvas>
+        <h1>Your browser does not support html5 canvas.</h1>
+    </canvas>
+    <script>
+        //////////////////////////////////////////////////////////////////////////////////////////game input
 var touch={startX:0,startY:0,x:0,y:0};
 var click={x:0,y:0};
-document.getElementById("startButton").onclick = function () {
+/*document.getElementById("startButton").onclick = function () {
 	buttonSound();
-	startGame();
-	document.body.removeChild(document.getElementById('startScreen'));
-}
+	document.getElementById('startScreen').style.width = 0;
+	screen2();
+}*/
 document.getElementById("menuButton").onclick = function () {
 	this.blur();
 	buttonSound();
-	location.reload();
+    screen1();
 }
 document.getElementById("pausePlay").onclick = function () {
 	this.blur();
 	buttonSound();
-	pausePlay();
+	if(screen = 3) pausePlay();
 }
 document.getElementById("fsButton").onclick = function () {
 	this.blur();
@@ -161,12 +196,16 @@ document.getElementById("ssButton").onclick = function () {
 var keysDown = {};
 //key down
 addEventListener("keydown", function (e) {
-	switch(e.keyCode){
-	case 80: case 179: pausePlay(); break;
-	case 70: fullScreen(); break;
-	case 77: location.reload(); break;
-	default :keysDown[e.keyCode] = true;
-	}
+    switch(screen){
+        case 3:
+	    switch(e.keyCode){
+	    case 80: case 179: pausePlay(); break;
+	    case 70: fullScreen(); break;
+	    case 77: screen1(); break;
+	    default :keysDown[e.keyCode] = true;
+        break;
+	    }
+    }
 }, true);
 //key up
 addEventListener("keyup", function (e) {
@@ -178,97 +217,126 @@ document.addEventListener("contextmenu", function(e) {
 //touch start
 document.querySelector("canvas").addEventListener("touchstart",  function(e) {
 	e.preventDefault();
-	var x = e.changedTouches[0].clientX;
-	var y = e.changedTouches[0].clientY-50;
-	var bx = canvas.width-175;
-	var by = canvas.height-100;
-	var rx = canvas.width-100;
-	var ry = canvas.height-100;
-	var button = false;
-	if(x <= (bx + 75)&& x >= bx&& y <= (by + 75)&& y >= by){//shield
-	button = true;
+    switch(screen){
+        case 1:
+            buttonSound();
+		    screen = 2;
+		    screen2();
+        break;
+        case 3:
+	    var x = e.changedTouches[0].clientX;
+	    var y = e.changedTouches[0].clientY-50;
+	    var bx = canvas.width-175;
+	    var by = canvas.height-100;
+	    var rx = canvas.width-100;
+	    var ry = canvas.height-100;
+	    var button = false;
+	    if(x <= (bx + 75)&& x >= bx&& y <= (by + 75)&& y >= by){//shield
+	        button = true;
+	        keysDown[32] = true;
 		}
-	if(x <= (rx + 75)&& x >= rx&& y <= (ry + 75)&& y >= ry){//shoot
-	button=true;
+	    if(x <= (rx + 75)&& x >= rx&& y <= (ry + 75)&& y >= ry){//shoot
+	        button=true;
 		}
-	if(!button){
-	nav.x = x-75;
-	nav.y = y-75;
-	nav.isVisible = true;
-	}
-	}, true);
+	    if(!button){
+	        nav.x = x-75;
+	        nav.y = y-75;
+	        nav.isVisible = true;
+	    }
+        break;
+    }
+}, true);
 //touch move
 document.querySelector("canvas").addEventListener("touchmove", function(e) {
-	e.preventDefault();
-	var x = e.changedTouches[0].clientX;
-	var y = e.changedTouches[0].clientY-50;
-	var bx = canvas.width-175;
-	var by = canvas.height-100;
-	var rx = canvas.width-100;
-	var ry = canvas.height-100;
-	var button = false;
-	if(x <= (bx + 75)&& x >= bx&& y <= (by + 75)&& y >= by){//shield
-	button = true;
+    e.preventDefault();
+    switch(screen){
+        case 3:
+	    var x = e.changedTouches[0].clientX;
+	    var y = e.changedTouches[0].clientY-50;
+	    var bx = canvas.width-175;
+	    var by = canvas.height-100;
+	    var rx = canvas.width-100;
+	    var ry = canvas.height-100;
+	    var button = false;
+	    if(x <= (bx + 75)&& x >= bx&& y <= (by + 75)&& y >= by){//shield
+	        button = true;
 		}
-	if(x <= (rx + 75)&& x >= rx&& y <= (ry + 75)&& y >= ry){//shoot
-	button = true;
+	    if(x <= (rx + 75)&& x >= rx&& y <= (ry + 75)&& y >= ry){//shoot
+	        button = true;
 		}
 		if(!button){
-	touch.x = x-75-nav.x;
-	touch.y = y-75-nav.y;
-	if(touch.y>60)touch.y=60;
-	if(touch.x>60)touch.x=60;
-	if(touch.y<-60)touch.y=-60;
-	if(touch.x<-60)touch.x=-60;
-	touch.y= touch.y*2;
-	touch.x= touch.x*2;
+	        touch.x = x-75-nav.x;
+	        touch.y = y-75-nav.y;
+	        if(touch.y>60)touch.y=60;
+	        if(touch.x>60)touch.x=60;
+	        if(touch.y<-60)touch.y=-60;
+	        if(touch.x<-60)touch.x=-60;
+	        touch.y= touch.y*2;
+	        touch.x= touch.x*2;
+        }
+        break;
 	}
-	}, true);
+}, true);
 //touch end
 document.querySelector("canvas").addEventListener("touchend", function(e){
 	e.preventDefault();
-	var x = e.changedTouches[0].clientX;
-	var y = e.changedTouches[0].clientY-50;
-	var bx = canvas.width-175;
-	var by = canvas.height-100;
-	var rx = canvas.width-100;
-	var ry = canvas.height-100;
-	var button = false;
-	if(x <= (bx + 75)&& x >= bx&& y <= (by + 75)&& y >= by){//shield
-	button = true;
-	if(32 in keysDown){
-				delete keysDown[32]
-			}
-			else{
-			keysDown[32] = true;
-			}
+    switch(screen){
+        case 3:
+	    var x = e.changedTouches[0].clientX;
+	    var y = e.changedTouches[0].clientY-50;
+	    var bx = canvas.width-175;
+	    var by = canvas.height-100;
+	    var rx = canvas.width-100;
+	    var ry = canvas.height-100;
+	    var button = false;
+	    if(x <= (bx + 75)&& x >= bx&& y <= (by + 75)&& y >= by){//shield
+		    button = true;
+		    delete keysDown[32];
+	    }
+	    if(x <= (rx + 75)&& x >= rx&& y <= (ry + 75)&& y >= ry){//shoot
+		    button = true;
+		    autoShoot();
+	    }
+	    if(!button){
+		    touch.y=0;
+		    touch.x=0;
+		    nav.isVisible = false;
 		}
-	if(x <= (rx + 75)&& x >= rx&& y <= (ry + 75)&& y >= ry){//shoot
-	button = true;
-	autoShoot();
-		}
-	if(!button){
-	touch.y=0;
-	touch.x=0;
-	nav.isVisible = false;
+        break;
+    }
+}, true);
+	document.body.onresize=function(){
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight-40;
+		marquee.style.width = (window.innerWidth-380)+"px";
 	}
-	}, true);
 //document.querySelector("#startButton").onmouseup = function(){touch.startX=event.clientX; touch.startY=event.clientY;}
 //document.querySelector("canvas").onmousemove = function(event) {touch.x=event.clientX-touch.startX; touch.y=event.clientY-touch.startY;}
 document.querySelector("canvas").addEventListener("click", function(event) {
-	if(!paused && hero.shots){//hero shoots
-		shotSound();
-	    var s = hShots.length;
-        hShots[s] = {};
-        hShots[s].x = hero.x+13;
-        hShots[s].y = hero.y+2;
-		var x = event.clientX;
-		var y = event.clientY-50;
-	    var speed = 350;
-        hShots[s].movementX = (x-hShots[s].x)/(Math.sqrt((hShots[s].x-x)*(hShots[s].x-x)+(hShots[s].y-y)*(hShots[s].y-y))/speed);
-        hShots[s].movementY = (y+8-hShots[s].y)/(Math.sqrt((hShots[s].x-x)*(hShots[s].x-x)+(hShots[s].y-y)*(hShots[s].y-y))/speed);
-		hero.shots--;
-	}
+    switch(screen){
+        case 1:
+            buttonSound();
+		    screen2();
+        break;
+        case 3:
+	    if(!paused && hero.shots){//hero shoots
+		    shotSound();
+	        var s = hShots.length;
+            hShots[s] = {};
+            hShots[s].x = hero.x+13;
+            hShots[s].y = hero.y+2;
+		    var x = event.clientX;
+		    var y = event.clientY-50;
+	        var speed = 350;
+            hShots[s].movementX = (x-hShots[s].x)/(Math.sqrt((hShots[s].x-x)*(hShots[s].x-x)+(hShots[s].y-y)*(hShots[s].y-y))/speed);
+            hShots[s].movementY = (y+8-hShots[s].y)/(Math.sqrt((hShots[s].x-x)*(hShots[s].x-x)+(hShots[s].y-y)*(hShots[s].y-y))/speed);
+		    hero.shots--;
+	    }
+        break;
+        case 4:
+        screen2();
+        break;
+    }
 }, true);
 //document.querySelector("html").onmouseup = function() {touch.y=0; touch.x=0; navSet();}
 var paused = false;
@@ -282,11 +350,6 @@ canvas.height = window.innerHeight-40;
 var mobile = false;
 if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMoble|WindowsPhone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
 	mobile = true;
-}
-document.body.onresize=function(){
-	canvas.width = window.innerWidth;
-	canvas.height = window.innerHeight-40;
-	marquee.style.width = (window.innerWidth-380)+"px";
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////load game graphics
 // nav image
@@ -304,7 +367,7 @@ mShotImage.src = "images/mShot.png";
 
 // Background image
 var bgImage = new Image();
-bgImage.onload = function () {loadedItems++;mainMenu();};
+bgImage.onload = function () {loadedItems++;screen1();};
 bgImage.src = "images/background.jpg";
 
 // Hero images
@@ -374,7 +437,7 @@ var update = function () {
 		if(hero.y < 0)hero.y=0;
 	}
 	else{
-		if(hero.y > canvas.height) gameOver(); //depressing, I know.
+		if(hero.y > canvas.height) screen4(); //depressing, I know.
 		hero.y+=400*modifier;
 	}
 	for(i in mShots){
@@ -433,6 +496,7 @@ var update = function () {
 	
 	for(n in hShots){
 		if(monsters[i].x<hShots[n].x+2 && monsters[i].x+64>hShots[n].x+2 && monsters[i].y<hShots[n].y+2 && monsters[i].y+64>hShots[n].y+2 && monsters[i].image < 2){
+        hero.shots++;
 		++monstersCaught;
 		explosionSound();
 		monsters[i].image = 2;
@@ -443,6 +507,7 @@ var update = function () {
 	if (hero.x <= (monsters[i].x + 64)&& monsters[i].x <= (hero.x + 64)&& hero.y <= (monsters[i].y + 64)&& monsters[i].y <= (hero.y + 64)&&monsters[i].image<2) {
 		explosionSound();
 		monstersCaught++;
+        hero.shots++;
 		monsters[i].image = 2;
 		if(!hero.image){
 			hero.image = 2;
@@ -497,27 +562,18 @@ var render = function () {
 	}
       }
 };
-//////////////////////////////////////////////////////////////////////////////////////////////////// The main game loop
-var main = function () {
-	var now = Date.now();
-	var delta = now - then;
-    modifier = delta / 1000;
-	update();
-	render();
-
-	then = now;
-
-	// Request to do this again ASAP
-	if (!paused) { requestAnimationFrame(main); }
-};
-
-// Cross-browser support for requestAnimationFrame
-var w = window;
-requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
-
-/////////////////////////////////////////////////////////////////////////////////////////////////// main menu
-var bgX=0, bgY=0, phase=1,showingMainMenu=true;
-function mainMenu() {
+//////////////////////////////////////////////////////////////////////////////////////////////////// screen loops
+var bgX=0, bgY=0, phase=1, screen=1;
+function screen1(){
+    document.querySelector("canvas").setAttribute("class","");
+    document.querySelector("header").style.visibility = "hidden";
+    document.getElementById('logo').setAttribute("width","100%");
+    document.getElementById("intro").play();
+    document.getElementById("SC1").pause();
+    screen=1;
+	screen1loop();
+}
+function screen1loop() {
 	var maxY = canvas.height-2000;
 	var maxX = canvas.width-2000;
 	switch(phase){
@@ -542,19 +598,29 @@ case 4:
 	if(bgY>=0) phase=1;
 	break;
 	}
-    if(showingMainMenu) requestAnimationFrame(mainMenu);
+    var score = "high score: "+highScore;
+    score.length*canvas.width*0.006;
+	ctx.fillStyle = '#FFF';
+    ctx.font = canvas.width*0.03+"px avg";
+    ctx.fillText(score, canvas.width*0.5-score.length*canvas.width*0.0075, canvas.height*0.7);
+	ctx.fillRect(canvas.width*0.4, canvas.height*0.4, canvas.width*0.2, canvas.width*0.1);
+	ctx.fillStyle = '#000';
+	ctx.font = canvas.width*0.1+"px avg";
+	ctx.textAlign = "left";
+	ctx.textBaseline = "top";
+	ctx.fillText("PLAY", canvas.width*0.402, canvas.height*0.407);
+    if(screen == 1) requestAnimationFrame(screen1loop);
 }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////// start game
-var then = Date.now();
-function startGame()  {
+function screen2()  {
 	paused = false;
-	showingMainMenu=false;
+	screen = 2;
+    document.getElementById("logo").width= "0px";
+    document.querySelector("header").style.visibility = "visible";
+	screen2loop();
+}
+function screen2loop(){
 	if(loadedItems == 18) {
-		document.getElementById("intro").pause();
-		document.getElementById("SC1").play();
-		reset(); main();
-		document.querySelector("header").style.visibility = "visible";
+		screen3();
 	}
 	else{
 		ctx.drawImage(bgImage,0,0);
@@ -563,9 +629,85 @@ function startGame()  {
 		ctx.textAlign = "left";
 		ctx.textBaseline = "top";
 		ctx.fillText(18-loadedItems+" things left to load", canvas.width/2-130, canvas.height/2-40);
-		requestAnimationFrame(startGame);
+		requestAnimationFrame(screen2loop);
 	}
 }
+function screen3() {
+    document.getElementById("intro").pause();
+    document.getElementById("SC1").play();
+    screen = 3;
+    canvas.setAttribute("class","screen3");
+	hero.x = canvas.width / 2-32;
+	hero.y = canvas.height / 2-32;
+    hero.image = 0;
+	hero.isDieing = false;
+    hero.shots = 0;
+    monstersCaught = 0;
+	hShots = [];
+	mShots = [];
+	monsters = [];
+    newMonster();
+	// Throw the monsters somewhere on the screen randomly
+	for( i in monsters)
+	{
+		monsters[i].x = (Math.random() * (canvas.width - 64));
+		monsters[i].y = (Math.random() * (canvas.height - 64));
+    	monsters[i].movementY=((Math.random() * 200)-99);
+		monsters[i].movementX=((Math.random() * 200)-99);
+		monsters[i].image=1;
+	}
+    screen3loop();
+}
+var then = 0.001;
+function screen3loop() {
+	var now = Date.now();
+	var delta = now - then;
+    modifier = delta / 1000;
+	update();
+	render();
+
+	then = now;
+
+	// Request to do this again ASAP
+	if (!paused && screen == 3) { requestAnimationFrame(screen3loop); }
+}
+function screen4(){
+	screen = 4;
+    canvas.setAttribute("class","");
+	notify("Better luck next time.");
+    endScore = monstersCaught;
+	if(highScore < monstersCaught){
+		document.cookie="highScore="+monstersCaught+"; expires=Monday, 04-Apr-2900  05:00:00 GMT";
+		endScore +="  NEW high score!";
+	}
+	screen4loop();
+}
+var endScore;
+function screen4loop(){
+	if(screen == 4){
+		var textSize = canvas.width*0.1;
+		var textWidth = textSize*5;
+		ctx.textAlign = "left";
+		ctx.textBaseline = "top";
+		ctx.drawImage(bgImage, 0, 0);
+		ctx.fillStyle = "white";
+		ctx.font = textSize+"px avg";
+		ctx.fillText("GAME OVER", (canvas.width-textWidth)*0.55, (canvas.height-textSize)*0.4);
+        ctx.font = textSize*0.4+"px avg";
+		ctx.textBaseline = "bottom";
+		ctx.fillText("end score: "+endScore, 32, canvas.height-32);
+        ctx.fillRect(canvas.width*0.36, canvas.height*0.7, canvas.width*0.27, canvas.width*0.05);
+        ctx.fillStyle = "black";
+        ctx.font = canvas.width*0.05+"px avg";
+        ctx.textBaseline = "top";
+        ctx.fillText("play again", canvas.width*0.37, canvas.height*0.7);
+		requestAnimationFrame(screen4loop);
+	}
+}
+// Cross-browser support for requestAnimationFrame
+var w = window;
+requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////screen shot
 function download() {
 var canvas = document.querySelector("canvas");
@@ -625,7 +767,7 @@ function pausePlay() {
 		notify("Keyboard shortcuts: P=pause M=menu S=screen shot F= full-screen");
 		paused=false;
         then = Date.now();
-		main();
+		screen3loop();
 		document.getElementById("pausePlay").innerHTML="PAUSE";
 	}
 	else{
@@ -652,34 +794,9 @@ function newMonster(){
 	monsters[i].movementX=((Math.random() * 200)-99);
 	monsters[i].image=Math.floor((Math.random() * 2));
 }
-function gameOver(){
-	paused = true;
-	notify("Better luck next time.");
-	if(highScore < monstersCaught){
-		document.cookie="highScore="+monstersCaught+"; expires=Monday, 04-Apr-2900  05:00:00 GMT";
-		monstersCaught+="  NEW high score!";
-	}
-		end();
-	}
-	function end(){
-	if(paused){
-		var textSize = canvas.width*0.1;
-		var textWidth = textSize*5;
-		ctx.textAlign = "left";
-		ctx.textBaseline = "top";
-		ctx.drawImage(bgImage, 0, 0);
-		ctx.fillStyle = "rgb(250, 250, 250)";
-		ctx.font = textSize+"px avg";
-		ctx.fillText("GAME OVER", (canvas.width-textWidth)*0.5, (canvas.height-textSize)*0.5);
-		ctx.font = textSize*0.4+"px avg";
-		ctx.textBaseline = "bottom";
-		ctx.fillText("end score: "+monstersCaught, 32, canvas.height-32);
-		requestAnimationFrame(end);
-	}
-}
 var highScore = getCookie("highScore");
 if(!highScore) highScore = 0;
-document.getElementById("highScore").innerHTML = "HIGH SCORE: "+highScore;
+//document.getElementById("highScore").innerHTML = "HIGH SCORE: "+highScore;
 function getCookie(c_name){
 	if (document.cookie.length>0){
     c_start = document.cookie.indexOf(c_name + "=");
@@ -693,24 +810,12 @@ function getCookie(c_name){
 		} 
 	}
 	return "";
+/*
+priv = "storage"
+chrome.storage.sync.set({'value': theValue}, function() {});
+chrome.storage.sync.get('value', function() {});
+*/
 }
-// Reset the game when the player dies
-var reset = function () {
-	hero.x = canvas.width / 2-32;
-	hero.y = canvas.height / 2-32;
-	hero.isDieing = false;
-	hShots = [];
-	mShots = [];
-	// Throw the monsters somewhere on the screen randomly
-	for( i in monsters)
-	{
-		monsters[i].x = (Math.random() * (canvas.width - 64));
-		monsters[i].y = (Math.random() * (canvas.height - 64));
-    	monsters[i].movementY=((Math.random() * 200)-99);
-		monsters[i].movementX=((Math.random() * 200)-99);
-		monsters[i].image=1;
-	}
-};
 function autoShoot(){
 		if(!paused && hero.shots){//hero shoots
 		var m = undefined;
@@ -756,6 +861,6 @@ function mControls() {
 		}
 	}
 }
-		</script>
-	</body>
+    </script>
+</body>
 </html>
