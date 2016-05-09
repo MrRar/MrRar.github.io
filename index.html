@@ -3,22 +3,19 @@
 <head>
     <meta charset="utf-8"/>
     <title>Mr. Rar's Website</title>
-    <meta type="theme-color" content="darkred"/>
+    <meta name="theme-color" content="darkred"/>
     <link rel="shortcut icon" href="webStuff/favicon.png"/>
-    <meta type="author" content="Mr. Rar"/>
-    <meta type="keywords" content="website, rar, Mr. Rar"/>
-    <meta type="description" content="Mr. Rar's Website"/>
+    <meta name="author" content="Mr. Rar"/>
+    <meta name="keywords" content="website, rar, Mr. Rar"/>
+    <meta name="description" content="Mr. Rar's Website"/>
     <meta name="viewport" content="width=device-width,initial-scale=0.9,maximum-scale=0.9,user-scalable=no"/>
         <style>
 		#tv{
 			margin: 10%;
 			float: left;
 		}
-		#tv img{
-			
-		}
 		#tv iframe{
-			transform: rotate(5deg);
+			transform: rotate(10deg);
 			transform: skewX(30deg);
 			transform: skewY(9deg);
 			position: absolute;
@@ -236,7 +233,7 @@
         @media all and (max-width: 720px){
             nav a{width:auto;display:list-item; position:relative; text-align: center;}
             nav {overflow: hidden; transition: all ease-in-out 0.5s;}
-            nav:hover {height:300px;}
+            /*nav:hover {height:300px;}*/
             #linksButton{
                 display:inline-block;
             }
@@ -248,6 +245,7 @@
             float: left;
             z-index: 0;
             position: absolute;
+            left: 0;
             border:none;
             background:black;
             color:white;
@@ -410,10 +408,10 @@
             document.getElementById("scriptEnter").value = eval(document.getElementById("scriptEnter").value)+"\b";
     }
 }, false);
-document.body.onscroll = function(){/////////////////////////////////////////////////////////scroll
+document.addEventListener("scroll", function(){/////////////////////////////////////////////////////////scroll
 	var yPos = -document.body.scrollTop*0.4;
 document.body.style.backgroundPosition = '50% '+ yPos + 'px';
-}
+});
 function resetTime() {
     var now = new Date();
     var date;
@@ -527,6 +525,11 @@ function compuClose(){
 		var compu = document.getElementById("computron");
 		compu.style.visibility="hidden";
 		document.body.style.overflowY="scroll";
+}
+navOpen = false;
+document.querySelector("nav").onclick = function(){
+	if(navOpen){document.querySelector("nav").style.height="50px"; navOpen=false;}
+	else{navOpen = true; document.querySelector("nav").style.height="300px";}
 }
     </script>
 </body>
