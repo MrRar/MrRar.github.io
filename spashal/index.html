@@ -512,10 +512,11 @@ function update() {
         mShots[s].movementY = (hero.y+32-mShots[s].y)/(Math.sqrt((mShots[s].x-hero.x+32)*(mShots[s].x-hero.x+32)+(mShots[s].y-hero.y+32)*(mShots[s].y-hero.y+32))/speed);
 	}
 	//where is the moster going?
-	if(Math.random()>0.95){
-		monsters[i].movementY=((Math.random() * 200)-99);
-		monsters[i].movementX=((Math.random() * 200)-99);
+	if(Math.random()>0.95){//if ture the monster will change direction
+		monsters[i].movementY=((Math.random() * 200)-99)*widthFactor;
+		monsters[i].movementX=((Math.random() * 200)-99)*widthFactor;
 	}
+	//move the monster
 	monsters[i].x += monsters[i].movementX*modifier;
 	monsters[i].y += monsters[i].movementY*modifier;
 	//stay in bounds
@@ -533,7 +534,7 @@ function update() {
 		hShots.splice(n,1);
 		}
 	}
-	// Are they touching?
+	// Is the hero and monster touching?
 	if (hero.x <= (monsters[i].x + 64)&& monsters[i].x <= (hero.x + 64)&& hero.y <= (monsters[i].y + 64)&& monsters[i].y <= (hero.y + 64)&&monsters[i].image<2) {
 		explosionSound();
 		monstersCaught++;
@@ -833,7 +834,10 @@ function newMonster(){
 	monsters[i].movementX=((Math.random() * 200)-99);
 	monsters[i].image=Math.floor((Math.random() * 2));
 }
-setInterval(newMonster,4000);
+setInterval(monsterAddIn,4000);
+function monsterAddIn(){
+	if(!paused && screen == 3) newMonster();
+}
 //var highScore = getCookie("highScore");
 if(!getItem("highScore")) {highScore = 0;}
 else highScore = getItem("highScore");
