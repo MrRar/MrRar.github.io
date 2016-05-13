@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+    <meta name="viewport" content="width=device-width,initial-scale=0.9,maximum-scale=0.9,user-scalable=no"/>
+    <meta charset="utf-8"/>
+    <title>Wallpapers</title>
+    <link rel="shortcut icon" href="favicon.png"/>
+    <meta name="author" content="Mr. Rar"/>
+    <meta name="keywords" content="website, rar, Mr. Rar, wallpapers"/>
+    <meta name="description" content="Mr. Rar's Wallpapers"/>
+    <meta name="theme-color" content="lightgreen"/>
+    <style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		@font-face{ /* for IE */
+			font-family:cordiau;
+			src:url(cordiau.eot);
+		}
+		@font-face { /* for non-IE */
+			font-family:cordiau;
+			src:url(http://:/) format("No-IE-404"),url(cordiau.ttf) format("truetype");
+		}
+        img{
+            width:300px;
+            height: 220px;
+			float: left;
+        }
+        *{margin: 0; padding:0;}
+        body{
+			font-size: 1.3em;
+            background:green;
+            transition:background linear 3s;
+            margin:auto;
+			font-family:cordiau;
+        }
+       .download{
+            text-decoration: none;
+            color:black;
+		   line-height: 0px;
+        }
+		.download:hover{
+			color: white;
+        }
+		.download:active{
+			color: gray;
+        }
+        #photoHolder{
+            margin:5px;
+            display:inline-block;
+            float:left;
+            background:rgba(255,255,255, 0.5);
+            height: 250px;
+            width: 300px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        #backButton{
+            display:inline-block;
+            position: fixed;
+            top:0;
+            left:0;
+            margin:10px;
+            background:white;
+            padding:5px;
+            cursor: pointer;
+        }
+        #backButton:hover{
+            animation: BA 0.4s linear infinite;
+        }
+        @media all and (max-width: 640px) and (min-width: 320px){
+            body{
+                width:310px;
+            }
+        }
+        @media all and (max-width: 960px) and (min-width: 640px){
+            body{
+                width:620px;
+            }
+        }
+        @media all and (max-width: 1280px) and (min-width: 960px){
+            body{
+                width:930px;
+            }
+        }
+        @media all and (max-width: 1600px) and (min-width: 1280px){
+            body{
+                width:930px;
+            }
+        }
+        @media all and (max-width: 1920px) and (min-width: 1600px){
+            body{
+                width:930px;
+            }
+        }
+        @media all and (max-width: 2240px) and (min-width: 1920px){
+            body{
+                width:930px;
+            }
+        }
+        @media all and (max-width: 2560px) and (min-width: 2240px){
+            body{
+                width:930px;
+            }
+        }
+        @keyframes BA {
+            50%{
+                left:6px;
+            }
+        }
+    </style>
+    </head>
+    <body>
+        <div id="backButton" onclick="history.back();">&larr; Return</div>
+        <div id="photoHolder">
+            <img src="thumbs/Diamods.jpg"/>
+            <a href="wallpapers/Diamods.png" download class="download">download</a>
+        </div>
+        <div id="photoHolder">
+            <img src="thumbs/Circle.jpg"/>
+            <a href="wallpapers/Circle.png" download class="download">download</a>
+        </div>
+        <div id="photoHolder">
+            <img src="thumbs/X.jpg"/>
+            <a href="wallpapers/X.png" download class="download">download</a>
+        </div>
+        <div id="photoHolder">
+            <img src="thumbs/Eyes.jpg"/>
+            <a href="wallpapers/Eyes.png" download class="download">download</a>
+        </div>
+        <div id="photoHolder">
+            <img src="thumbs/Metal.jpg"/>
+            <a href="wallpapers/Metal.png" download class="download">download</a>
+        </div>
+        <div id="photoHolder">
+            <img src="thumbs/YellowGreen.jpg"/>
+            <a href="wallpapers/YellowGreen.png" download class="download">download</a>
+        </div>
+        <div id="photoHolder">
+            <img src="thumbs/Multi.jpg"/>
+            <a href="wallpapers/Multi.png" download class="download">download</a>
+        </div>
+        <div id="photoHolder">
+            <img src="thumbs/Stripe.jpg"/>
+            <a href="wallpapers/Stripe.png" download class="download">download</a>
+        </div>
+        <div id="photoHolder">
+            <img src="thumbs/DarkColor.jpg"/>
+            <a href="wallpapers/DarkColor.png" download class="download">download</a>
+        </div>
+        <div id="photoHolder">
+            <img src="thumbs/Wall.jpg"/>
+            <a href="wallpapers/Wall.png" download class="download">download</a>
+        </div>
+        <div id="photoHolder">
+            <img src="thumbs/YellowPink.jpg"/>
+            <a href="wallpapers/YellowPink.png" download class="download">download</a>
+        </div>
+        <div id="photoHolder">
+            <img src="thumbs/Swirl.jpg"/>
+            <a href="wallpapers/Swirl.png" download class="download">download</a>
+        </div>
+        <div id="photoHolder">
+            <img src="thumbs/PinkCircle.jpg"/>
+            <a href="wallpapers/PinkCircle.png" download class="download">download</a>
+        </div>
+        <div id="photoHolder">
+            <img src="thumbs/Fabric.jpg"/>
+            <a href="wallpapers/Fabric.png" download class="download">download</a>
+        </div>
+        <script>
+            setInterval("navColor()",3000);
+                function navColor() {
+                var r = Math.floor((Math.random() * 200) + 1);
+                var g = Math.floor((Math.random() * 200) + 1);
+                var b = Math.floor((Math.random() * 200) + 1);
+                document.body.style.background = "rgba("+r+","+g+","+b+",1)";
+            }
+        </script>
+    </body>
+</html>
