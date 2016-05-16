@@ -528,8 +528,10 @@ function compuClose(){
 }
 navOpen = false;
 document.querySelector("nav").onclick = function(){
-	if(navOpen){document.querySelector("nav").style.height="50px"; navOpen=false;}
-	else if(document.body.clientWidth <= 720){navOpen = true; document.querySelector("nav").style.height="300px";}
+    if(document.body.clientWidth < 700){
+	    if(navOpen){document.querySelector("nav").style.height="50px"; navOpen=false;}
+	    else{navOpen = true; document.querySelector("nav").style.height="300px";}
+    }
 }
     </script>
 </body>
