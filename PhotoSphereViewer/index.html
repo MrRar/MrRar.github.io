@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Photo Sphere Viewer</title>
+        <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAB3RJTUUH4AYRDSIS4abQQwAAASFJREFUOMt1UzuOwjAQfY5QavYANOYAVNyBSBCK7ZCyFafgAJwi1UZCNFtAkMIdqDhAXNIudZrZJjNrO5NpYj35fWbGMVCKiMjc37BdEeBuezPx3UQjx9hx+QQA2MuaRgXOrxkxeX7diPtx+cThsQhEfCERODwWYDIAtHmNNq8F5y8LBQL2sqY2rwX0zwDg0gqxEadIzq+ZxDH3tzZT2K4IRKQ+T5Rojiw0v24CoiaScCRe2yihbALMfe+Ga3RpBdsVoNV0OIN9pgpP2J1W0yA6ANiY0Kfwa+LSauDo7z+ofQaUDezXyVtj9mG0Dfhk2xWqu9vezP/bbn4pXp0My+tf8P6/SDBS0jeTy0afgZz6VuIkWuzgzai3fBHf9Wc3uP8HlAKQpX9hiU4AAAAASUVORK5CYII=">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				font-family: Monospace;
+				background-color: #f0f0f0;
+				margin: 0px;
+				overflow: hidden;
+			}
+            button{
+                border-radius:3px;
+                color:white;
+                transition: all linear 0.1s;
+                background: #6f6fff;
+                box-shadow: 0 3px 0 blue;
+                border:0;
+                position: absolute;
+                top:50px;
+                left: 0;
+                margin: 5px;
+            }
+            button:hover{
+                background: #6666ff;
+            }
+            button:active{
+                box-shadow: 0 0 0 blue;
+                top:53px;
+            }
+            input{
+                border-radius:3px;
+                color:white;
+                transition: all linear 0.1s;
+                background: #6f6fff;
+                box-shadow: 0 3px 0 blue;
+                border:0;
+                position: absolute;
+                top:0;
+                left: 0;
+                margin: 5px; 
+            }
+		</style>
+	</head>
+	<body>
+		<script src="three.min.js"></script>
+		<script src="Projector.js"></script>
+		<script src="CanvasRenderer.js"></script>
+        <input type="file" value="load photo sphere"/>
+        <button onmousedown="screenShot()">screen shot</button>
+		<script>
+/**
+ * @author mrdoob / http://mrdoob.com/
+ */
+
+THREE.PointerLockControls = function ( camera ) {
+    
+    this.enabled = false;
+	var scope = this;
+
+	camera.rotation.set( 0, 0, 0 );
+
+	var pitchObject = new THREE.Object3D();
+	pitchObject.add( camera );
+
+	var yawObject = new THREE.Object3D();
+	yawObject.position.y = 10;
+	yawObject.add( pitchObject );
+
+	var PI_2 = Math.PI / 2;
+
+	var onMouseMove = function ( event ) {
+
+		if ( scope.enabled === false ) return;
+
+		var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+		var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+
+		yawObject.rotation.y -= movementX * 0.002;
+		pitchObject.rotation.x -= movementY * 0.002;
+
+		pitchObject.rotation.x = Math.max( - PI_2, Math.min( PI_2, pitchObject.rotation.x ) );
+
+	};
+
+	this.dispose = function() {
+
+		document.removeEventListener( 'mousemove', onMouseMove, false );
+
+	};
+
+	document.addEventListener( 'mousemove', onMouseMove, false );
+
+
+	this.getObject = function () {
+
+		return yawObject;
+
+	};
+
+	this.getDirection = function() {
+
+		// assumes the camera itself is not rotated
+
+		var direction = new THREE.Vector3( 0, 0, - 1 );
+		var rotation = new THREE.Euler( 0, 0, 0, "YXZ" );
+
+		return function( v ) {
+
+			rotation.set( pitchObject.rotation.x, yawObject.rotation.y, 0 );
+
+			v.copy( direction ).applyEuler( rotation );
+
+			return v;
+
+		};
+
+	}();
+
+};
+
+			var sphere;
+			var camera, scene, renderer, controls;
+            var loader = new THREE.TextureLoader();
+            var imageName;
+            
+			init();
+			animate();
+
+			function init() {
+
+				camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 1000 );
+				scene = new THREE.Scene();
+                controls = new THREE.PointerLockControls( camera );
+
+                scene.add( controls.getObject() );
+                initPointerLock();
+
+                var sphereGeometry = new THREE.SphereGeometry( 900, 20, 20 );
+                var sphereMaterial = new THREE.MeshBasicMaterial( { color: 0x2fbde5, overdraw: 0.5, side: "back"} );
+				sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
+                scene.add( sphere );
+                
+				renderer = new THREE.CanvasRenderer();
+				renderer.setClearColor( 0xf0f0f0 );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				document.body.appendChild(renderer.domElement);
+                
+                document.addEventListener( 'contextmenu', function(event){event.preventDefault()}, false );
+                document.body.addEventListener("click",click,false);
+                window.addEventListener( 'resize', onWindowResize, false );
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+			}
+            function mouseMove( event ) {
+				event.preventDefault();
+                mouse.set( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1 );
+                mouseX += event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+		        mouseY += event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+            }
+            function click(e){
+                document.body.requestPointerLock = document.body.requestPointerLock || document.body.mozRequestPointerLock || edocument.body.webkitRequestPointerLock;
+                document.body.requestPointerLock();
+            }
+
+        
+        document.querySelector("button").onclick = function(e){
+        }        
+        document.querySelector("input").onchange = function(e){
+            var file = e.target.files[ 0 ];
+            imageName = e.target.files[ 0 ].name;
+            			var reader = new FileReader();
+			reader.addEventListener( 'load', function ( event ) {
+                        loader.load( event.target.result, function ( texture ) {
+				        image = new THREE.MeshBasicMaterial( { map: texture, side: "back"} );
+                        sphere.material = image;
+				    } );
+			}, false );
+			reader.readAsDataURL( file );
+        }
+        function initPointerLock() {
+                var element = document.body;
+
+				// http://www.html5rocks.com/en/tutorials/pointerlock/intro/
+
+				var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
+
+				if ( havePointerLock ) {
+
+					var element = document.body;
+
+					function pointerlockchange( event ) {
+
+						if ( document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element ) {
+
+							controls.enabled = true;
+
+						} else {
+
+							controls.enabled = false;
+
+						}
+
+					}
+
+					var pointerlockerror = function ( event ) {
+
+
+					};
+
+					// Hook pointer lock state change events
+					document.addEventListener( 'pointerlockchange', pointerlockchange, false );
+					document.addEventListener( 'mozpointerlockchange', pointerlockchange, false );
+					document.addEventListener( 'webkitpointerlockchange', pointerlockchange, false );
+
+					document.addEventListener( 'pointerlockerror', pointerlockerror, false );
+					document.addEventListener( 'mozpointerlockerror', pointerlockerror, false );
+					document.addEventListener( 'webkitpointerlockerror', pointerlockerror, false );
+
+				} else {
+
+				}
+
+			}
+            function screenShot() {
+                // create an "off-screen" anchor tag
+                var lnk = document.createElement('a'), e;
+
+                // the key here is to set the download attribute of the a tag
+                lnk.download = imageName+".png";
+
+                // convert canvas content to data-uri for link. When download
+                // attribute is set the content pointed to by link will be
+                // pushed as "download" in HTML5 capable browsers
+                lnk.href = renderer.domElement.toDataURL();
+
+                // create a fake click-event to trigger the download
+                if (document.createEvent) {
+
+                    e = document.createEvent("MouseEvents");
+                    e.initMouseEvent("click", true, true, window,
+                         0, 0, 0, 0, 0, false, false, false,
+                         false, 0, null);
+
+                    lnk.dispatchEvent(e);
+
+                } else if (lnk.fireEvent) {
+
+                    lnk.fireEvent("onclick");
+                }
+            }
+            function animate() {
+
+				requestAnimationFrame( animate );
+                renderer.render( scene, camera );
+
+			}
+		</script>
+
+	</body>
+</html>
