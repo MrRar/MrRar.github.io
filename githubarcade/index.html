@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>github arcade</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			*{
+				margin:0;
+				padding:0;
+				float: right;
+			}
+		canvas{
+			width:100%;
+			height:100%;
+			background:linear-gradient(yellow, black);
+		}
+		</style>
+	</head>
+	<body>
+		<audio src="arcade.mp3" autoplay loop></audio>
+		<script src="js/three.min.js"></script>
+		<script src="js/PointerLockControls.js"></script>
+		<script>
+			var camera;
+			var pointer = new Image();
+			var centerScreen;
+			var games;
+			var rayCaster;
+			var controls;
+			var renderer;
+			var canvas;
+			var scene;
+			var loader = new THREE.XHRLoader();
+			loader.load( 'scene.json', function ( text ) {init(text)} );
+			function init( text ){
+				var json = JSON.parse( text );
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setClearColor( 0x000000 );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.shadowMap.enabled = true;
+				renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+				canvas = renderer.domElement;
+				document.body.appendChild( canvas );
+				var THREEloader = new THREE.ObjectLoader();
+				scene = THREEloader.parse( json );
+				camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 1000 );
+				camera.position.y = 5;
+				rayCaster = new THREE.Raycaster();
+				games = [];
+				games[0] = scene.getObjectByName("SkiFree");
+				games[1] = scene.getObjectByName("Spashal");
+				games[2] = scene.getObjectByName("CustomTetris");
+				games[3] = scene.getObjectByName("HGC");
+				games[4] = scene.getObjectByName("DuckHunt");
+				games[5] = scene.getObjectByName("Coil");
+				centerScreen = new THREE.Vector2();
+				centerScreen.x = innerWidth/2;
+				centerScreen.y = innerHeight/2;
+				controls = new THREE.PointerLockControls( camera );
+				scene.add( controls.getObject() );
+				renderer.render( scene, camera );
+				
+							// Hook pointer lock state change events
+				document.addEventListener( 'pointerlockchange', pointerlockchange, false );
+				document.addEventListener( 'mozpointerlockchange', pointerlockchange, false );
+				document.addEventListener( 'webkitpointerlockchange', pointerlockchange, false );
+				document.addEventListener( 'mousedown', onMouseDown, false );
+				document.addEventListener( 'touchstart', onTouchStart, false );
+				document.addEventListener( 'touchend', onTouchEnd, false );
+				document.addEventListener( 'keydown', onKeyDown, false );
+				document.addEventListener( 'keyup', onKeyUp, false );
+
+
+				canvas.addEventListener( 'click', function ( event ) {
+
+					// Ask the browser to lock the pointer
+					var c = canvas;
+					c.requestPointerLock = c.requestPointerLock || c.mozRequestPointerLock || c.webkitRequestPointerLock;
+					c.requestPointerLock();
+
+				}, false );
+				loop();
+			}
+			var moveForward = false;
+			var moveBackward = false;
+			var moveLeft = false;
+			var moveRight = false;
+			var canJump = false;
+
+			var prevTime = performance.now();
+			var velocity = new THREE.Vector3();
+			var pointerlockchange = function ( event ) {
+
+					if ( document.pointerLockElement === canvas || document.mozPointerLockElement === canvas || document.webkitPointerLockElement === canvas ) {
+						controls.enabled = true;
+					} else {
+						controls.enabled = false;
+					}
+				};
+				var RCvector = new THREE.Vector2();
+				var onMouseDown = function( event ){
+				RCvector.set( ( centerScreen.x / window.innerWidth ) * 2 - 1, - ( centerScreen.y / window.innerHeight ) * 2 + 1 );
+				if(controls.enabled){
+					castRay();
+				}
+			};
+			
+			var touchStart = new THREE.Vector2();
+			var onTouchStart = function( event ) {
+				controls.enabled = true;
+				touchStart.x = event.changedTouches[0].clientX;
+				touchStart.y = event.changedTouches[0].clientY;
+			};
+			var onTouchEnd = function( event ) {
+				controls.enabled = false;
+				var x = event.changedTouches[0].clientX;
+				var y = event.changedTouches[0].clientY;
+				var margin = 2;
+				
+				RCvector.set( ( x / window.innerWidth ) * 2 - 1, - ( y / window.innerHeight ) * 2 + 1 );
+				if(x<touchStart.x+margin && x>touchStart.x-margin && y<touchStart.y+margin && y>touchStart.y-margin){
+					castRay();
+				}
+			}
+			
+			var onKeyDown = function ( event ) {
+
+				switch ( event.keyCode ) {
+
+					case 38: // up
+					case 87: // w
+					moveForward = true;
+					break;
+
+					case 37: // left
+					case 65: // a
+					moveLeft = true;
+					break;
+
+					case 40: // down
+					case 83: // s
+					moveBackward = true;
+					break;
+
+					case 39: // right
+					case 68: // d
+					moveRight = true;
+					break;
+				}
+			};
+			var onKeyUp = function ( event ) {
+				switch( event.keyCode ) {
+
+					case 38: // up
+					case 87: // w
+					moveForward = false;
+					break;
+
+					case 37: // left
+					case 65: // a
+					moveLeft = false;
+					break;
+
+					case 40: // down
+					case 83: // s
+					moveBackward = false;
+					break;
+
+					case 39: // right
+					case 68: // d
+					moveRight = false;
+					break;
+				}
+			};
+			window.onbeforeunload = function(){
+				controls.enabled = false;
+			}
+			
+			var velocity = new THREE.Vector3();
+			function loop(){
+				if ( controls.enabled ) {
+
+					var time = performance.now();
+					var delta = ( time - prevTime ) / 1000;
+
+					velocity.x -= velocity.x * 10.0 * delta;
+					velocity.z -= velocity.z * 10.0 * delta;
+					
+					if ( moveForward ) velocity.z -= 200.0 * delta;
+					if ( moveBackward ) velocity.z += 200.0 * delta;
+
+					if ( moveLeft ) velocity.x -= 200.0 * delta;
+					if ( moveRight ) velocity.x += 200.0 * delta;
+					
+					controls.getObject().translateX( velocity.x * delta );
+					controls.getObject().translateZ( velocity.z * delta );
+					
+					if(controls.getObject().position.x > 25) controls.getObject().position.x =25;
+					if(controls.getObject().position.x < -25) controls.getObject().position.x =-25;
+					if(controls.getObject().position.z > 10) controls.getObject().position.z =10;
+					if(controls.getObject().position.z < -10) controls.getObject().position.z =-10;
+					
+					prevTime = time;
+
+				}
+				renderer.render( scene, camera );
+				requestAnimationFrame( loop ); // do again
+			}
+			document.body.onresize = function() {
+				centerScreen.x = innerWidth/2;
+				centerScreen.y = innerHeight/2;
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.setPixelRatio( window.innerHeight/window.innerWidth );
+				camera.updateProjectionMatrix();
+			}
+			function castRay(){
+				rayCaster.setFromCamera( RCvector, camera );
+				var intersects = rayCaster.intersectObjects( games );
+				if(intersects.length){
+					switch(intersects[0].object.name){
+						case "Spashal":
+						location.href = "arcade.html#http://MrRar.github.io";
+						break;
+						
+						case "SkiFree":
+						location.href = "arcade.html#http://basicallydan.github.io/skifree.js/";
+						break;
+						
+						case "CustomTetris":
+						location.href = "arcade.html#http://ondras.github.io/custom-tetris/";
+						break;
+						
+						case "HGC":
+						location.href = "arcade.html#http://razh.github.io/game-off-2013/";
+						break;
+						
+						case "Coil":
+						location.href = "arcade.html#http://lab.hakim.se/coil/";
+						break;
+						
+						case "DuckHunt":
+						location.href = "arcade.html#http://duckhuntjs.com/";
+						break;
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

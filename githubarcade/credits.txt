@@ -1,0 +1,2 @@
+Arcade game textures and models are based on the ones used in VanessaE's Minetest mod @ https://forum.minetest.net/viewtopic.php?t=2041 .
+It is licensed under CC BY-SA 2.0 view it @ https://creativecommons.org/licenses/by-sa/2.0/legalcode .
