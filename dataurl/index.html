@@ -1,0 +1,53 @@
+<!doctype html>
+<head>
+    <meta name="color-theme" content="blue">
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        body, html {
+            width:100%;
+            height:100%;
+        }
+        textarea{
+            border: none;
+            float:right;
+            width:100%;
+            height:100%;
+            resize: none;
+        }
+        #holder{
+            text-align:center;
+            position: absolute;
+            top:30%;
+            left:30%;
+            background: rgba(255,255,255,0.7);
+        }
+    </style>
+</head>
+<html>
+    <body>
+        <div id="holder">
+            <input type="file"><br>
+            <img src="" title="" width="100px">
+        </div>
+        <textarea>
+        
+        </textarea>
+    <script>
+        document.querySelector("input").addEventListener("change",doit, false);
+        function doit(e){
+            loadFile( e.target.files[ 0 ]);  
+        }
+        function loadFile( file ) {
+			var reader = new FileReader();
+			reader.addEventListener( 'load', function ( event ) {
+                document.querySelector("textarea").innerHTML = event.target.result;
+                document.querySelector("img").src = event.target.result;
+			}, false );
+			reader.readAsDataURL( file );
+	   }
+    </script>
+    </body>
+</html>
