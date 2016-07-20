@@ -96,6 +96,7 @@
             color:white;
             font-size: 20pt;
             text-align: center;
+            align-items: center;
         }
         #statement{
             color:white;
@@ -166,7 +167,7 @@
 			background-position: 50% 0px;
         }
         nav a{
-            width:24%; 
+             
             display: inline-block;
             cursor:url(webStuff/mouse.png), auto;
         }
@@ -177,6 +178,8 @@
             width:100%;
             height:50px;
             position:fixed;
+            display: flex;
+            justify-content: space-around;
             top:0;
 			background: gray;
             background:linear-gradient(#b4b5b5 0px, #8b8c8c 1px, #4d4f4f 25px, #131415 25px, #131415 50px, #303030 50px, #444444 80px, #444444 100%);
@@ -231,8 +234,17 @@
 			line-height: 50px;
 		}
         @media all and (max-width: 720px){
-            nav a{width:auto;display:list-item; position:relative; text-align: center;}
-            nav {overflow: hidden; transition: all ease-in-out 0.5s;}
+            nav a{
+                width:auto;
+                display:list-item;
+                position:relative;
+                text-align: center;
+            }
+            nav {
+                overflow: hidden;
+                transition: all ease-in-out 0.5s;
+                display: inline-block;
+            }
             /*nav:hover {height:300px;}*/
             #linksButton{
                 display:inline-block;
@@ -311,6 +323,7 @@
         <a href="modcreator/"><div id=button onmouseover="buttonSound()"></div><label>MD Mod Creator</label></a>
         <a href="spashal/"><div id=button onmouseover="buttonSound()"></div><label>Spashal</label></a>
         <a href="wallpapers/"><div id=button onmouseover="buttonSound()"></div><label>Wallpapers</label></a>
+        <a href="githubarcade"><div id=button onmouseover="buttonSound()"></div><label>Github Arcade</label></a>
     </nav>
     <audio id="clickSound" src="webStuff/musica2.wav">
         <source type="wave" src="webStuff/musica2.wav"/>
@@ -328,7 +341,8 @@
     <p id="block1">
         Welcome to Mr. Rar's (Johannes Fritz) website.
 		Here you can access my Manic Digger mods and make your own Manic Digger mods using the mod creator. 
-        You can also play Spashal; but keep in mind that it is in alpha so some features may not exist or work.
+        You can also play a fun little game called Spashal.
+        There's a link to Github Arcade as well.
 		You can also access all my newest wallpapers.
 		Have fun!
         
@@ -470,18 +484,18 @@ function lights(){
 }
 setInterval(lights,500);
 document.onresize = function() {///////////////////////////on document resize
-var SE = document.getElementById("scriptEnter");
-var desk = document.getElementById("desk");
-var video = document.querySelector("iframe");
-video.style.height = video.clientWidth/3*2+"px";
-SE.style.height = desk.height*0.12+"px";
+    var SE = document.getElementById("scriptEnter");
+    var desk = document.getElementById("desk");
+    var video = document.querySelector("iframe");
+    video.style.height = video.clientWidth*0.8+"px";
+    SE.style.height = desk.height*0.12+"px";
 }
 document.body.onload = function() {///////////////////////////on document load
-var SE = document.getElementById("scriptEnter");
-var desk = document.getElementById("desk");
-SE.style.height = desk.height*0.12+"px";
-var video = document.querySelector("iframe");
-video.style.height = video.clientWidth*0.8+"px";
+    var SE = document.getElementById("scriptEnter");
+    var desk = document.getElementById("desk");
+    var video = document.querySelector("iframe");
+    SE.style.height = desk.height*0.12+"px";
+    video.style.height = video.clientWidth*0.8+"px";
 }
 function getCookie(c_name){
 	if (document.cookie.length>0){
@@ -514,7 +528,7 @@ document.getElementById("desk").onclick = function(event){
 		var compu = document.getElementById("computron");
 		compu.style.visibility="visible";
 		document.body.style.overflowY="hidden";
-		}
+    }
 	//2560
 	//x994,39
 	//y640,25
@@ -530,7 +544,7 @@ navOpen = false;
 document.querySelector("nav").onclick = function(){
     if(document.body.clientWidth < 700){
 	    if(navOpen){document.querySelector("nav").style.height="50px"; navOpen=false;}
-	    else{navOpen = true; document.querySelector("nav").style.height="300px";}
+	    else{navOpen = true; document.querySelector("nav").style.height="360px";}
     }
 }
     </script>
