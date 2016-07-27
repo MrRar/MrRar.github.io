@@ -44,6 +44,7 @@
 			var reader = new FileReader();
 			reader.addEventListener( 'load', function ( event ) {
                 document.querySelector("textarea").innerHTML = event.target.result;
+                document.querySelector("textarea").select();
                 document.querySelector("img").src = event.target.result;
 			}, false );
 			reader.readAsDataURL( file );
