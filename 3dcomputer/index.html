@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Windows 95</title>
+		<meta charset="utf-8">
+        <meta name="theme-color" content="blue">
+        <link rel="shortcut icon" href="images/computer.ico">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			html, body {
+				height: 100%;
+				overflow: hidden;
+                background: black;
+			}
+            div{
+                backface-visibility: hidden;
+            }
+			iframe{
+				border:0px;
+                width:640px;
+                height:480px;
+			}
+            button{
+                position: absolute;
+                width:50px;
+                height:50px;
+                border: 0;
+                margin:187px 0 0 813px;
+                background: none;
+            }
+            #screen{
+                
+            }
+            img{
+                width: 100%;
+                height: 100%;
+            }
+		</style>
+	</head>
+	<body>
+		<script src="threejs/three.min.js"></script>
+		<script src="threejs/OrbitControls.js"></script>
+		<script src="threejs/CSS3DRenderer.js"></script>
+		<div id="container"></div>
+		<script>
+            // if you start me up ...
+			var camera, scene, renderer;
+			init();
+			animate();
+
+			function init() {
+                window.requestAnimationFrame = window.requestAnimationFrame||
+                    window.webkitRequestAnimationFrame||
+                    window.msRequestAnimationFrame||
+                    window.mozRequestAnimationFrame;
+				var container = document.getElementById('container');
+				camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 5000);
+				camera.position.set( 500, 350, 1500 );
+				scene = new THREE.Scene();
+				renderer = new THREE.CSS3DRenderer();
+				renderer.setSize(window.innerWidth, window.innerHeight);
+				renderer.domElement.style.position = 'absolute';
+				renderer.domElement.style.top = 0;
+				container.appendChild(renderer.domElement);
+				var group = new THREE.Group();
+                
+                // Screen
+				var Sdiv = document.createElement('div');
+                Sdiv.style.width = '640px';
+				Sdiv.style.height = '480px';
+                Sdiv.setAttribute("id","screen");
+                Siframe = document.createElement('iframe');
+                Siframe.src="pcjs/index.html";
+				Sdiv.appendChild(Siframe);
+				var S = new THREE.CSS3DObject(Sdiv);
+				S.position.set(0,31,404);
+				group.add(S);
+                
+                // monitor front
+				var MFdiv = document.createElement('div');
+                MFdiv.style.width = '800px';
+				MFdiv.style.height = '666px';
+                MFimg = document.createElement('img');
+                MFimg.src="images/MF.jpg";
+				MFdiv.appendChild(MFimg);
+				var MF = new THREE.CSS3DObject(MFdiv);
+				MF.position.set(0,0,400);
+				group.add(MF);
+                
+                // monitor top
+				var MTdiv = document.createElement('div');
+                MTdiv.style.width = '800px';
+				MTdiv.style.height = '811px';
+                MTimg = document.createElement('img');
+                MTimg.src="images/MT.gif";
+				MTdiv.appendChild(MTimg);
+				var MT = new THREE.CSS3DObject(MTdiv);
+                MT.rotation.x = Math.PI*1.45;
+				MT.position.set(0,269,0);
+				group.add(MT);
+                
+                // monitor right
+				var MRdiv = document.createElement('div');
+                MRdiv.style.width = '811px';
+				MRdiv.style.height = '667px';
+                MRimg = document.createElement('img');
+                MRimg.src="images/MR.gif";
+				MRdiv.appendChild(MRimg);
+				var MR = new THREE.CSS3DObject(MRdiv);
+                MR.rotation.y = Math.PI*0.55;
+				MR.position.set(336,0,0);
+				group.add(MR);
+                
+                // monitor left
+				var MLdiv = document.createElement('div');
+                MLdiv.style.width = '811px';
+				MLdiv.style.height = '667px';
+                MLimg = document.createElement('img');
+                MLimg.src="images/ML.gif";
+				MLdiv.appendChild(MLimg);
+				var ML = new THREE.CSS3DObject(MLdiv);
+                ML.rotation.y = Math.PI*1.45;
+				ML.position.set(-336,0,0);
+				group.add(ML);
+                
+                // monitor aft (back)
+				var MAdiv = document.createElement('div');
+                MAdiv.style.width = '547px';
+				MAdiv.style.height = '543px';
+                MAimg = document.createElement('img');
+                MAimg.src="images/MA.jpg";
+				MAdiv.appendChild(MAimg);
+				var MA = new THREE.CSS3DObject(MAdiv);
+				MA.position.set(0,-64,-400);
+				MA.rotation.y = Math.PI;
+				group.add(MA);
+                
+                // computer front
+				var CFdiv = document.createElement('div');
+                CFdiv.style.width = '933px';
+				CFdiv.style.height = '267px';
+                CFimg = document.createElement('img');
+                CFimg.src="images/CF.jpg";
+                var button = document.createElement('button');
+                CFdiv.appendChild(button);
+				CFdiv.appendChild(CFimg);
+				var CF = new THREE.CSS3DObject(CFdiv);
+				CF.position.set(0,-467,466);
+				group.add(CF);
+                
+                // computer aft (back)
+				var CAdiv = document.createElement('div');
+                CAdiv.style.width = '933px';
+				CAdiv.style.height = '267px';
+                CAimg = document.createElement('img');
+                CAimg.src="images/CA.jpg";
+				CAdiv.appendChild(CAimg);
+				var CA = new THREE.CSS3DObject(CAdiv);
+				CA.position.set(0,-467,-466);
+                CA.rotation.y=Math.PI;
+				group.add(CA);
+                
+                // computer bottom
+				var CBdiv = document.createElement('div');
+                CBdiv.style.width = '933px';
+				CBdiv.style.height = '933px';
+                CBimg = document.createElement('img');
+                CBimg.src="images/CB.jpg";
+				CBdiv.appendChild(CBimg);
+				var CB = new THREE.CSS3DObject(CBdiv);
+				CB.position.set(0,-600,0);
+                CB.rotation.x=Math.PI*0.5;
+				group.add(CB);
+                
+                // computer top
+				var CTdiv = document.createElement('div');
+                CTdiv.style.width = '933px';
+				CTdiv.style.height = '933px';
+                CTimg = document.createElement('img');
+                CTimg.src="images/CT.jpg";
+				CTdiv.appendChild(CTimg);
+				var CT = new THREE.CSS3DObject(CTdiv);
+				CT.position.set(0,-334,0);
+                CT.rotation.x=Math.PI*1.5;
+				group.add(CT);
+                
+                // computer left
+				var CLdiv = document.createElement('div');
+                CLdiv.style.width = '933px';
+				CLdiv.style.height = '267px';
+                CLimg = document.createElement('img');
+                CLimg.src="images/CL.jpg";
+				CLdiv.appendChild(CLimg);
+				var CL = new THREE.CSS3DObject(CLdiv);
+				CL.position.set(-466,-467,0);
+                CL.rotation.y=Math.PI*1.5;
+				group.add(CL);
+                
+                // computer right
+				var CRdiv = document.createElement('div');
+                CRdiv.style.width = '933px';
+				CRdiv.style.height = '267px';
+                CRimg = document.createElement('img');
+                CRimg.src="images/CR.jpg";
+				CRdiv.appendChild(CRimg);
+				var CR = new THREE.CSS3DObject(CRdiv);
+				CR.position.set(466,-467,0);
+                CR.rotation.y=Math.PI*0.5;
+				group.add(CR);
+
+				scene.add( group );
+
+				controls = new THREE.OrbitControls( camera, renderer.domElement );
+
+				window.addEventListener( 'resize', function(){
+                    camera.aspect = window.innerWidth / window.innerHeight;
+				    camera.updateProjectionMatrix();
+				    renderer.setSize( window.innerWidth, window.innerHeight );
+                }, false );
+                button.onclick=function(e){
+                    var url = prompt("type a URL to load","e.g. oldcomputers.com");
+                    if(url){
+                        document.title = url;
+                        if(
+                            url.search(/:/) == -1
+                            &&url.search(/\./) != -1
+                        ){
+                            url = "http://"+url;
+                        }
+                        Siframe.src = url;
+                    }
+                }
+			}
+
+			function animate() {
+				requestAnimationFrame( animate );
+				//controls.update();
+				renderer.render( scene, camera );
+			}
+            // ... don't make a grown man cry
+		</script>
+	</body>
+</html>
