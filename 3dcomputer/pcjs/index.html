@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Windows 95</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+		    *{
+			    width:0;
+			    height:0;
+		    }
+		    canvas{
+			    width:640px;
+			    height:480px;
+			    background:black;
+                position: absolute;
+			    top:0;
+			    left:0;
+		    }
+		    body{
+			    font-family: Helvetica, Arial, sans-serif;
+			    font-size: 12px;
+			    background-color: #000;
+			    margin: 0px;
+			    overflow: hidden;
+		    }
+		    textarea{
+    		    position: absolute;
+    		    left: 0;
+    		    top: 0;
+    		    width: 100%;
+    		    height: 100%;
+    		    opacity: 0;
+    		    border: 0;
+    		    padding: 0;
+			    line-height: 0;
+		    }
+		</style>
+	</head>
+	<body>
+        <div class="page-content">
+            <div class="wrapper">
+                <div class="post">
+                    <div id="deskpro386" class="machine pcjs" style="">
+                        <div id="deskpro386.machine" class="pcjs-machine pcjs-component" style="margin:0 auto;clear:both;" data-value="{autoMount:{},drives:[{name:&quot;68Mb Hard Disk&quot;,type:4,path:&quot;http://archive.pcjs.org/disks/pc/fixed/68mb/win95.json&quot;}],state:&quot;deskpro386.json&quot;,messages:&quot;&quot;,url:&quot;/devices/pc/machine/compaq/deskpro386/vga/4096kb/machine.xml&quot;}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="pc.js"></script> 
+        <script type="text/javascript">embedPC('deskpro386','machine.xml','components.xsl','{autoMount:{},drives:[{name:"68Mb Hard Disk",type:4,path:"https://firebasestorage.googleapis.com/v0/b/dcomputer-fe4f1.appspot.com/o/win95.json?alt=media&token=5e5eaab6-6147-466a-9451-6536dcfbdc0f"}],state:"deskpro386.json",messages:""}');</script>
+	</body>
+</html>
