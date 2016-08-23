@@ -1,4 +1,5 @@
 # 3D computer
+![3D computer](win95.png)
 This is a 3D model of a computer that you can be viewed in a browser and can run Windows 95!
 You can view it [here](http://mrrar.github.io/3dcomputer/).
 I made it by putting together the 3D framework THREEjs and the pc emulator PCjs.
