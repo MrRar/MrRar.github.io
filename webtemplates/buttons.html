@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+        <meta mame="color-theme" content="yellow">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	</head>
+	<style>
+        *{
+			margin: 0;
+			padding: 0;
+            font-family: arial, Helvetica, sans-serif;
+		}
+        body{
+            background: yellow;
+        }
+        
+        /**
+         * button syles
+         */
+        
+		.button{
+            display: block;
+            position: relative;
+            text-align: center;
+			border-radius: 2px;
+			color:black;
+            background: lightblue;
+            bottom:4px;
+			font-size: 15pt;
+            margin: 0px;
+            padding: 3px 10px;
+            box-shadow:0 4px 0 #3a9dbe;
+			transition: linear all 0.2s;
+            text-transform: uppercase;
+            font-weight: 500;
+		}
+		.button:hover{
+            bottom:0;
+            box-shadow:0 0 0 #3a9dbe;
+		}
+		.button:active{
+			background: #72bbd3;
+		}
+		.buttonHolder{
+            height: 42px;
+            transition: linear all 0.2s;
+			box-sizing: border-box;
+			padding: 6px 0;
+            margin: 4px;
+            overflow:hidden;
+		}
+        .buttonHolder:hover{
+            height:auto;
+        }
+        .menu{
+            width:100%;
+            float: right;
+            transition: linear all 0.2s;
+        }
+        .menu:hover{
+        }
+        
+        /**
+         * selection style
+         */
+        
+        *::selection{
+			background:rgba(200,200,0,0.5);
+			color:black;
+            border-radius: 50%;
+		}
+		*::-moz-selection{
+			background:rgba(200,200,0,0.5);
+			color:black;
+            
+		}
+		a{
+			cursor: pointer;
+		}
+        
+        /**
+         * sections
+         */
+        
+		nav{
+            z-index: 3;
+			width: 100%;
+			overflow: hidden;
+            display: flex;
+            justify-content: space-around;
+            align-items:flex-start;
+            flex-wrap: wrap;
+            transition: linear all 0.2s;
+            background: yellow;
+            box-shadow: 0 5px 4px rgba(0,0,0,0.5);
+            position: relative;
+		}
+       	h1{
+			text-align: center;
+			font-size: 30pt;
+			padding: 10px;
+            font-weight: normal;
+		}
+        main{
+			padding: 0 10px;
+			font-size: 20pt;
+            background: url(images/wood.png);
+		}
+		footer{
+            font-size: 20px;
+			background:  yellow;
+			padding: 10px;
+            box-shadow: 0px 0px 10px black;
+            text-align: center;
+		}
+		header{
+			font-size: 35px;
+			padding: 10px;
+			text-align: center;
+		}
+        section{
+            font-weight: 500;
+        }
+        
+        /**
+         * image positioning
+         */
+        
+		.bigImgRight{
+			display: inline;
+			float:right;
+			width:50%;
+		}
+		.bigImgLeft{
+			display: inline;
+			float:left;
+			width:50%;
+			margin-right: 5px;
+		}
+		.bigImgCenter{
+			display: block;
+			width:80%;
+			padding: 4% 10%;
+		}
+        
+        /**
+         * fonts
+         */
+        
+        @font-face{ /* for IE */
+			font-family:font;
+			src:url(font.eot);
+		}
+		@font-face { /* for non-IE */
+			font-family:font;
+			src:url(http://:/) format("No-IE-404"),url(font.ttf) format("truetype");
+		}
+	</style>
+	<body>
+		<header><img src="logo.png"/></header>
+		<nav>
+			<div class="buttonHolder">
+                <a class="button">menu 2</a>
+                <div class="menu">
+                    <div class="buttonHolder">
+                        <a class="button">some thinsdf </a>
+			         </div>
+                    <div class="buttonHolder">
+                        <a class="button">some thing great sd</a>
+			         </div>
+                    <div class="buttonHolder">
+                        <a class="button">some thing great</a>
+			         </div>
+                </div>
+            </div>
+			<div class="buttonHolder">
+                <a class="button">menu</a>
+                <div class="menu">
+                    <div class="buttonHolder">
+                        <a class="button">some th</a>
+			         </div>
+                    <div class="buttonHolder">
+                        <a class="button">some thing great sdf </a>
+			         </div>
+                    <div class="buttonHolder">
+                        <a class="button">some thing great</a>
+			         </div>
+                </div>
+            </div>
+			<div class="buttonHolder">
+                <a class="button">Johannes Fritz</a>
+			</div>
+			<div class="buttonHolder">
+                <a class="button">some thing great</a>
+			</div>
+			<div class="buttonHolder">
+                <a class="button">big photos</a>
+			</div>
+		</nav>
+		<main>
+            <!--SLIDER-->
+            <section id="slider">
+                <style>
+                    #slider{
+                        overflow: hidden;
+                    }
+                    .slide.hide{
+                        width:0px;
+                    }
+                    .slide.view{
+                        width:400px;
+                        /*margin-left: calc(50% - 200px - 10px);*/
+                    }
+                    .slide{
+                        z-index: 1;
+                        transition:linear 1s all;
+                    }
+                    #caption{
+                        width:100%;
+                        text-align: center;
+                        position: relative;
+                    }
+                    #images{
+                        width:100%;
+                        display: flex;
+                        justify-content: center;
+                    }
+                    .arrow{
+                        display: inline-block;
+                        text-shadow: none;
+                        height: 22px;
+                        width: 22px;
+                        cursor: pointer;
+                        font-weight: 900;
+                        font-family: sans-serif;
+                        line-height: 11px;
+                        overflow: hidden;
+                        font-size: 20pt;
+                    }
+                    .bubble{
+                        width:10px;
+                        height:10px;
+                        transition:linear 1s all;
+                        display:inline-block;
+                        border-radius:100%;
+                        margin:4px;
+                    }
+                    .bubble.nonactive{
+                        background:black;
+                        border:2px solid black;
+                    }
+                    .bubble.active{
+                        background: white;
+                        border:2px solid black;
+                    }
+                    #scrollHolder{
+                        display: flex;
+                        width:100%;
+                        justify-content: space-around;
+                    }
+                    
+                </style>
+                <p id="caption">caption for example image 1</p>
+                <div id="images">
+                    <img class="slide view" src="images/example1.png"/>
+                    <img class="slide hide" src="images/example2.png"/>
+                    <img class="slide hide" src="images/example3.png"/>
+                    <img class="slide hide" src="images/example4.png"/>
+                    <img class="slide hide" src="images/example5.png"/>
+                    <img class="slide hide" src="images/example5.png"/>
+                    <img class="slide hide" src="images/example5.png"/>
+                </div>
+                <div id="scrollHolder">
+                    <div id="scroll">
+                        <img class="arrow" onclick="back()" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB4bWxuczpvc2I9Imh0dHA6Ly93d3cub3BlbnN3YXRjaGJvb2sub3JnL3VyaS8yMDA5L29zYiIKICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIgogICB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIgogICB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIKICAgd2lkdGg9IjQ4IgogICBoZWlnaHQ9IjQ4IgogICBpZD0ic3ZnMzMzNiIKICAgdmVyc2lvbj0iMS4xIgogICBpbmtzY2FwZTp2ZXJzaW9uPSIwLjkxIHIxMzcyNSIKICAgdmlld0JveD0iMCAwIDQ4IDQ4IgogICBzb2RpcG9kaTpkb2NuYW1lPSJsYXJyLnN2ZyI+CiAgPHNvZGlwb2RpOm5hbWVkdmlldwogICAgIGlkPSJiYXNlIgogICAgIHBhZ2Vjb2xvcj0iI2ZmZmZmZiIKICAgICBib3JkZXJjb2xvcj0iIzY2NjY2NiIKICAgICBib3JkZXJvcGFjaXR5PSIxLjAiCiAgICAgaW5rc2NhcGU6cGFnZW9wYWNpdHk9IjAuMCIKICAgICBpbmtzY2FwZTpwYWdlc2hhZG93PSIyIgogICAgIGlua3NjYXBlOnpvb209IjE0IgogICAgIGlua3NjYXBlOmN4PSIyMi4wNDQ2MzQiCiAgICAgaW5rc2NhcGU6Y3k9IjIzLjU5OTEwNyIKICAgICBpbmtzY2FwZTpjdXJyZW50LWxheWVyPSJsYXllcjEiCiAgICAgc2hvd2dyaWQ9InRydWUiCiAgICAgaW5rc2NhcGU6Z3JpZC1iYm94PSJ0cnVlIgogICAgIGlua3NjYXBlOmRvY3VtZW50LXVuaXRzPSJweCIKICAgICBpbmtzY2FwZTp3aW5kb3ctd2lkdGg9IjEyODAiCiAgICAgaW5rc2NhcGU6d2luZG93LWhlaWdodD0iOTc0IgogICAgIGlua3NjYXBlOndpbmRvdy14PSItOCIKICAgICBpbmtzY2FwZTp3aW5kb3cteT0iLTgiCiAgICAgaW5rc2NhcGU6d2luZG93LW1heGltaXplZD0iMSIgLz4KICA8bWV0YWRhdGEKICAgICBpZD0ibWV0YWRhdGEzMzQxIj4KICAgIDxyZGY6UkRGPgogICAgICA8Y2M6V29yawogICAgICAgICByZGY6YWJvdXQ9IiI+CiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+CiAgICAgICAgPGRjOnR5cGUKICAgICAgICAgICByZGY6cmVzb3VyY2U9Imh0dHA6Ly9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPgogICAgICAgIDxkYzp0aXRsZSAvPgogICAgICA8L2NjOldvcms+CiAgICA8L3JkZjpSREY+CiAgPC9tZXRhZGF0YT4KICA8ZwogICAgIGlkPSJsYXllcjEiCiAgICAgaW5rc2NhcGU6bGFiZWw9IkxheWVyIDEiCiAgICAgaW5rc2NhcGU6Z3JvdXBtb2RlPSJsYXllciI+CiAgICA8cGF0aAogICAgICAgc3R5bGU9ImZpbGw6I2ZmZmZmZjtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MztzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO2ZpbGwtb3BhY2l0eToxIgogICAgICAgZD0ibSA0Mi43ODU3MTQsMi40ODMzMjY5IDAsNDMuMDcxNDMwMSBMIDksMjUuNDgzMzI3IFoiCiAgICAgICBpZD0icGF0aDMzNDQiCiAgICAgICBpbmtzY2FwZTpjb25uZWN0b3ItY3VydmF0dXJlPSIwIiAvPgogIDwvZz4KPC9zdmc+Cg=="></img>
+                        <div onclick="selectSlide(this)" class="bubble active"></div>
+                        <div onclick="selectSlide(this)" class="bubble nonactive"></div>
+                        <div onclick="selectSlide(this)" class="bubble nonactive"></div>
+                        <div onclick="selectSlide(this)" class="bubble nonactive"></div>
+                        <div onclick="selectSlide(this)" class="bubble nonactive"></div>
+                        <div onclick="selectSlide(this)" class="bubble nonactive"></div>
+                        <div onclick="selectSlide(this)" class="bubble nonactive"></div>
+                        <img class="arrow" onclick="forward()" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB4bWxuczpvc2I9Imh0dHA6Ly93d3cub3BlbnN3YXRjaGJvb2sub3JnL3VyaS8yMDA5L29zYiIKICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIgogICB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIgogICB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIKICAgd2lkdGg9IjQ4IgogICBoZWlnaHQ9IjQ4IgogICBpZD0ic3ZnMzMzNiIKICAgdmVyc2lvbj0iMS4xIgogICBpbmtzY2FwZTp2ZXJzaW9uPSIwLjkxIHIxMzcyNSIKICAgdmlld0JveD0iMCAwIDQ4IDQ4IgogICBzb2RpcG9kaTpkb2NuYW1lPSJyYXJyLnN2ZyI+CiAgPHNvZGlwb2RpOm5hbWVkdmlldwogICAgIGlkPSJiYXNlIgogICAgIHBhZ2Vjb2xvcj0iI2ZmZmZmZiIKICAgICBib3JkZXJjb2xvcj0iIzY2NjY2NiIKICAgICBib3JkZXJvcGFjaXR5PSIxLjAiCiAgICAgaW5rc2NhcGU6cGFnZW9wYWNpdHk9IjAuMCIKICAgICBpbmtzY2FwZTpwYWdlc2hhZG93PSIyIgogICAgIGlua3NjYXBlOnpvb209IjE0IgogICAgIGlua3NjYXBlOmN4PSIyMi4wNDQ2MzQiCiAgICAgaW5rc2NhcGU6Y3k9IjIzLjU5OTEwNyIKICAgICBpbmtzY2FwZTpjdXJyZW50LWxheWVyPSJsYXllcjEiCiAgICAgc2hvd2dyaWQ9InRydWUiCiAgICAgaW5rc2NhcGU6Z3JpZC1iYm94PSJ0cnVlIgogICAgIGlua3NjYXBlOmRvY3VtZW50LXVuaXRzPSJweCIKICAgICBpbmtzY2FwZTp3aW5kb3ctd2lkdGg9IjEyODAiCiAgICAgaW5rc2NhcGU6d2luZG93LWhlaWdodD0iOTc0IgogICAgIGlua3NjYXBlOndpbmRvdy14PSItOCIKICAgICBpbmtzY2FwZTp3aW5kb3cteT0iLTgiCiAgICAgaW5rc2NhcGU6d2luZG93LW1heGltaXplZD0iMSIgLz4KICA8bWV0YWRhdGEKICAgICBpZD0ibWV0YWRhdGEzMzQxIj4KICAgIDxyZGY6UkRGPgogICAgICA8Y2M6V29yawogICAgICAgICByZGY6YWJvdXQ9IiI+CiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+CiAgICAgICAgPGRjOnR5cGUKICAgICAgICAgICByZGY6cmVzb3VyY2U9Imh0dHA6Ly9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPgogICAgICAgIDxkYzp0aXRsZT48L2RjOnRpdGxlPgogICAgICA8L2NjOldvcms+CiAgICA8L3JkZjpSREY+CiAgPC9tZXRhZGF0YT4KICA8ZwogICAgIGlkPSJsYXllcjEiCiAgICAgaW5rc2NhcGU6bGFiZWw9IkxheWVyIDEiCiAgICAgaW5rc2NhcGU6Z3JvdXBtb2RlPSJsYXllciI+CiAgICA8cGF0aAogICAgICAgc3R5bGU9ImZpbGw6I2ZmZmZmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MztzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIgogICAgICAgZD0iTSA5LDQ1LjU1NDc1NyA5LDIuNDgzMzI2OSA0Mi43ODU3MTQsMjIuNTU0NzU3IFoiCiAgICAgICBpZD0icGF0aDMzNDQiCiAgICAgICBpbmtzY2FwZTpjb25uZWN0b3ItY3VydmF0dXJlPSIwIiAvPgogIDwvZz4KPC9zdmc+Cg=="></img>
+                    </div>
+                </div>
+                <script>
+                    var slider = document.getElementById("slider");
+                    var current = 0;
+                    var captions = ["caption 1","caption 2","caption 3","caption 4","caption 5","caption 6","caption 7"];
+                    var bubbles = slider.getElementsByClassName("bubble");
+                    var slides = slider.getElementsByClassName("slide");
+                    var caption = slider.querySelector("#caption");
+                    function selectSlide(bubble){
+                        bubbles[current].setAttribute("class","bubble nonactive");
+                        slides[current].setAttribute("class","slide hide");
+                        for(var i in bubbles){
+                            if(bubbles[i] === bubble){
+                                current = i;
+                                bubble.setAttribute("class","bubble active");
+                                slides[i].setAttribute("class","slide view");
+                                caption.innerHTML = captions[i];
+                            }
+                        }
+                    }
+                    function forward(){
+                        bubbles[current].setAttribute("class","bubble nonactive");
+                        slides[current].setAttribute("class","slide hide");
+                        ++current;
+                        if(current == slides.length) current = 0;
+                        bubbles[current].setAttribute("class","bubble active");
+                        slides[current].setAttribute("class","slide view");
+                        caption.innerHTML = captions[current];
+                    }
+                    function back(){
+                        bubbles[current].setAttribute("class","bubble nonactive");
+                        slides[current].setAttribute("class","slide hide");
+                        --current;
+                        if(current == -1) current = slides.length-1;
+                        bubbles[current].setAttribute("class","bubble active");
+                        slides[current].setAttribute("class","slide view");
+                        caption.innerHTML = captions[current];
+                    }
+                    setInterval(forward,10000);
+                    caption.style.top = caption.clientHeight+"px"; // push caption down by it's own height
+                    slider.style.height = slider.clientHeight+"px";
+                    
+                </script>
+            </section>
+            <!--/SLIDER-->
+            <section>
+			<h1>header here</h1>
+			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flakjsdf laskdfj aljksdf jlaskd fjal;sd f 			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flakjsdf laskdfj aljksdf jlaskd fjal;sd f 			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flakjsdf laskdfj aljksdf jlaskd fjal;sd f 			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flakjsdf laskdfj aljksdf jlaskd<img src="sky1.jpg" class="bigImgRight"/>fjal;sd f 			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flakjsdf laskdfj aljksdf jlaskd fjal;sd f 			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flakjsdf laskdfj aljksdf jlaskd fjal;sd f 			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flakjsdf laskdfj aljksdf jlaskd fjal;sd f 			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjdsdf asdf asdf asdf asdfwef rawerf awerf wer wef wefr wqoery iqwueri qwehr flakjsdf laskdfj aljksdf jlaskd fjal;sd f
+            </section>
+			<img src="sky1.jpg" class="bigImgCenter"/>
+            <section>
+			<h1>header here</h1>
+			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flakjsdf laskdfj aljksdf jlaskd fjal;sd f 			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flakjsdf laskdfj aljksdf jlaskd fjal;sd f 			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flakjsdf laskdfj aljksdf jlaskd fjal;sd f 			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flakjsdf laskdfj aljksdf jlaskd fjal;sd f 			asdf askldf askd fasldj<img src="sky1.jpg" class="bigImgLeft"/> fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flakjsdf laskdfj aljksdf jlaskd fjal;sd f 			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flakjsdf laskdfj aljksdf jlaskd fjal;sd f 			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flakjsdf laskdfj aljksdf jlaskd fjal;sd f 			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd fwer wer wer werf wqer wqer wiry iwuerh iwuerh iwueh iauwefhiwuehf iawuef waiueh iwueh qweuir qwuierh iuwoefiuoqweh iuoqwe riuwerhioa uwehiauowe iuaowe riuawehruaowierh iuaweh riouaweriouaweh iawuehr lakjsdf laskdfj aljksdf jlaskd fjal;sd f asd awe awef awefawef awef awef awef awef
+            </section>
+            <section>
+             <h1>header here</h1>
+			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flakjsdf laskdfj aljksdf jlaskd fjal;sd f 			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flakjsdf laskdfj aljksdf jlaskd fjal;sd f 			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flakjsdf laskdfj aljksdf jlaskd fjal;sd f 			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flakjsdf laskdfj aljksdf jlaskd fjal;sd f 			asdf askldf askd fasldj<img src="sky1.jpg" class="bigImgLeft"/> fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flakjsdf laskdfj aljksdf jlaskd fjal;sd f 			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flakjsdf laskdfj aljksdf jlaskd fjal;sd f 			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flakjsdf laskdfj aljksdf jlaskd fjal;sd f 			asdf askldf askd fasldj fajsodf ajsd foaisd fajlksdf alskdf aljksd falskdf aldf alskjd flajksd falks faljskd flasjkd flkasjd flasdf asdf asdf asdfasf asddf asdf asdf asfawe awef awef awe awe awe awer awe fawerf awef awefawef awef aewf awef awe faw akjsdf laskdawe awef awef awef fj aljksdf jlaskd fjal;sd f dfg serg serg serg serg serg serg ser serthrthsdfgh sfdgh fgh dfgh dfhg dfh rthsrth seht sedth serh serh serhg asedrhserh serh serh serh serh zsedh sedrs
+            </section>
+		</main>
+		<footer>
+			asdfasdf pasod foajpsdj jopa sdf oasodpi faojdf aopisdj fojsdf aos psdf ajodf jaops oaidj faojdf aofaospdfj aosdfj.
+		</footer>
+        <script>
+            document.onscroll = function(e){
+                var header = document.querySelector("header");
+                var nav = document.querySelector("nav");
+                if(document.body.scrollTop > header.clientHeight && window.innerWidth > 700) {
+                    nav.style.position = "fixed";
+                    nav.style.top = "0";
+                    document.body.style.marginTop = "50px";
+                } else {
+                    nav.style.position = "";
+                    document.body.style.marginTop = "0";
+                }
+            }
+        </script>
+	</body>
+</htmL>
