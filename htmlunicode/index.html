@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+    <script>
+        var buttons =  '<style>\
+                            html, body{\
+                                margin:0;\
+                                padding:0;\
+                                font-size: 20pt;\
+                                text-align:center;\
+                            }\
+                        </style>\
+                        <div>\
+                            <button onclick="doit(0x0,0x1111)">0x0000-0x1111</button>\
+                            <button onclick="doit(0x1111,0x2222)">0x1111-0x2222</button>\
+                            <button onclick="doit(0x2222,0x3333)">0x2222-0x3333</button>\
+                            <button onclick="doit(0x3333,0x4444)">0x3333-0x4444</button>\
+                            <button onclick="doit(0x4444,0x5555)">0x4444-0x5555</button>\
+                            <button onclick="doit(0x5555,0x6666)">0x5555-0x6666</button>\
+                            <button onclick="doit(0x6666,0x7777)">0x6666-0x7777</button>\
+                            <button onclick="doit(0x7777,0x8888)">0x7777-0x8888</button>\
+                            <button onclick="doit(0x8888,0x9999)">0x8888-0x9999</button>\
+                            <button onclick="doit(0x9999,0xaaaa)">0x9999-0xaaaa</button>\
+                            <button onclick="doit(0xaaaa,0xbbbb)">0xaaaa-0xbbbb</button>\
+                            <button onclick="doit(0xbbbb,0xcccc)">0xbbbb-0xcccc</button>\
+                            <button onclick="doit(0xcccc,0xdddd)">0xcccc-0xdddd</button>\
+                            <button onclick="doit(0xdddd,0xeeee)">0xdddd-0xeeee</button>\
+                            <button onclick="doit(0xeeee,0xffff)">0xeeee-0xffff</button>\
+                        </div>';
+        function doit(start,end){
+            document.body.innerHTML = "";
+            document.write(buttons);
+            var i = start;
+            while(i++ < 0xffff){
+                document.write("&nbsp; &amp;#"+i+";&nbsp;=&nbsp;&#"+i+";&nbsp; ");
+            }
+        }
+    </script>
+    <body>
+        <script>document.body.innerHTML = buttons</script>
+    </body>
+</html>
