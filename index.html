@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <title>Mr. Rar's Website</title>
-    <meta name="theme-color" content="darkred"/>
+    <meta name="theme-color" content="red"/>
     <link rel="shortcut icon" href="webStuff/favicon.png"/>
     <meta name="author" content="Mr. Rar"/>
     <meta name="keywords" content="website, rar, Mr. Rar"/>
@@ -34,11 +34,11 @@
             float: left;
             color:white;
             text-align: center;
-            font-size: 35pt;
+            font-size: 30pt;
             line-height: 40px;
 			box-sizing: border-box;
             border-top:60px solid transparent;
-            font-family:"cordiau";
+            font-family: Arial, Helvetica, sans-serif;
 			overflow: hidden;
         }
         #lights{
@@ -76,9 +76,9 @@
         #dateTime{
             color:white;
             line-height:20px;
-            font-size:30pt;
+            font-size:20pt;
             text-align: center;
-            font-family: "cordiau";
+            font-family: Arial, Helvetica, sans-serif;
             text-shadow: 0 0 10px black;
         }
         #year{
@@ -87,20 +87,20 @@
             font-weight:bolder;
             padding-top:80px;
             padding-left: 150px;
-            font-size: 60pt;
+            font-size: 50pt;
             color:white;
         }
         #block1{
             display:flex;
             float:left;
             color:white;
-            font-size: 20pt;
+            font-size: 15pt;
             text-align: center;
             align-items: center;
         }
         #statement{
             color:white;
-            font-size: 20pt;
+            font-size: 10pt;
             display:inline;
         }
         #speakers{
@@ -114,14 +114,14 @@
 			src: url(webStuff/cordiau.ttf);
 			src: url(webStuff/cordiau.eot);
         }*/
-		@font-face{ /* for IE */
+		/*@font-face{ / * for IE * /
 			font-family:cordiau;
 			src:url(webStuff/cordiau.eot);
 		}
-		@font-face { /* for non-IE */
+		@font-face { / * for non-IE * /
 			font-family:cordiau;
 			src:url(http://:/) format("No-IE-404"),url(webStuff/cordiau.ttf) format("truetype");
-		}
+		}*/
         #desk{
             float: left;
         }
@@ -131,9 +131,11 @@
         }
         html{
             cursor:url(webStuff/mouse.png), auto;
-            font-family: "cordiau"
+            font-family: Arial, Helvetica, sans-serif;
         }
         #linksButton{
+            line-height: 50px;
+            height: 50px;
             width:100%;
             text-align:center;
             font-size:40px;
@@ -198,7 +200,7 @@
             bottom:20px;
             text-align: center;
             color:white;
-            font-size:18pt;
+            font-size:10pt;
             display:inline-block;
             cursor:url(webStuff/mouse.png), auto;
         }
@@ -233,7 +235,7 @@
 			padding: 0;
 			line-height: 50px;
 		}
-        @media all and (max-width: 720px){
+        @media all and (max-width: 840px){
             nav a{
                 width:auto;
                 display:list-item;
@@ -245,7 +247,6 @@
                 transition: all ease-in-out 0.5s;
                 display: inline-block;
             }
-            /*nav:hover {height:300px;}*/
             #linksButton{
                 display:inline-block;
             }
@@ -313,17 +314,22 @@
                 border: 10px solid transparent;
 				height: auto;
             }
+            label{
+                font-size:12pt;
+            }
         }
     </style>
 </head>
 <body>
     <nav>
-        <div id=linksButton>LINKS</div>
+        <div id=linksButton>&#65088;</div>
         <a href="mdmods/"><div id=button onmouseover="buttonSound()"></div><label>MD mods</label></a>
         <a href="modcreator/"><div id=button onmouseover="buttonSound()"></div><label>MD Mod Creator</label></a>
         <a href="spashal/"><div id=button onmouseover="buttonSound()"></div><label>Spashal</label></a>
         <a href="wallpapers/"><div id=button onmouseover="buttonSound()"></div><label>Wallpapers</label></a>
-        <a href="githubarcade"><div id=button onmouseover="buttonSound()"></div><label>Github Arcade</label></a>
+        <a href="githubarcade/"><div id=button onmouseover="buttonSound()"></div><label>Github Arcade</label></a>
+        <a href="3dcomputer/"><div id=button onmouseover="buttonSound()"></div><label>3D computer</label></a>
+        <a href="minetest/"><div id=button onmouseover="buttonSound()"></div><label>Minetest</label></a>
     </nav>
     <audio id="clickSound" src="webStuff/musica2.wav">
         <source type="wave" src="webStuff/musica2.wav"/>
@@ -341,8 +347,8 @@
     <p id="block1">
         Welcome to Mr. Rar's (Johannes Fritz) website.
 		Here you can access my Manic Digger mods and make your own Manic Digger mods using the mod creator. 
-        You can also play a fun little game called Spashal.
-        There's a link to Github Arcade as well.
+        You can have some fun playing a little game called Spashal.
+        There's a link to the fun Github Arcade as well.
 		You can also access all my newest wallpapers.
 		Have fun!
         
@@ -542,9 +548,17 @@ function compuClose(){
 }
 navOpen = false;
 document.querySelector("nav").onclick = function(){
-    if(document.body.clientWidth < 700){
-	    if(navOpen){document.querySelector("nav").style.height="50px"; navOpen=false;}
-	    else{navOpen = true; document.querySelector("nav").style.height="360px";}
+    if(document.body.clientWidth < 840){
+	    if(navOpen){
+            document.querySelector("nav").style.height="50px";
+            document.querySelector("#linksButton").innerHTML="&#65088;";
+            navOpen=false;
+        }
+	    else{
+            document.querySelector("#linksButton").innerHTML="&#65087;";
+            navOpen = true;
+            document.querySelector("nav").style.height="425px";
+        }
     }
 }
     </script>
