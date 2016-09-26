@@ -291,7 +291,7 @@
     <script>
     var interval;
     var slider = document.getElementById("slider");
-    var current = 1;
+    var current = 0;
     var bubbles = [];
     var slidesHoder = document.getElementById("images");
     var slides = slider.getElementsByClassName("slide");
@@ -340,9 +340,17 @@
         bubblesHolder.appendChild(bubble);
 		bubbles.push(bubble);
 	}
-	back();
+    init();
+	function init(){
+        bubbles[current].setAttribute("class","bubble active");
+        slides[current].setAttribute("class","slide view");
+        caption.innerHTML = slides[current].getAttribute("data-caption");
+    }
 	document.body.onload = function(){
-		slidesHoder.style.height = slides[0].clientHeight+"px";
+        slides[current].style.transition = "none";
+		slidesHoder.style.height = slides[current].height+"px";
+        slides[current].style = "";
+        interval = setInterval(forward,5000);
         //caption.style.top = caption.clientHeight+"px";
 	}
 	</script>
