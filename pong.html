@@ -1,0 +1,233 @@
+<!doctype html>
+<title>Pong</title>
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAA+SURBVDhPY2AgG/z//x+rXqA4BKDL4tEAVEpjDdidRLbnqa4RV+DgtAirBly+BCmmjgZc7qGO+6kerKQaCAAXx02zk7ajSQAAAABJRU5ErkJggg=="/>
+<meta name="theme-color" content="black"/>
+<html style="height:100%;padding:0;margin:0">
+<body style="height:100%;padding:0;margin:0">
+<canvas style="float:right"></canvas>
+<script>
+var canvas = document.querySelector("canvas");
+var ctx = canvas.getContext("2d");
+var paddle = {width:50,height:200,speed:350};
+var puck = {posX:0,posY:0,movementX:0,movementY:0,height:50,width:50,accel:0.5,speed:250};
+var player1Touch = 0;
+var player2Touch = 0;
+var player1 = {pos:0,goingUp:false,goingDown:false,score:0};
+var player2 = {pos:0,goingUp:false,goingDown:false,score:0};
+var then;
+function lifeCycle() {
+    var delta = (Date.now()-then)/1000;
+    then = Date.now();
+	ctx.fillStyle = "#000000";
+	ctx.fillRect(0,0,canvas.width,canvas.height); // clear screen
+	if (player1.goingUp) {
+		player1.pos -= paddle.speed*delta;
+		if (player1.pos < 0) player1.pos = 0;
+	}
+	if (player1.goingDown) {
+		player1.pos += paddle.speed*delta;
+		if (player1.pos > canvas.height-paddle.height) player1.pos = canvas.height-paddle.height;
+	}
+	if (player2.goingUp) {
+		player2.pos -= paddle.speed*delta;
+		if (player2.pos < 0) player2.pos = 0;
+	}
+	if (player2.goingDown) {
+		player2.pos += paddle.speed*delta;
+		if (player2.pos > canvas.height-paddle.height) player2.pos = canvas.height-paddle.height;
+	}
+	puck.movementX += (puck.movementX>0)?puck.accel+delta:-puck.accel+delta;
+	puck.movementY += (puck.movementY>0)?puck.accel+delta:-puck.accel+delta;
+	puck.posX += puck.movementX*delta;
+	puck.posY += puck.movementY*delta;
+	if (puck.posX < 0) {
+		puck.posX = 0;
+		puck.movementX = puck.speed;
+		puck.movementY = puck.movementY>0?puck.speed:-puck.speed;
+		if (++player2.score == 11) {
+            player1.score = 0;
+            player2.score = 0;
+            player1.pos = canvas.height/2-paddle.height/2;
+	        player2.pos = canvas.height/2-paddle.height/2;
+	        puck.posX = canvas.width/2-puck.width/2;
+	        puck.posY = canvas.height/2-puck.height/2;
+	        puck.movementX = Math.random()<0.5?puck.speed:-puck.speed;
+	        puck.movementY = Math.random()<0.5?puck.speed:-puck.speed;
+            alert("player 2 won!");
+			then = Date.now();
+        }
+	}
+	if (puck.posX > canvas.width-puck.height) {
+		puck.posX = canvas.width-puck.height;
+		puck.movementX = -puck.speed;
+		puck.movementY = puck.movementY>0?puck.speed:-puck.speed;
+		if (++player1.score == 11) {
+            player1.score = 0;
+            player2.score = 0;
+            player1.pos = canvas.height/2-paddle.height/2;
+	        player2.pos = canvas.height/2-paddle.height/2;
+	        puck.posX = canvas.width/2-puck.width/2;
+	        puck.posY = canvas.height/2-puck.height/2;
+	        puck.movementX = Math.random()<0.5?puck.speed:-puck.speed;
+	        puck.movementY = Math.random()<0.5?puck.speed:-puck.speed;
+            alert("player 1 won!");
+			then = Date.now();
+        }
+	}
+	if (puck.posY < 0) {
+		puck.posY = 0;
+		puck.movementY = -puck.movementY;
+	}
+	if (puck.posY > canvas.height-puck.height) {
+		puck.posY = canvas.height-puck.height;
+		puck.movementY = -puck.movementY;
+	}
+	if (
+		(
+			( // top
+				puck.posY+puck.height > player1.pos
+				&& puck.posY < player1.pos
+			)
+			|| ( // center
+				puck.posY > player1.pos
+				&& puck.posY+puck.height < player1.pos+paddle.height
+			)
+			|| ( // bottom
+				puck.posY > player1.pos
+				&& puck.posY < player1.pos+paddle.height
+			)
+		)
+		&& (
+			(
+				puck.posX < paddle.width
+			)
+		)
+	) {
+		puck.movementX = Math.abs(puck.movementX);
+		if (player1.goingUp) puck.movementY += paddle.speed;
+		if (player1.goingDown) puck.movementY -= paddle.speed;
+	}
+	if (
+		(
+			( // top
+				puck.posY+puck.height > player2.pos
+				&& puck.posY < player2.pos
+			)
+			|| ( // center
+				puck.posY > player2.pos
+				&& puck.posY+puck.height < player2.pos+paddle.height
+			)
+			|| ( // bottom
+				puck.posY > player2.pos
+				&& puck.posY < player2.pos+paddle.height
+			)
+		)
+		&& (
+			puck.posX+puck.width > canvas.width-paddle.width
+		)
+	) {
+		puck.movementX = -Math.abs(puck.movementX);
+		if (player2.goingUp) puck.movementY += 2;
+		if (player2.goingDown) puck.movementY -= 2;
+	}
+	ctx.fillStyle = "#ffffff";
+	ctx.fillText(player1.score,canvas.width*0.25-ctx.measureText(player1.score).width,100);
+	ctx.fillText(player2.score,canvas.width*0.75-ctx.measureText(player2.score).width,100);
+	ctx.fillRect(0,player1.pos,paddle.width,paddle.height); // paddle 1
+	ctx.fillRect(canvas.width-paddle.width,player2.pos,paddle.width,paddle.height); // paddle 2
+	ctx.fillRect(puck.posX,puck.posY,puck.width,puck.height); // de puck
+	requestAnimationFrame(lifeCycle);
+}
+function resize() {
+	canvas.width = document.body.clientWidth;
+	canvas.height = document.body.clientHeight;
+    ctx.font = "100px monospace";
+}
+function init() {
+	document.body.onresize = resize;
+	document.body.onkeydown = keyDown;
+	document.body.onkeyup = keyUp;
+	document.addEventListener("touchstart",touchStart);
+	document.addEventListener("touchmove",touchMove);
+	document.addEventListener("touchend",touchEnd);
+	resize();
+	player1.pos = canvas.height/2-paddle.height/2;
+	player2.pos = canvas.height/2-paddle.height/2;
+	puck.posX = canvas.width/2-puck.width/2;
+	puck.posY = canvas.height/2-puck.height/2;
+	puck.movementX = Math.random()<0.5?puck.speed:-puck.speed;
+	puck.movementY = Math.random()<0.5?puck.speed:-puck.speed;
+    alert("Use W S and up down keys to control the paddles.\nOn a mobile device swipe up and down on the left and right sides of the screen.\nReady?");
+    then = Date.now();
+	lifeCycle();
+}
+function keyDown(e) {
+	switch(e.keyCode) {
+		case 87: player1.goingUp = true; break;
+		case 83: player1.goingDown = true; break;
+		case 38: player2.goingUp = true; break;
+		case 40: player2.goingDown = true; break;
+	}
+}
+function keyUp(e) {
+	switch(e.keyCode) {
+		case 87: player1.goingUp = false; break;
+		case 83: player1.goingDown = false; break;
+		case 38: player2.goingUp = false; break;
+		case 40: player2.goingDown = false; break;
+	}
+}
+var move;
+function touchStart(e) {
+    e.preventDefault();
+	var t = e.changedTouches;
+	for(var i=0; i<t.length; i++) {
+		if (t[i].clientX < (canvas.width/2)) player1Touch = t[i].clientY;
+		else player2Touch = t[i].clientY;
+	}
+}
+function touchMove(e) {
+    e.preventDefault();
+	var t = e.changedTouches;
+	for(var i=0; i<t.length; i++) {
+		if (t[i].clientX < (canvas.width/2)) {
+			if(t[i].clientY-player1Touch > 0) {
+				player1.goingUp = false;
+				player1.goingDown = true;
+			} else {
+				player1.goingUp = true;
+				player1.goingDown = false;
+			}
+            player1Touch = t[i].clientY;
+		}
+		else {
+			if(t[i].clientY-player2Touch > 0) {
+				player2.goingUp = false;
+				player2.goingDown = true;
+			} else {
+				player2.goingUp = true;
+				player2.goingDown = false;
+			}
+		}
+	}
+}
+function touchEnd(e) {
+    e.preventDefault();
+	var t = e.changedTouches;
+	for(var i=0; i<t.length; i++) {
+		if (t[i].clientX < (canvas.width/2)) {
+			player1Touch = 0;
+			player1.goingUp = false;
+			player1.goingDown = false;
+		}
+		else {
+			player2Touch = 0;
+			player2.goingUp = false;
+			player2.goingDown = false;
+		}
+	}
+}
+init();
+</script>
+</body>
+<html>
