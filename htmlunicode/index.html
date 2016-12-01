@@ -30,7 +30,7 @@
             document.body.innerHTML = "";
             document.write(buttons);
             var i = start;
-            while(i++ < 0xffff){
+            while(i++ <= end){
                 document.write("&nbsp; &amp;#"+i+";&nbsp;=&nbsp;&#"+i+";&nbsp; ");
             }
         }
