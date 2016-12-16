@@ -1,0 +1,258 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AwQDx8EjhKGBgAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAACvElEQVQ4yz2RO3PbRgCEPxwOh+cdIRKUItLWyF0mkyJNuvyF/I/8rfTpU6RNk1RJnDiVHcuSJT8okQaIBw8HIAVtb7k7O7uz6333w8UkPQ8RQZIrADYvO7K5REaCh1cNWaEIleRgHe4wMY4QRYJ22yOEAP0owrYTQzPS7xwnp4quHmi2PUmm2G8sB+sQQjCOID0PmfqcfZkhiscx2+uW/DzETwSDgN6N2LrHthOjN2FOI9IiwrYD2SIgNpJ0rnh41SFunpVIz6P6Y8/dj1s+YX6RkM0lqQ4Yx5EPv1W8/emOdK4Y7cibv0rCSCC0k/S/lIQvfOYmg6f3mELRv7DEc0X/s8U97zlVkmK+ZPPrDn09IH/vif5rkVnbo3TK5fkZ3Sh4vZyI/3bcP4WTYGISPcF1yG3dIaXPoyTh4ZljtCUzc4H3/bdPplka4zMhw5irmxuiOMXzwPcmzpdLNtsdZVXiponJDWRZRhxKcq0RSeDRVA/MT3K6tmKWBCyyiK58g/QcXVuj/Iki1xQ6Jg09cDVSeFhrEbkxxElG07bkWmP0jCgK+fqrb4ijhKouATjYjmEcmKaRrms42A4A0bQNuTHcb96iVEjz0eCcQ/oSnRrev78FIFQRy+KLo24PAMgwUOzKkjxf8M+/f7JeXTI4x95abG9RgWK9ugTAGANAVc4+3y0PvUUIgdaa9eoSYwyutxwOR/4TbG8pyxJfCOJUI33JerVCAEhf0rQtWZoyDgNN23Ho7ZGvS17fvkQIgRscwziSmxlucFT7PUL68phgLbvyA+/e3QFQzBf4HxuYbEYSJ0hfks9m7Osak2VcXT1HKKWoyi1KKWzXoHXOerUCYLe7Z7V6zKI4oyx3n8c1xuCG8bjBsigYnEMFAVrnVNWOqtqRpIY8X+CcY1/vaduaNMlo25a62SMDhTYn/A8r0EqWZ1q2mQAAAABJRU5ErkJggg=="/>
+<meta charset="utf-8">
+<title>Minetest Mods</title>
+<meta name="theme-color" content="#795548"/>
+<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+	}
+	body {
+		display: flex;
+		justify-content: space-around;
+		flex-wrap: wrap;
+	}
+	main {
+		display: flex;
+		justify-content: space-around;
+		flex-wrap: wrap;
+	}
+	.mod {
+		width: 300px;
+		height: 200px;
+		box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+		margin: 4px;
+		padding: 4px;
+		background-size: contain;
+		background-position: 50% 50%;
+	}
+	p {
+		font: 400 16px/24px Roboto,sans-serif;
+		-webkit-font-smoothing: antialiased;
+		color: #212121;
+		display: block;
+		-webkit-margin-before: 1em;
+		-webkit-margin-after: 1em;
+		-webkit-margin-start: 0px;
+		-webkit-margin-end: 0px;
+		margin: 16px 0;
+		padding: 0;
+	}
+	a {
+		-webkit-font-smoothing: antialiased;
+		font: 400 16px/24px Roboto,sans-serif;
+		cursor: auto;
+		color: #039be5;
+		outline: 0;
+		text-decoration: none;
+	}
+	.download {
+		text-transform: uppercase;
+	}
+	h2 {
+		color: #212121;
+		-webkit-font-smoothing: antialiased;
+		-webkit-margin-before: 0.83em;
+		-webkit-margin-after: 0.83em;
+		-webkit-margin-start: 0px;
+		-webkit-margin-end: 0px;
+		display: block;
+		overflow: hidden;
+		padding: 0;
+		text-overflow: ellipsis;
+		border-bottom: 1px solid #ebebeb;
+		font: 300 24px/32px Roboto,sans-serif;
+		letter-spacing: -.01em;
+		margin: 40px 0 20px;
+		padding-bottom: 3px;
+		text-align: center;
+		width: 100%;
+	}
+	h1 {
+		-webkit-font-smoothing: antialiased;
+		-webkit-margin-start: 0px;
+		-webkit-margin-end: 0px;
+		-webkit-margin-before: 1em;
+		-webkit-margin-after: 1em;
+		overflow: hidden;
+		padding: 0;
+		text-overflow: ellipsis;
+		color: #757575;
+		font: 300 34px/40px Roboto,sans-serif;
+		letter-spacing: -.01em;
+		margin: 20px 0 10px;
+		text-align: center;
+		width: 100%;
+	}
+	#mod-image {
+		float: right;
+		image-rendering: pixelated;
+		width: 100%;
+		height: auto;
+	}
+	.mod > h2, .mod > p {
+		border-bottom: none;
+		text-shadow: 1px 1px 0 white, -1px -1px 0 white,  1px -1px 0 white,  -1px 1px 0 white;
+		margin: 0;
+		text-align: center;
+	}
+	#contributors {
+		width: 100%;
+		justify-content: space-around;
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.contrubutor {
+		/*float: left;*/
+		flex-basis:content;
+	}
+	.butor-name {
+		text-align: center;
+		position: relative;
+		bottom: 20px;
+	}
+	.current {
+		background: yellow;
+	}
+	@media all and (max-width: 700px) { /*de big screens*/
+		body > h2, body > p {
+			text-align: left;
+		}
+	}
+	@media all and (min-width: 600px) { /*de little screens*/
+		body > h2, body > p {
+			text-align: center;
+		}
+	}
+</style>
+<script>
+function get(url,callback) {
+	var httpRequest = new XMLHttpRequest();
+	httpRequest.onreadystatechange = (function() {
+		if (httpRequest.readyState === XMLHttpRequest.DONE) {
+			if (httpRequest.status === 200) {
+				//alert(httpRequest.getResponseHeader("link"));
+				callback(JSON.parse(httpRequest.responseText));
+			} else {
+				alert('no can do!');
+			}
+		}
+	}).bind(callback);
+	httpRequest.open("GET", url);
+	httpRequest.send(null);
+}
+var pageNo = 0;
+var hashChange;
+//https://api.github.com/search/repositories?q=guns&user=minetest-mods
+function onLoad() {
+	(hashChange = function(e) {
+		var hash = location.hash.slice(1);
+		if (parseInt(hash)) { // is the hash a number? if so it is the page number.
+			pageNo = parseInt(hash);
+			get("https://api.github.com/organizations/16545761/repos?page="+pageNo,function(repos) {
+				var main = document.querySelector("main");
+				main.innerHTML = ""; // empty main so we can fill it with new mods
+				for(var i in repos) {
+					var url = repos[i].url;
+					var div = document.createElement("div");
+					div.onclick = (function(url) {location.hash = url}).bind(null,url);
+					div.setAttribute("class","mod");
+					div.innerHTML = "<h2 class='list'>"+repos[i].name+"</h2><p class='list'>"+repos[i].description+"</p>";
+					div.style.background = "url(https://github.com/"+repos[i].full_name+"/blob/master/screenshot.png?raw=true)";
+					main.appendChild(div);
+				}
+				// ok let's add the buttons
+				var reposPerPage = repos.length;
+				get("https://api.github.com/orgs/minetest-mods",(function(minetest) {
+					var totalPages = Math.ceil(minetest.public_repos/30);
+					var nav = document.querySelector("nav");
+					nav.innerHTML = "";
+					for(var i=1; i<=totalPages; i++) {
+						var button = document.createElement("button");
+						button.onclick = (function(i) {location.hash = i}).bind(null,i);
+						button.innerHTML = "page "+i;
+						button.setAttribute("class",(pageNo==i)?"current":"");
+						nav.appendChild(button);
+					}
+				}).bind(reposPerPage));
+			});
+		} else if (hash) { // is hash a string? if so it is the repo url
+			get(hash,function(repo) {
+				var main = document.querySelector("main");
+				var nav = document.querySelector("nav");
+				nav.innerHTML = ""; // empty nav
+				main.innerHTML = ""; // empty main
+				main.innerHTML += "<img id='mod-image' src='https://github.com/"+repo.full_name+"/blob/master/screenshot.png?raw=true'/>";
+				main.innerHTML += "<h1>"+repo.name+"</h1><h2>"+repo.description+"</h2>";
+				main.innerHTML += "<a href='https://github.com/"+repo.full_name+"/archive/master.zip'>download</a>";
+				main.innerHTML += "<pre id='readme'></pre>";
+				main.innerHTML += "<div id='contributors'></div>";
+				get("https://api.github.com/repos/"+repo.full_name+"/readme",function(readme) {
+					var p = document.getElementById("readme");
+					p.innerHTML = atob(readme.content);
+				});
+				get("https://api.github.com/repos/"+repo.full_name+"/contributors",function(butors) {
+					var contain = document.getElementById("contributors");
+					contain.innerHTML += "<h2>Mod by:</h2>";
+					for(var i in butors) {
+						var butor = document.createElement("div");
+						butor.className = "contrubutor";
+						butor.innerHTML += "<img style='display:inline;width:150px;' src='"+butors[i].avatar_url+"'/><br/>";
+						butor.innerHTML += "<p class='butor-name'>"+butors[i].login+"</p>";
+						contain.appendChild(butor);
+					}
+				});
+			});
+		} else { // hash must be notheing. Show first page of mods
+			location.hash  = 1;
+			/*get("https://api.github.com/organizations/16545761/repos?page=1",function(repos) {
+				get("https://api.github.com/orgs/minetest-mods",(function(minetest) {
+					var currentPage = 1;
+					var totalPages = Math.seal(minetest.public_repos/repos.length);
+					var nav = document.querySelector("nav");
+					for(var i=1; i<=totalPages; i++) {
+						var button = document.createElement("button");
+						button.onclick = (function(i) {location.hash = i}).bind(null,i);
+						button.innerHTML = "page "+i;
+						nav.appendChild(button);
+					}
+				}).bind(repos.length));
+				var main = document.createElement("main");
+				for(var i in repos) {
+					var url = repos[i].url;
+					var div = document.createElement("div");
+					div.onclick = (function(url) {location.hash = url}).bind(null,url);
+					div.setAttribute("class","mod");
+					div.innerHTML = "<h2 class='list'>"+repos[i].name+"</h2><p class='list'>"+repos[i].description+"</p>";
+					div.style.background = "url(https://github.com/"+repos[i].full_name+"/blob/master/screenshot.png?raw=true)";
+					main.appendChild(div);
+				}
+			});*/
+		}
+	})();
+}
+/*function openRepo(url) {
+	get(url,function(repo) {
+		document.body.innerHTML = "<img id='mod-image' src='https://github.com/"+repo.full_name+"/blob/master/screenshot.png?raw=true'/>";
+		document.body.innerHTML += "<h1>"+repo.name+"</h1><h2>"+repo.description+"</h2>";
+		document.body.innerHTML += "<p></p>";
+		document.body.innerHTML += "<a href='https://github.com/"+repo.full_name+"/archive/master.zip'>download</a>";
+		get("https://api.github.com/repos/"+repo.full_name+"/readme",function(readme) {
+			var p = document.querySelector("p");
+			p.innerHTML = atob(readme.content);
+		});
+	});
+}*/
+</script>
+</head>
+<body onload="onLoad()" onhashchange="hashChange()">
+	<nav></nav>
+	<main></main>
+</body>
+</html>
