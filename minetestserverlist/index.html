@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+	<title>Minetest Server List</title>
+	<link rel="icon" href="logo.png">
+	<meta charset="utf-8">
+	<meta mame="color-theme" content="gray">
+	<meta name="viewport" content="width=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			display: flex;
+			justify-content: space-around;
+			align-items:center;
+			flex-wrap: wrap;
+			background: url(dirt_bg.png) fixed;
+		}
+		.server {
+			text-align: center;
+			margin: 5px;
+			padding:5px;
+			width: 300px;
+			box-shadow: 0 0 4px black;
+			font-family: sans-serif, Arial, Helvetica;
+			background: rgba(255,255,255,0.5);
+			transition: 0.3s ease-in all;
+			position: relative;
+			opacity: 0;
+			top: 50px;
+		}
+		.server.aos-animate {
+			opacity:1;
+			top: 0;
+		}
+		.players {
+			height: 0;
+			overflow: hidden;
+		}
+		.info {
+			height: 0;
+			overflow: hidden;
+		}
+		.open {
+			height: auto;
+		}
+		.toggle {
+			cursor: pointer;
+			font-weight: 900;
+		}
+		.toggle::before {
+			transition: linear 0.2s transform;
+			display: inline-block;
+			content: url(triangle.svg);
+			position: relative;
+			top:4px;
+		}
+		.toggle.open::before {
+			transform: rotate(90deg);
+		}
+		h2 {
+			font-weight: 900;
+			overflow: hidden;
+		}
+		h3 {
+			font-weight: 500;
+		}
+		h4 {
+			font-weight: 500;
+		}
+		img {
+			float: right;
+			margin:4px;
+		}
+	</style>
+	<body>
+		<div id="servers"></div>
+		<script>
+		var servers = document.getElementById("servers");
+		function parse(json){
+			for(var i=0; i<json.list.length; i++){
+				var it = json.list[i];
+				var div = document.createElement("div");
+				div.setAttribute("class","server");
+				div.setAttribute("data-aos","");
+				
+				if(it.pvp){
+					var pvp = document.createElement("img");
+					pvp.src="server_flags_pvp.png";
+					div.appendChild(pvp);
+				}
+				if(it.damage){
+					var damage = document.createElement("img");
+					damage.src="server_flags_damage.png";
+					div.appendChild(damage);
+				}
+				if(it.creative){
+					var creative = document.createElement("img");
+					creative.src="server_flags_creative.png";
+					div.appendChild(creative);
+				}
+				div.innerHTML += "<h2>"+it.name+"</h2>";
+				div.innerHTML += "<h4>"+it.description+"</h4>";
+				div.innerHTML += "<h3>players: "+it.clients+"/"+it.clients_max+"</h3>";
+				//div.innerHTML += "<h4>uptime: "+it.uptime+"</h4>";
+				div.innerHTML += "<h4 class='toggle' onclick='togglePlayers(\""+i+"\")'>players</h4>";
+				
+				var players = document.createElement("div");
+				players.setAttribute("class","players");
+				for(var n=0; n<it.clients_list.length; n++){
+					players.innerHTML+=it.clients_list[n]+"<br>";
+				}
+				div.appendChild(players);
+				
+				div.innerHTML += "<h4 class='toggle' onclick='toggleInfo(\""+i+"\")'>more info</h4>";
+				var info = document.createElement("div");
+				info.setAttribute("class","info");
+				if (it.url) info.innerHTML += "<h4><a href='"+it.url+"'>website</a></h4>";
+				info.innerHTML += "<h4>address: "+it.address+":"+it.port+"</h4>";
+				info.innerHTML += "<h4>ping: "+Math.round(it.ping*1000)+"ms</h4>";
+				info.innerHTML += "<h4>lag: "+Math.round(it.lag*100)/100+"ms</h4>";
+				info.innerHTML += "<h4>minetest version: "+it.version+"</h4>";
+				div.appendChild(info);
+				servers.appendChild(div);
+			}
+		}
+		function togglePlayers(i){
+			var n = parseInt(i);
+			servers.children[n].querySelector(".players").classList.toggle("open");
+			servers.children[n].querySelectorAll(".toggle")[0].classList.toggle("open");
+		}
+		function toggleInfo(i){
+			var n = parseInt(i);
+			servers.children[n].querySelector(".info").classList.toggle("open");
+			servers.children[n].querySelectorAll(".toggle")[1].classList.toggle("open");
+		}
+		document.body.onscroll=function(e){
+			document.body.style.backgroundPosition="center "+document.body.scrollTop/-5+"px";
+		}
+		var httpRequest = new XMLHttpRequest();
+		httpRequest.onreadystatechange = function(){
+			if (httpRequest.readyState === XMLHttpRequest.DONE) {
+				if (httpRequest.status === 200) {
+					//alert(httpRequest.responseText);
+					parse(JSON.parse(httpRequest.responseText));
+				} else {
+					alert("ajax isn't working");
+				}
+			}
+		}
+		httpRequest.open('GET', "http://servers.minetest.net/list?proto_version_min=1&proto_version_max=30");
+		httpRequest.send();
+	</script>
+	<script src="aos.js"></script>
+	<script>AOS.init();</script>
+	</body>
+</html>
