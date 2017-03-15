@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-us">
 <head>
     <meta charset="utf-8"/>
@@ -10,11 +10,11 @@
     <meta name="description" content="Mr. Rar's Website"/>
     <meta name="viewport" content="width=device-width,initial-scale=0.9,maximum-scale=0.9,user-scalable=no"/>
         <style>
-		#tv{
+		#tv {
 			margin: 10%;
 			float: left;
 		}
-		#tv iframe{
+		#tv iframe {
 			transform:perspective(1000px) skewX(3deg) skewY(5deg) rotateZ(5deg) rotateY(-20deg);
 			/*transform: skewX(30deg);
 			transform: skewY(9deg);*/
@@ -24,11 +24,11 @@
 			width: 35%;
 			height: 30%;
 		}
-        #block2{
+        #block2 {
             float: left;
             width:100%;
         }
-        #usage{
+        #usage {
             width: 33%;
             height: 200px;
             float: left;
@@ -41,73 +41,73 @@
             font-family: Arial, Helvetica, sans-serif;
 			overflow: hidden;
         }
-        #lights{
-            float:left;
+        #lights {
+            float: left;
             height: 200px;
-            width:300px;
-            margin:auto;
+            width: 300px;
+            margin: auto;
         }
-        #lightsHolder{
-            float:left;
-            width:33%;
+        #lightsHolder {
+            float: left;
+            width: 33%;
 			overflow: hidden;
         }
-        .light{
-            display:inline-block;
-            float:left;
-            width:100px;
-            height:100px;
-            background:url(webStuff/light.png);
+        .light {
+            display: inline-block;
+            float: left;
+            width: 100px;
+            height: 100px;
+            background: url(webStuff/light.png);
             background-position: left;
         }
-        #y2kHolder{
-            float:left;
-            width:33%;
+        #y2kHolder {
+            float: left;
+            width: 33%;
 			overflow: hidden;
         }
-        #y2k{
+        #y2k {
             background: url(webStuff/Y2K_Logo.gif);
-            width:248px;
-            height:192px;
-            display:block;
-            float:left;
-            margin:4px;
+            width: 248px;
+            height: 192px;
+            display: block;
+            float: left;
+            margin: 4px;
         }
-        #dateTime{
-            color:white;
-            line-height:20px;
-            font-size:20pt;
+        #dateTime {
+            color: white;
+            line-height: 20px;
+            font-size: 20pt;
             text-align: center;
             font-family: Arial, Helvetica, sans-serif;
             text-shadow: 0 0 10px black;
         }
-        #year{
+        #year {
             text-shadow: 0 0 10px white;
-            line-height:70px;
-            font-weight:bolder;
-            padding-top:80px;
+            line-height: 70px;
+            font-weight: bolder;
+            padding-top: 80px;
             padding-left: 150px;
             font-size: 50pt;
-            color:white;
+            color: white;
         }
-        #block1{
-            display:flex;
-            float:left;
-            color:white;
+        #block1 {
+            display: flex;
+            float: left;
+            color: white;
             font-size: 15pt;
             text-align: center;
             align-items: center;
         }
-        #statement{
-            color:white;
+        #statement {
+            color: white;
             font-size: 10pt;
-            display:inline;
+            display: inline;
         }
-        #speakers{
+        #speakers {
             flex-grow: 0;
-            flex-shrink:0;
+            flex-shrink: 0;
             margin: auto;
-            float:right;
+            float: right;
         }
         /*@font-face{
 			font-family:cordiau;
@@ -122,18 +122,18 @@
 			font-family:cordiau;
 			src:url(http://:/) format("No-IE-404"),url(webStuff/cordiau.ttf) format("truetype");
 		}*/
-        #desk{
+        #desk {
             float: left;
         }
-        #logo{
+        #logo {
             background: rgba(255,255,255,0.4);
-            float:left;
+            float: left;
         }
-        html{
-            cursor:url(webStuff/arrow.gif), auto;
+        html {
+            cursor: url(webStuff/arrow.gif), auto;
             font-family: Arial, Helvetica, sans-serif;
         }
-        #linksButton{
+        #linksButton {
             line-height: 50px;
             height: 50px;
             width:100%;
@@ -148,189 +148,252 @@
             -ms-user-select:none;
             user-select:none;
         }
-        *{padding:0; border:none; outline:none; margin:0;}
-		*::selection{
-			background:red;
-			color:black;
+        * {padding:0; border:none; outline:none; margin:0;}
+		*::selection {
+			background: red;
+			color: black;
 		}
-		img::selection{
+		img::selection {
+			background: none;
+		}
+		*::-moz-selection {
+			background: red;
+			color: black;
+		}
+		img::-moz-selection {
 			background:none;
 		}
-		*::-moz-selection{
-			background:red;
-			color:black;
-		}
-		img::-moz-selection{
-			background:none;
-		}
-        body{
-            padding-top:50px;
+        body {
+            padding-top:38px;
             background: url(webStuff/setup.bmp) fixed;
 			background-position: 50% 0px;
         }
-        nav a{
-             
-            display: inline-block;
-            cursor:url(webStuff/arrow.gif), auto;
-        }
-        nav{
-            z-index: 1;
-            border-top:2px solid #131415;
-            border-bottom:2px solid #131415;
-            width:100%;
-            height:50px;
-            position:fixed;
-            display: flex;
-            justify-content: space-around;
-            top:0;
-			background: gray;
-            background:linear-gradient(#b4b5b5 0px, #8b8c8c 1px, #4d4f4f 25px, #131415 25px, #131415 50px, #303030 50px, #444444 80px, #444444 100%);
-        }
-        #button{
-            display:inline-block;
-            width:50px;
-            height:50px;
-            background:url(webStuff/button.png) top;
-        }
-        #button:hover{
-            background-position: bottom;
-        }
-        label{
-            position: relative;
-            bottom:20px;
-            text-align: center;
-            color:white;
-            font-size:10pt;
-            display:inline-block;
-            cursor:url(webStuff/arrow.gif), auto;
-        }
-		#computron{
+		#computron {
 			z-index: 2;
 			position: fixed;
-			width:100%;
+			width: 100%;
 			height: 100%;
-			top:0;
-			left:0;
-			background:rgba(0,0,0,0.8);
-			overflow-y:scroll;
+			top: 0;
+			left: 0;
+			background: rgba(0,0,0,0.8);
+			overflow-y: scroll;
 			visibility: hidden;
-			color:white;
+			color: white;
 			text-align: center;
 			font-size: 2em;
 		}
-		#computron *{
+		#computron * {
 			padding: 0 10%;
 		}
-		#computron img{
+		#computron img {
 			float: left;
 		}
-		#compuX{
+		#compuX {
 			font-size: 2em;
-			width:50px;
+			width: 50px;
 			height: 50px;
 			position: fixed;
-			top:0px;
+			top: 0px;
 			right: 20px;
 			border-radius: 100%;
 			padding: 0;
 			line-height: 50px;
 		}
-        @media all and (max-width: 840px){
-            nav a{
-                width:auto;
-                display:list-item;
-                position:relative;
-                text-align: center;
-            }
-            nav {
-                overflow: hidden;
-                transition: all ease-in-out 0.5s;
-                display: inline-block;
-            }
-            #linksButton{
-                display:inline-block;
-            }
-        }
-        audio{
+        audio {
             display: none;
         }
-        #scriptEnter{
+        #scriptEnter {
             float: left;
             z-index: 0;
             position: absolute;
             left: 0;
-            border:none;
-            background:black;
-            color:white;
-            width:20%;
-            margin-top:28%;
-            margin-left:16.5%;
+            border: none;
+            background: black;
+            color: white;
+            width: 20%;
+            margin-top: 28%;
+            margin-left: 16.5%;
             resize: none;
             transform: rotateZ(359deg);
         }
-        @media all and (max-width: 910px) and (min-width: 600px){
-            #speakers{
+        @media all and (max-width: 910px) and (min-width: 600px) {
+            #speakers {
                 width:100%;
                 height: auto;
             }
-            #block1{
-                display:inline-block;
+            #block1 {
+                display: inline-block;
             }
-            #lightsHolder{
-                width:55%;
+            #lightsHolder {
+                width: 55%;
             }
-            #y2kHolder{
-                width:45%
+            #y2kHolder {
+                width: 45%
             }
-            #y2k{
-                float:right;
+            #y2k {
+                float: right;
             }
-            #usage{
-                width:100%;
+            #usage {
+                width: 100%;
                 border: 10px solid transparent;
 				height: auto;
             }
         }
-        @media all and (max-width: 600px){
-            #speakers{
-                width:100%;
+        @media all and (max-width: 600px) {
+            #speakers {
+                width: 100%;
                 height: auto;
             }
-            #block1{
-                display:inline-block;
+            #block1 {
+                display: inline-block;
             }
-            #lightsHolder{
-                width:100%;
+            #lightsHolder {
+                width: 100%;
             }
-            #y2kHolder{
-                width:100%
+            #y2kHolder {
+                width: 100%
             }
-            #y2k{
-                float:right;
-				margin:0;
+            #y2k {
+                float: right;
+				margin: 0;
             }
-            #usage{
-                width:100%;
+            #usage {
+                width: 100%;
                 border: 10px solid transparent;
 				height: auto;
             }
-            label{
-                font-size:12pt;
+            label {
+                font-size: 12pt;
             }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <div id=linksButton>&#65088;</div>
-        <a href="mdmods/"><div id=button onmouseover="buttonSound()"></div><label>MD mods</label></a>
-        <a href="modcreator/"><div id=button onmouseover="buttonSound()"></div><label>MD Mod Creator</label></a>
-        <a href="spashal/"><div id=button onmouseover="buttonSound()"></div><label>Spashal</label></a>
-        <a href="wallpapers/"><div id=button onmouseover="buttonSound()"></div><label>Wallpapers</label></a>
-        <a href="githubarcade/"><div id=button onmouseover="buttonSound()"></div><label>Github Arcade</label></a>
-        <a href="3dcomputer/"><div id=button onmouseover="buttonSound()"></div><label>3D computer</label></a>
-        <a href="minetestmodslist/"><div id=button onmouseover="buttonSound()"></div><label>Minetest</label></a>
-    </nav>
+
+	<style>
+		/** main mechanics */
+		.menu {
+			display: inline-block;
+		}
+		.menu-items {
+			z-index: 0;
+			position: absolute;
+			transform: rotateX(90deg);
+			transform-origin: top;
+			display: block;
+		}
+		.menu-button:hover+.menu-items {
+			transform: perspective(80px);
+		}
+		.menu-items:hover {
+			transform: perspective(80px);
+		}
+
+		/** visual styles */
+		/* button styles */
+		.menu-item, .menu-button {
+			cursor: inherit;
+			color: white;
+			display: inline-block;
+			text-decoration: none;
+			font-family: sans-serif;
+			font-size: 20px;
+			background: transparent;
+			padding: 6px 12px;
+			text-transform: capitalize;
+		}
+		/* set background colors based on nesting depth */
+		.menu:hover,
+		.menu > .menu-items {
+			background: linear-gradient(#b4b5b5 0px, #8b8c8c 1px, #4d4f4f 10px, #131415 10px, #131415 100%);
+		}
+		.menu > .menu-items > .menu:hover,
+		.menu > .menu-items > .menu > .menu-items {
+			background: linear-gradient(#b4b5b5 0px, #8b8c8c 1px, #4d4f4f 10px, #131415 10px, #131415 100%);
+		}
+		.menu > .menu-items > .menu > .menu-items > .menu:hover,
+		.menu > .menu-items > .menu > .menu-items > .menu > .menu-items {
+			background: linear-gradient(#b4b5b5 0px, #8b8c8c 1px, #4d4f4f 10px, #131415 10px, #131415 100%);
+		}
+		/* set some transitions */
+		.menu, .menu-items {
+			transition: all ease-in 0.3s;
+		}
+		/* box shadows */
+		.menu:hover {
+			box-shadow: 0 0 3px rgba(0,0,0,1);
+		}
+		.menu-items {
+			box-shadow: 0 2px 3px rgba(0,0,0,1);
+		}
+		/* make the menu symbol */
+		.menu-root > .menu > .menu-button {
+			position: relative;
+			left: 1px;
+			transform: rotateZ(90deg);
+		}
+		.menu-root {
+			position: fixed;
+			float: right;
+			top: 0;
+			z-index: 1;
+			width: 100%;
+			background: linear-gradient(#b4b5b5 0px, #8b8c8c 1px, #4d4f4f 50%, #131415 50%, #131415 100%);
+		}
+		/* top most menu will have no gap */
+		nav > .menu {
+			margin-top: 0;
+		}
+		.menu {
+			margin-top: 2px;
+			border-top-right-radius: 3px;
+			border-top-left-radius: 3px;
+		}
+		/** display the top most menu items inline on big screen */
+		/* this number will depend on the number of items in the root menu */
+		@media all and (min-width: 771px) {
+			.menu-root > .menu > .menu-button {
+				display: none;
+			}
+			.menu-root > .menu:hover,
+			.menu-root > .menu > .menu-items {
+				box-shadow: none;
+				background: transparent;
+				position: static;
+				transform: none;
+			}
+			.menu-root > .menu > .menu-items > .menu-item {
+				width: auto;
+				display: inline-block;
+			}
+		}
+		</style>
+		<nav class="menu-root">
+			<div class="menu">
+				<a class="menu-button">|||</a>
+				<div class="menu-items">
+					<a class="menu-item" href="3dcomputer/">3D Computer</a>
+					<a class="menu-item" href="githubarcade/">Github Arcade</a>
+					<a class="menu-item" href="wallpapers/">Wallpapers</a>
+					<a class="menu-item" href="spashal/">Spashal</a>
+					<div class="menu">
+						<a class="menu-button">Minetest</a>
+						<div class="menu-items">
+							<a class="menu-item">Servers</a>
+							<a class="menu-item">Mods List</a>
+						</div>
+					</div>
+					<div class="menu">
+						<a class="menu-button">Manic Digger</a>
+						<div class="menu-items">
+							<a class="menu-item">Servers</a>
+							<a class="menu-item" href="mdmods/" >Mods</a>
+							<a class="menu-item" href="modcreator/" >Mod Creator</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
     <audio id="clickSound" src="webStuff/musica2.wav">
         <source type="wave" src="webStuff/musica2.wav"/>
     </audio>
