@@ -211,7 +211,7 @@
             background: black;
             color: white;
             width: 20%;
-            margin-top: 28%;
+            margin-top: 25%;
             margin-left: 16.5%;
             resize: none;
             transform: rotateZ(359deg);
@@ -351,7 +351,12 @@
 		}
 		/** display the top most menu items inline on big screen */
 		/* this number will depend on the number of items in the root menu */
-		@media all and (min-width: 771px) {
+		@media all and (min-width: 900px) {
+			.menu-root > .menu {
+				display: flex;
+				justify-content: space-around;
+				flex-wrap: wrap;
+			}
 			.menu-root > .menu > .menu-button {
 				display: none;
 			}
@@ -368,6 +373,7 @@
 			}
 		}
 		</style>
+		<nav class="menu-root">
 		<nav class="menu-root">
 			<div class="menu">
 				<a class="menu-button">|||</a>
@@ -403,6 +409,7 @@
 					</div>
 				</div>
 			</div>
+		</nav>
 		</nav>
     <audio id="clickSound" src="webStuff/musica2.wav">
         <source type="wave" src="webStuff/musica2.wav"/>
@@ -452,7 +459,7 @@
         <area shape="rect" coords="231,218,300,278" onclick="pausePlay();"/>
     </map>
     <div style="float:left; height:auto">
-    <textarea id="scriptEnter"></textarea>
+    <textarea id="scriptEnter">alert("foo")</textarea>
     <img src="webStuff/desk.jpg" width="100%" id="desk"/>
     </div>
 	<div id="tv">
@@ -547,15 +554,14 @@ function next(){
 function pausePlay(){
     if(isPaused == true) {
         document.getElementById("song"+songPlaying).play(); isPaused = false;
-    }
-    else {
+    } else {
         document.getElementById("song"+songPlaying).pause();
         isPaused = true;
     }
 }
 function lights(){
     var lights = document.querySelectorAll(".light");
-    for(var i in lights){
+    for(var i in lights) {
         var random = Math.floor((Math.random() * 2) + 1);
         if(random == 1 )lights[i].style = "background-position:left";
         else lights[i].style = "background-position:right"; 
